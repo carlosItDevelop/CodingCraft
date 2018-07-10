@@ -1,0 +1,176 @@
+﻿
+
+    <div class="row center">
+
+        <!--/ Diagnostico Inicial -->
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="l-software-paintbrush"></i>&nbsp;&nbsp;&nbsp;Diagnóstico Inicial - CID</h4>
+                </div>
+                <div class="panel-body">
+
+                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                        <input type="text" class="form-control busca-ajax-cid col-12" 
+                               name="cid" id="ddlcid" ng-model="paciente.CodigoCid" value="" />
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row center">
+
+        <!--/ Fim Alergia -->
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="l-software-box-roundedrectangle"></i>&nbsp;&nbsp;&nbsp;Alergias</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @*<div class="col-lg-12 col-md-12">*@
+                            <div class="form-group col-lg-12 col-md-12">
+
+                                <select multiple class="form-control" name="alergia" id="idalergia" data-placeholder="Selecione uma ou mais..." ng-model="vetorAlergia"
+                                        ng-options="alergia.Descricao for alergia in alergias">
+                                    <option value=""></option>
+                                </select>
+
+                            </div>
+                        @*</div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Fim Alergia -->
+
+
+        <!--/ História Patológica Pregressa -->
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="l-software-box-roundedrectangle"></i>&nbsp;&nbsp;&nbsp;História Patológica Pregressa</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group col-lg-12 col-md-12">
+
+                                <select multiple class="form-control" name="namehistoriapatologicapregressa" id="idhistoriapatologicapregressa" data-placeholder="Selecione uma ou mais..." ng-model="vetorHppregressa"
+                                        ng-options="hppregressa.Descricao for hppregressa in hppregressas">
+                                    <option value=""></option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Fim História Patológica Pregressa -->
+        <!--/ Complicação -->
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="l-software-box-polygon"></i>&nbsp;&nbsp;&nbsp;Complicações</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-lg-12 col-md-12">
+
+                            <div class="form-group col-lg-12 col-md-12">
+                                @*<select multiple class="form-control" name="complicacao" id="complicacao" data-placeholder="Selecione uma ou mais..." ng-model="vetorComplicacao"*@
+                                <select multiple class="form-control" name="complicacao" id="complicacao" data-placeholder="Selecione uma ou mais..." ng-model="vetorComplicacao"
+                                        ng-options="complicacao.Descricao for complicacao in complicacoes">
+                                    <option value=""></option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Fim Complicação -->
+
+
+    </div>
+
+    <div class="row center">
+
+        <!--/ Outras complicações -->
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="l-software-paintbrush"></i>&nbsp;&nbsp;&nbsp;Outras complicações</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-lg-12 col-md-12">
+
+                            <div class="alert alert-warning" style="margin-top:10px; margin-bottom:10px;">
+
+                                    <div class="row center col-12">
+
+                                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-12">
+
+                                            <label class="col-12 control-label"><strong>HEPATOPATIA</strong></label>
+                                            <div class="toggle-custom col-12">
+                                                <strong><label for=ativo>Paciente com Hepatopatia?&nbsp;&nbsp;&nbsp;</label></strong>
+                                                <label class="toggle" data-on="SIM" data-off="NÃO">
+                                                    <input type="checkbox" id="hepatopatia" name="hepatopatia" ng-model="paciente.Hepatopatia" class="form-control" />
+                                                    <span class="button-checkbox"></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-12">
+
+                                            <label class="col-12 control-label"><strong>GRAVIDEZ</strong></label>
+                                            <div class="toggle-custom col-12">
+                                                <strong><label for=ativo>Paciente está grávida?&nbsp;&nbsp;&nbsp;</label></strong>
+                                                <label class="toggle" data-on="SIM" data-off="NÃO">
+                                                    <input type="checkbox" id="gravidez" name="gravidez" ng-model="paciente.Gravidez" class="form-control" />
+                                                    <span class="button-checkbox"></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-12">
+
+                                            <label class="col-12 control-label"><strong>AMAMENTAÇÃO</strong></label>
+                                            <div class="toggle-custom col-12">
+                                                <strong><label for=ativo>Paciente está amamentando?&nbsp;&nbsp;&nbsp;</label></strong>
+                                                <label class="toggle" data-on="SIM" data-off="NÃO">
+                                                    <input type="checkbox" id="amamentacao" name="amamentacao" ng-model="paciente.Amamentacao" class="form-control" />
+                                                    <span class="button-checkbox"></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+

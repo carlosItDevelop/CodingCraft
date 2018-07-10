@@ -1,0 +1,100 @@
+﻿
+
+<!--/ listar os pacientes internados aqui -->
+<div class="tab-pane fade active in" id="users" ng-controller="LeitosPacientePainelCtrl">
+    <div class="chat-user-list">
+        <form class="form-vertical chat-search" role="form">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control input-sm" ng-model="criterioDeBusca" value="" placeholder="Busca...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-sm" type="button"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+            <!-- End .form-group -->
+        </form>
+        <div style="margin-top: 3px; margin-left: 7px; margin-right: 5px;">
+            <h4><span ng-bind="titulo"></span></h4>
+        </div>
+
+        <ul class="user-list list-group">
+
+            <li class="list-group-item clearfix"
+                dir-paginate="paciente in pacientes | filter:criterioDeBusca | itemsPerPage:8"
+                pagination-id="pacienteleitos">
+                <a href="#" ng-click="openPacienteLeito('lg', paciente.PacienteId)"
+                   data-toggle="tooltip" data-placement="bottom"
+                   title="Editar Paciente" data-original-title="Editar Paciente">
+                    <div class="avatar" style="background-image: url('../../../tpl/img/avatars/avatar_base.png');">
+                        <div style="color: white; margin-left: 7px; padding-top: 12px;" ng-bind="getNumLeitoFormatado(paciente.Leito.LeitoId)"></div>
+                    </div>
+                    <span class="name" ng-bind="paciente.Nome"></span>
+                    <span class="{{getCorEstado(paciente.EstadoDoPaciente.EstadoDoPacienteId)}}" ng-bind="paciente.EstadoDoPaciente.Descricao"></span>
+                    # <span ng-bind="paciente.Leito.EspecificacaoDoLeito"></span>
+                </a>
+            </li>
+
+            <dir-pagination-controls max-size="5" pagination-id="pacienteleitos"
+                                     direction-links="false"
+                                     boundary-links="false"
+                                     style="margin-left: 25px;"></dir-pagination-controls>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 center-block">
+            <h4 style="margin-left: 30px; text-align: center;">
+                Nº Registros: <span ng-bind="totalReg"></span><br /><br />
+                @Html.ActionLink(" Editar", "Paciente", "Home")
+            </h4>
+        </div>
+    </div>
+
+</div>
+
+<!--/ Modal -->
+<script type="text/ng-template" id="ModalPacientesLeitos.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Lista de Pacientes em Leitos</h3>
+    </div>
+    <div class="modal-body">
+
+        <table class="table table-responsive table-bordered">
+            <thead class="color-green-light">
+                <tr>
+                    <th><h4><strong>Nome</strong></h4></th>
+                    <th><h4><strong>Leito</strong></h4></th>
+                    <th><h4><strong>Setor</strong></h4></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><h4><strong>{{pac[0].Nome}}</strong></h4></td>
+                    <td><h4><strong>{{pac[0].Leito.EspecificacaoDoLeito}}</strong></h4></td>
+                    <td><h4><strong>{{pac[0].Setor.Descricao}}</strong></h4></td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        @*<h4>+ Detalhes:</h4>*@
+        <div class="alert alert-success">
+            <ul>
+                <li><h4>NASCIMENTO: <strong>{{pac[0].DataNascimento | jsonDate: 'dd/MM/yyyy'}}</strong></h4></li>
+                <li><h4>INTERNAÇÃO: <strong>{{pac[0].DataInternacao | jsonDate: 'dd/MM/yyyy'}}</strong></h4></li>
+                <li><h4>CPF: <strong>{{pac[0].Cpf}}</strong></h4></li>
+                <li><h4>RG: <strong>{{pac[0].Rg}}</strong></h4></li>
+                <li><h4>RG-EMISSÃO: <strong>{{pac[0].RgDataEmissao | jsonDate: 'dd/MM/yyyy'}}</strong></h4></li>
+                <li><h4>ALERGIA: <strong>{{pac[0].Alergia}}</strong></h4></li>
+                <li><h4>PESO: <strong>{{pac[0].Peso}}</strong></h4></li>
+                <li><h4>ATENDIMENTO: <strong>{{pac[0].NumAtendimento}}</strong></h4></li>
+                <li><h4>E-MAIL: <strong>{{pac[0].Email}}</strong></h4></li>
+                <li><h4>QUADRO CLÍNICO: <strong>{{pac[0].EstadoDoPaciente.Descricao}}</strong></h4></li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    </div>
+</script>
+<!--/ Modal -->

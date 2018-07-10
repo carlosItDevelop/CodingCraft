@@ -1,0 +1,182 @@
+﻿
+
+@model IEnumerable<Cooperchip.Common.Identity.Model.ApplicationUser>
+
+
+@{
+    ViewBag.Title += "Administração de usuários";
+}
+
+
+<div class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-default">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;Administração de Usuários</h4>
+    </div>
+    <div class="panel-body">
+
+
+        <div class="wrapper wrapper-content">
+
+            <!--/ Aqui entram os conteúdos -->
+
+            <div class="animated fadeInRightBig">
+
+                <br />
+                <div class="alert alert-success alert-dismissable"><h3><i class="fa fa-align-justify"></i> <strong>Tabela com a lista dos usuários registrados no sistema</strong></h3></div>
+
+                <div class="wrapper wrapper-content animated fadeInRight">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <div class="ibox-tools">
+                                        <!--/ Botão create -->
+                                        <a href="/Home/Index" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Voltar para a Home" data-original-title="Voltar para a Home"> <i class="glyphicon glyphicon-home"></i></a>
+                                        <button class="btn btn-primary createUser" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo Usuário" data-original-title="Adicionar novo Usuário"> <i class="glyphicon glyphicon-user"></i> </button>
+                                        <button class="btn btn-success createClaim" data-toggle="tooltip" data-placement="bottom" title="Adiciona uma nova Pólítica de Acesso, para que possa ser associada aos Usuários." data-original-title="Adiciona uma nova Pólítica de Acesso, para que possa ser associada aos Usuários."> <i class="glyphicon glyphicon-check"></i>&nbsp;&nbsp;Adicionar Política de Acesso</button>
+                                        <a href="/UsersAdmin/ListarClaims" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Listar as permissões de acesso registradas no sistema." data-original-title="Listar as permissões de acesso registradas no sistema."> <i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;Listar Política de Acesso</a>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="ibox-content">
+                                    <table class="table table-striped table-bordered table-hover evolumed">
+                                        <thead>
+                                            <tr>
+                                                <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                                                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                                                <th>@Html.DisplayNameFor(model => model.Telefone)</th>
+                                                <th>Detalhes/Edição</th>
+                                                <th>Acessos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Telefone)</td>
+                                                    <td>
+                                                        <button class="btn btn-default details" data-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="Detalhes do Usuário" data-original-title="Detalhes do Usuário"><i class="glyphicon glyphicon-file"></i></button>
+                                                        <button class="btn btn-danger delete" data-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="Excluir Usuário" data-original-title="Excluir Usuário"><i class="glyphicon glyphicon-trash"></i></button>
+                                                        <button class="btn btn-primary edit" data-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="Editar Usuário" data-original-title="Editar Usuário"><i class="glyphicon glyphicon-edit"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-default setClaim" data-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="Acessos do Usuário" data-original-title="Acessos do Usuário"><i class="glyphicon glyphicon-log-in"></i></button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                                                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                                                <th>@Html.DisplayNameFor(model => model.Telefone)</th>
+                                                <th>Detalhes/Edição</th>
+                                                <th>Acessos</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--/ Aqui entram os conteúdos -->
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div class="modal fade modal-style6" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+</div>
+
+
+
+
+@section Scripts {
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.evolumed').DataTable({
+                dom: 'T<"clear">lfrtip',
+                tableTools: {
+                    "sSwfPath": "../../myPlugins/copy_csv_xls_pdf.swf"
+                }
+            });
+        });
+
+        /* ------------------------------------------------------------- */
+
+        $(".createClaim").click(function () {
+            $("#modal").load("/UsersAdmin/CreateClaim", function () {
+                $("#modal").modal();
+            });
+        });
+
+        $(".setClaim").click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/UsersAdmin/SetUserClaim?id=" + id, function () {
+                $("#modal").modal();
+            });
+        });
+
+        /* ------------------------------------------------------------- */
+
+        $(".edit").click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/UsersAdmin/Edit?id=" + id, function () {
+                $("#modal").modal();
+            });
+        });
+
+        $(".details").click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/UsersAdmin/Details?id=" + id, function () {
+                $("#modal").modal();
+            });
+        });
+
+        $(".delete").click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/UsersAdmin/Delete?id=" + id, function () {
+                $("#modal").modal();
+            });
+        });
+
+
+        $(".createUser").click(function () {
+            $("#modal").load("/UsersAdmin/Create", function () {
+                $("#modal").modal();
+            });
+        });
+
+    </script>
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

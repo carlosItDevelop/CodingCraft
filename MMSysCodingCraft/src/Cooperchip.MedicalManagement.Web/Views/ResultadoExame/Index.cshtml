@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Cooperchip.MedicalManagement.Domain.Entidade.ResultadoExame>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExameParametros.Exame)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Medico.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PacienteId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPrescricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PedidoEm)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataResultado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Resultado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observacao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExameParametros.Exame)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Medico.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PacienteId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdPrescricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PedidoEm)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataResultado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Resultado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observacao)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ResultadoExameId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ResultadoExameId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ResultadoExameId })
+        </td>
+    </tr>
+}
+
+</table>

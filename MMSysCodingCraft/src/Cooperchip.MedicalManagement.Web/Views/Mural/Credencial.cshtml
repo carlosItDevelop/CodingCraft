@@ -1,0 +1,179 @@
+﻿
+
+@model Cooperchip.MedicalManagement.Domain.Entidade.Mural
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+@{
+    Layout = null;
+}
+
+@{
+    ViewBag.Title = "MedicalManagement-Sys - Solicitação de Credencial";
+}
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>Login | MedicalManagement-Sys - Management</title>
+    <!-- Mobile specific metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 user-scalable=no">
+
+    <!-- Import google fonts - Heading first/ text second -->
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700' rel='stylesheet' type='text/css'>
+    <!-- Css files -->
+    <!-- Icons -->
+    <link href="~/tpl/css/icons.css" rel="stylesheet" />
+    <!-- Bootstrap stylesheets (included template modifications) -->
+    <link href="~/tpl/css/bootstrap.css" rel="stylesheet" />
+    <!-- Plugins stylesheets (all plugin custom css) -->
+    <link href="~/tpl/css/plugins.css" rel="stylesheet" />
+    <!-- Main stylesheets (template main css file) -->
+    <link href="~/tpl/css/main.css" rel="stylesheet" />
+    <!-- Custom stylesheets ( Put your own changes here ) -->
+    <link href="~/tpl/css/custom.css" rel="stylesheet" />
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/tpl/img/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/tpl/img/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/tpl/img/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/tpl/img/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="icon" href="~/tpl/img/ico/favicon.ico" type="image/png">
+    <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+    <meta name="msapplication-TileColor" content="#3399cc" />
+</head>
+<body class="login-page">
+
+    <!-- Start login container -->
+    <div class="container login-container">
+        <div class="login-panel panel panel-default plain animated bounceIn">
+            <!-- Start .panel -->
+            <div class="panel-heading">
+                <h4 class="panel-title text-center">
+                    <img id="logo" src="~/tpl/img/logo-dark.png" alt="Dynamic logo">
+                </h4>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="alert alert-warning">
+                    <h4><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;Solicitação de Credencial</h4>
+                </div>
+
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @*@if (!string.IsNullOrEmpty((string)ViewBag.Erro))
+                        {*@
+                            <p class="alert alert-warning">
+                                @*@Html.ValidationMessage("error_sendmail", new { @class = "text-warning" })*@
+                                @Html.ValidationMessage("error_sendmail")
+                            </p>
+                            @*}*@
+
+
+                        <div class="form-group">
+                            @Html.Label("Apelido", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.Label("Nome Completo", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Autor, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Autor, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("E-Mail", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="seperator">
+                        <hr>
+                    </div>
+
+
+                    <div class="panel-footer gray-lighter-bg bt">
+                        <p class="text-center">
+                            <input type="submit" value="Solicitar" class="btn btn-success" />
+                            <a href="/Account/Login" class="btn btn-warning">Voltar</a>
+                        </p>
+                    </div>
+
+                }
+
+
+
+
+
+
+            </div>
+
+
+        </div>
+        <!-- End .panel -->
+
+
+    </div>
+
+
+
+    <div class="container">
+        <div class="footer">
+            <p class="text-center">&copy;2014 / @DateTime.Now.Year - Copyright MedicalManagement-Sys. Todos os direitos reservados!</p>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- Javascripts -->
+    <!-- Important javascript libs(put in all pages) -->
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="~/tpl/assets/js/libs/jquery-2.1.1.min.js">\x3C/script>')
+    </script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="~/tpl/assets/js/libs/jquery-ui-1.10.4.min.js">\x3C/script>')
+    </script>
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="~/tpl/js/libs/excanvas.min.js"></script>
+      <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script type="text/javascript" src="~/tpl/js/libs/respond.min.js"></script>
+    <![endif]-->
+    <!-- Bootstrap plugins -->
+    <script src="~/tpl/js/bootstrap/bootstrap.js"></script>
+    <!-- Form plugins -->
+    <script src="~/tpl/plugins/forms/validation/jquery.validate.js"></script>
+    <script src="~/tpl/plugins/forms/validation/additional-methods.min.js"></script>
+    <!-- Init plugins olny for this page -->
+    <script src="~/tpl/js/pages/login.js"></script>
+</body>
+</html>
+
+
+

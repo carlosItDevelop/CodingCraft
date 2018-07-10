@@ -1,0 +1,74 @@
+﻿
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Cooperchip.MedicalManagement.Domain.Entidade.UnidadeGeografica>
+
+<div id="DivListaUniGeog">
+
+    @Model.PageSize Registro(s) na Página: @Model.PageNumber de @Model.PageCount / Total de Registros: @Model.TotalItemCount
+
+    <table class="table table-bordered table-hover table-responsive">
+        <thead class="alert alert-info">
+            <tr>
+                <th>
+                    @Html.ActionLink("CEP","Listar", new { ordenacao = ViewBag.SortCep, busca = ViewBag.FiltroAtual, campo = ViewBag.Campo, pagina = ViewBag.Pagina })
+                </th>
+                <th>
+                    @Html.ActionLink("LOGRADOURO", "Listar", new { ordenacao = ViewBag.SortRua, busca = ViewBag.FiltroAtual, campo = ViewBag.Campo, pagina = ViewBag.Pagina })
+                </th>
+                @*<th>@Html.DisplayName("Complemento")</th>*@
+                <th>
+                    @Html.ActionLink("LOCAL", "Listar", new { ordenacao = ViewBag.SortLocal, busca = ViewBag.FiltroAtual, campo = ViewBag.Campo, pagina = ViewBag.Pagina })
+                </th>
+                <th>
+                    @Html.DisplayName("Uf")
+                </th>
+                @*<th>@Html.DisplayName("CIDADE")</th>*@
+                @*<th>@Html.DisplayName("BAIRRO")</th>*@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cep)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Logradouro)
+                    </td>
+                    @*<td>@Html.DisplayFor(modelItem => item.Complemento)</td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Local)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdUf)
+                    </td>
+                    @*<td>@Html.DisplayFor(modelItem => item.IdCidade)</td>*@
+                    @*<td>@Html.DisplayFor(modelItem => item.IdBairro)</td>*@
+
+                    <td>
+                        @* Carlos Implementar se valer a pena *@
+                        @*@Html.ActionLink("Detalhes", "Details", new { @item.UnidadeGeograficaId, ordenacao = ViewBag.SortCep, busca = ViewBag.FiltroAtual, campo = ViewBag.Campo, pagina = ViewBag.Pagina }, new { @class = "btn btn-default" })*@
+
+                        <a class="btn btn-primary" href="/UniGeog/Edit/@item.UnidadeGeograficaId"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a class="btn btn-default" href="/UniGeog/Details/@item.UnidadeGeograficaId"><i class="glyphicon glyphicon-check"></i></a>
+                        <a class="btn btn-danger" href="/UniGeog/Delete/@item.UnidadeGeograficaId"><i class="glyphicon glyphicon-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <div class="form-group row col-md-12">
+        <div class="pull-right">
+            @Html.PagedListPager(Model, Page => Url.Action("Listar", "UniGeog", new { pagina = Page, busca = ViewBag.filtroAtual, ordenacao = ViewBag.Ordenacao, campo = ViewBag.Campo }))
+        </div>
+    </div>
+
+
+</div>
+
+
+

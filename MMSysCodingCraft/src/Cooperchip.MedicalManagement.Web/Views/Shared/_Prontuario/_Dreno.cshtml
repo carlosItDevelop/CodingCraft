@@ -1,0 +1,149 @@
+﻿
+
+
+<div ng-controller="drenoCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <div class="panel-body">
+
+        <form name="drenoForm">
+            <div class="row">
+
+                    <div class="divList">
+                        <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+
+                        <table ng-show="drenos.length > 0" class="table table-hover table-bordered">
+                            <tr class="alert alert-success">
+
+                                @*<th><a href="#" ng-click="ordenarPor('DrenoId')">ID</a></th>*@
+                                <th><a href="#" ng-click="ordenarPor('IdTipoDreno')">Dreno</a></th>
+                                <th><a href="#" ng-click="ordenarPor('Local')">Local</a></th>
+                                <th><a href="#" ng-click="ordenarPor('DataInsercao')">Data Inserção</a></th>
+                                <th><a href="#" ng-click="ordenarPor('PacienteId')">Paciente</a></th>
+
+                                <th>Ação</th>
+
+                            </tr>
+                            <tbody>
+                                <tr dir-paginate="dreno in drenos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:3" pagination-id="dirpagdreno">
+
+
+                                    @*<td class="text-left">{{dreno.DrenoId}}</td>*@
+                                    <td class="text-left">{{dreno.TipoDreno.Descricao}}</td>
+                                    <td class="text-left">{{dreno.Local}}</td>
+                                    <td class="text-left">{{dreno.DataInsercao | date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-left">{{dreno.Paciente.Nome}}</td>
+
+                                    <td>
+                                        <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(dreno)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Dreno" data-original-title="Editar Dreno"><i class="glyphicon glyphicon-edit"></i></button>
+                                        <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirDreno(dreno)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Dreno" data-original-title="Excluir Dreno"><i class="glyphicon glyphicon-trash"></i></button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+
+                            <dir-pagination-controls max-size="5"
+                                                     pagination-id="dirpagdreno"
+                                                     direction-links="true"
+                                                     boundary-links="true">
+                            </dir-pagination-controls>
+
+                        </table>
+                    </div>
+            </div>
+
+
+
+
+
+            <div class="row">
+
+
+                <span class="btn btn-success" ng-disabled="inibeBtnAdicionar() || isIdPacienteInvalido()" ng-click="incluirDrenoDiv()">Adicionar Dreno</span>
+
+                <div ng-show="divdreno" class="col-md-12 col-lg-12 col-sm-12">
+
+                    <hr />
+
+                    <h3>{{Acao}} Dreno</h3>
+
+                    <table class="table alert alert-success">
+                        <tbody>
+                            <tr>
+                                <th><b>ID</b></th>
+                                <th><b>TIPO DE DRENO</b></th>
+                                <th><b>LOCAL DO DRENO</b></th>
+                                <th><b>DATA DA INSERÇÃO</b></th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" readonly="readonly" ng-model="dreno.DrenoId" class="form-control" /></td>
+
+                                <td>
+                                    <select class="form-control col-3" name="tipodreno" id="tipodreno" ng-model="dreno.IdTipoDreno"
+                                            ng-options="tipodreno.TipoDrenoId as tipodreno.Descricao for tipodreno in tipodrenos" ng-requerid="true">
+                                        <option value="">Tipo de Dreno...</option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <input class="form-control" type="text" ng-model="dreno.Local" name="local" placeholder="Local do Dreno..." ng-required="true" ng-minlength="3" />
+                                </td>
+
+                                <td>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input id="datainsercao" type="date" ng-model="dreno.DataInsercao" class="form-control" name="datainsercao" placeholder="Início em..." ng-required="true" ng-minlength="10">
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+
+                    <button class="btn btn-primary" ng-click="AdicionarEditarDreno()" ng-disabled="drenoForm.$invalid || isIdPacienteInvalido()">Salvar</button>
+                    <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+
+
+
+
+                    <hr />
+
+                    <div ng-if="drenoForm.tipodreno.$dirty" ng-messages="drenoForm.tipodreno.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Tipo de Dreno!
+                        </div>
+                    </div>
+
+                    <div ng-if="drenoForm.local.$dirty" ng-messages="drenoForm.local.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Local!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo Local deve ter no mínimo 3 caracteres.
+                        </div>
+                    </div>
+
+                    <div ng-if="drenoForm.datainsercao.$dirty" ng-messages="drenoForm.datainsercao.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo data de inserção!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo data de inserção deve ter no mínimo 10 caracteres.
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

@@ -1,0 +1,129 @@
+﻿
+<div class="container  col-md-12 col-lg-12 col-sm-12 panel-success">
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <div class="panel-body">
+
+        <form name="balancoHidricoForm">
+            <div class="row">
+
+                <div class="col-md-12 col-lg-12 col-sm-12 row">
+                    <input class="form-control col-md-4 col-lg-4 col-sm-4" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?" />
+                </div>
+                <div class="panel-body panel-default row">
+                    <table ng-show="balancohidricos.length > 0" class="table table-hover table-bordered">
+                        <tr class="alert alert-success">
+                            <th>EXCLUIR?</th>
+                            <th><a href="#" ng-click="ordenarPor('BalancoHidricoId')">ID</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Data')">DATA</a></th>
+                            <th><a href="#" ng-click="ordenarPor('PicosFebris')">PICOS FEBRIS</a></th>
+                            <th><a href="" ng-click="ordenarPor('Diurese')">DIURESE</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Febre')">FEBRE</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Dialise')">DIÁLISE</a></th>
+                            <th><a href="#" ng-click="ordenarPor('BhParcial')">BH PARCIAL</a></th>
+                            <th><a href="#" ng-click="ordenarPor('BhCumulativo')">BH CUMULATIVO</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Creatinina')">CREATININA</a></th>
+                            <th>Nº Atendimento</th>
+                            <th>AÇÃO</th>
+                        </tr>
+                        <tbody>
+                            <tr ng-class="{'selecionado negrito': balancohidrico.selecionado}" dir-paginate="balancohidrico in balancohidricos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:4" pagination-id="balancohidrico">
+                                <td><input type="checkbox" ng-model="balancohidrico.selecionado" /></td>
+                                <td class="text-left">{{balancohidrico.BalancoHidricoId}}</td>
+                                <td class="text-left">{{balancohidrico.DataBalancoHidrico | jsonToDate}}</td>
+                                <td class="text-left">{{balancohidrico.PicosFebris}}</td>
+                                <td class="text-left">{{balancohidrico.Diurese}}</td>
+                                <td class="text-left">{{balancohidrico.Febre}}</td>
+                                <td class="text-left">{{balancohidrico.Dialise}}</td>
+                                <td class="text-left">{{balancohidrico.BhParcial}}</td>
+                                <td class="text-left">{{balancohidrico.BhCumulativo}}</td>
+                                <td class="text-left">{{balancohidrico.Creatinina}}</td>
+                                <td class="text-left">{{balancohidrico.Prontuario.NumAtendimento}}</td>
+                                <td><button class="btn btn-success" ng-click="alterarBalancoHidrico(balancohidrico)" ng-disabled=true>Editar</button></td>
+                            </tr>
+                        </tbody>
+                        <dir-pagination-controls max-size="5" pagination-id="balancohidrico" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </table>
+                </div>
+                <div class="alert alert-success">
+
+                    <div class="row">
+                        <div class="form-group col-xs-3">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input id="databalancohidrico" type="date" ng-model="balancohidrico.DataBalancoHidrico" 
+                                       class="form-control" 
+                                       name="databalancohidrico" 
+                                       placeholder="Data..." 
+                                       ng-required="true" 
+                                       ng-minlength="10"
+                                       />
+                            </div>
+                        </div>
+
+                        <div class="col-xs-3">
+                            <input id="picosfebris" ng-model="balancohidrico.PicosFebris" name="picosfebris" type="text" class="form-control" placeholder="P. Febris" ng-required="true" ng-minlength="1" />
+                        </div>
+                        <div class="col-xs-3">
+                            <input class="form-control" type="text" ng-model="balancohidrico.Diurese" name="diurese" placeholder="Diurese" />
+                        </div>
+                        <div class="col-xs-3">
+                            <input class="form-control" type="text" ng-model="balancohidrico.Febre" name="febre" placeholder="Febre" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <input class="form-control" type="text" ng-model="balancohidrico.Dialise" name="dialise" placeholder="Diálise" />
+                        </div>
+                        <div class="col-xs-3">
+                            <input class="form-control" type="text" ng-model="balancohidrico.BhParcial" name="bhparcial" placeholder="BH Parcial" />
+                        </div>
+                        <div class="col-xs-3">
+                            <input class="form-control" type="text" ng-model="balancohidrico.BhCumulativo" name="bhcumulativo" placeholder="BH Cumulativo" />
+                        </div>
+                        <div class="col-xs-3">
+                            <input class="form-control" type="text" ng-model="balancohidrico.Creatinina" name="creatinina" placeholder="Creatinina" />
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+
+        <div class="row">
+            <button class="btn btn-primary" ng-click="adicionarBalancoHidrico(balancohidrico)" ng-disabled="balancoHidricoForm.$invalid">Adicionar Balanço Hídrico</button>
+            <button class="btn btn-danger" ng-click="apagarBalancoHidricos(balancohidricos)" ng-if="isBalancoHidricoSelecionado(balancohidricos)">Apagar Balanço Hídrico</button>
+            <hr />
+
+            
+            <div ng-show="balancoHidricoForm.databalancohidrico.$dirty" ng-messages="balancoHidricoForm.databalancohidrico.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Data Início!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Data Início deve ter no mínimo 10 caracteres.
+                </div>
+            </div>
+
+            <div ng-show="balancoHidricoForm.picosfebris.$dirty" ng-messages="balancoHidricoForm.picosfebris.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Picos Febris!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo exame deve ter no mínimo 1 caracteres.
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    @*<hr />
+
+        <p>{{balancohidrico}}</p>*@
+</div>
+
+

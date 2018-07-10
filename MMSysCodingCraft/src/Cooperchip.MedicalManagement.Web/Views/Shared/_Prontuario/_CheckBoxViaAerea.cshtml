@@ -1,0 +1,38 @@
+﻿
+
+<div class="col-lg-4 col-md-4 col-sm-12 col-xl-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Via Aérea</h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-12">
+                    
+                    <ul>
+                        <li ng-repeat="viaaerea in viasaereas">
+                            <div class="toggle-custom col-12">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="radio" name="idViaAerea" ng-model="prontuario.ViaAerea" value="{{viaaerea.Descricao}}" class="form-control" />
+                                    <span class="button-radio"></span>
+                                </label>
+                                <label>{{viaaerea.Descricao}}</label>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input id="ViaAereaData" ng-disabled="getInibirEAnularData(prontuario.ViaAerea, 'Sem Tubo','ViaAereaData')" ng-model="prontuario.ViaAereaData" name="ViaAereaData" type="date" class="form-control">
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

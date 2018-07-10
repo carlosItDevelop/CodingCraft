@@ -1,0 +1,42 @@
+﻿
+
+
+<div class="col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Via Digestiva</h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+
+                <div class="col-lg-5 col-md-4">
+
+                    <ul>
+                        <li ng-repeat="viadigestiva in viasdigestivas">
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="radio" name="idViaDigestiva" ng-model="prontuario.ViaDigestiva" value="{{viadigestiva.Descricao}}" class="form-control" />
+                                    <span class="button-radio"></span>
+                                </label>
+                                <label>{{viadigestiva.Descricao}}</label>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="form-group col-lg-5 col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input id="ViaDigestivaData" ng-model="prontuario.ViaDigestivaData" name="ViaDigestivaData" type="date" class="form-control">
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

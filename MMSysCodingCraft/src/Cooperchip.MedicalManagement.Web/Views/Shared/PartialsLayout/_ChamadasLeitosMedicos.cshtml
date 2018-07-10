@@ -1,0 +1,70 @@
+﻿
+@using Cooperchip.MedicalManagement.Services
+
+
+@{
+    var serviceChamadaMedico = new ChamadaMedicoService();
+    PagedList.IPagedList<Cooperchip.MedicalManagement.Domain.Entidade.ChamadaMedico> Model = serviceChamadaMedico.GetChamadaMedico(1);
+}
+
+<li class="dropdown">
+    <a href="#" data-toggle="dropdown" class="tipB" title="Chamada Médica">
+        <i class="fa fa-medkit"></i>
+        <span class="sr-only">Chamada Médica</span>
+        <span class="badge badge-danger">@Model.TotalItemCount</span>
+    </a>
+    <ul class="dropdown-menu right dropdown-notification" role="menu">
+        <li>
+            <a href="#" class="dropdown-menu-header">Chamada Médica</a>
+        </li>
+        <div class="panel-body">
+            <ul class="list-group recent-comments">
+
+                @{
+                    var auxId = "";
+                    foreach (var item in Model)
+                    {
+
+                        if (item.ChamadaMedicoId < 10)
+                        {
+                            auxId = "00" + item.ChamadaMedicoId;
+                        }
+                        else if (item.ChamadaMedicoId < 100)
+                        {
+                            auxId = "0" + item.ChamadaMedicoId;
+                        }
+                        else
+                        {
+                            auxId = item.ChamadaMedicoId.ToString();
+                        }
+
+                        <li class="list-group-item clearfix comment-success">
+                            <div class="avatar pull-left mr15" style="margin-left:5px; margin-top:3px;">
+                                <div style="width: 48px; height: 48px; color: white; padding-left: 11px; padding-top: 15px; background-image: url('../../../tpl/img/avatars/avatar_base_circulo.png');">
+                                    <strong style="padding: 0 auto;">@auxId</strong>
+                                </div>
+                            </div>
+                            <p class="text-ellipsis">
+                                <span class="name strong"> Dr(a). @item.Medico: </span> @item.Mensagem
+                            </p>
+                            <span class="date text-muted small pull-left">@item.DataChamada</span>
+
+                            <button data-id="@item.ChamadaMedicoId" data-toggle="tooltip" data-placement="bottom" title="Atender Chamada Médica" data-original-title="Atender Chamada Médica" class="atenderChamadaMedico see-more small pull-right btn-link">Atender/Excluir</button>
+
+                        </li>
+                    }
+                }
+
+                <li class="list-group-item clearfix comment-success">
+                    &nbsp;&nbsp;
+                    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+                    <a href="#" class="view-all">
+                        @Html.ActionLink(" Carregar todas", "ChamadaMedico", "Home")
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+    </ul>
+</li>

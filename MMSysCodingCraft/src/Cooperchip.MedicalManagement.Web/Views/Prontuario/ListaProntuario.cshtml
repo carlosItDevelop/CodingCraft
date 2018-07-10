@@ -1,0 +1,759 @@
+﻿
+
+@using System.Web.Mvc.Html
+@model  IEnumerable<Cooperchip.MedicalManagement.Domain.Entidade.Prontuario>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="animated fadeInRightBig"
+             ng-controller="prontuarioCtrl"
+             ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+
+            @* Lista de Prontuarios *@
+
+            <div class="animated fadeInRightBig" ng-if="prontuarios[0].NumAtendimento != '0000000'">
+
+                <div class="panel panel-primary toggle mt20">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;&nbsp;Evolução Médica</h4>
+                    </div>
+
+                    <br />
+
+                    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12" style="margin-bottom: 8px;">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 input-group">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12" style="margin-bottom: 8px;">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <a href="/Home/Paciente" class="btn btn-success" ng-disabled="inibeBtnEdicao()" data-toggle="tooltip" data-placement="bottom" title="Selecionar Outro Paciente" data-original-title="Selecionar Outro Paciente"><i class="fa fa-align-left"></i>&nbsp; VOLTAR PARA PACIENTES</a>
+                        </div>
+                    </div>
+                    <br />
+
+
+                    <div class="panel-body p0">
+                        <div class="content col-lg-12">
+
+                            <table ng-show="prontuarios.length > 0" class="table table-hover table-bordered table-responsive table-bordered">
+                                <thead class="alert alert-info">
+                                    
+                                    <tr>
+                                        <th><a href="#" ng-click="ordenarPor('ProntuarioId')">ID do Prontuário</a></th>
+                                        <th><a href="#" ng-click="ordenarPor('DataProntuario')">Data do Prontuário</a></th>
+                                        <th><a href="#" ng-click="ordenarPor('NumAtendimento')">Nº Atendimento</a></th>
+                                        <th><a href="#" ng-click="ordenarPor('Paciente.Nome')">Paciente</a></th>
+                                        <th>Ação</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr ng-class="{'selecionado negrito': prontuario.selecionado}" dir-paginate="prontuario in prontuarios | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" pagination-id="prontuario">
+                                        <td ng-bind="prontuario.ProntuarioId"></td>
+                                        <td ng-bind="prontuario.DataProntuario | date:'dd/MM/yyyy'"></td>
+                                        <td ng-bind="prontuario.NumAtendimento"></td>
+                                        <td ng-bind="prontuario.Paciente.Nome"></td>
+                                        <td>
+                                            <button class="btn btn-success btn-transparent" ng-disabled="inibeBtnEdicao()" ng-click="incluirProntuarioDiv(prontuario.PacienteId)" data-toggle="tooltip" data-placement="bottom" title="Adicionar Prontuário" data-original-title="Adicionar Prontuário"><i class="glyphicon glyphicon-plus"></i></button>
+
+                                            <button class="btn btn-primary btn-transparent" ng-disabled="inibeBtnEdicao()" ng-click="carregaProntuarioPorId(prontuario)" data-toggle="tooltip" data-placement="bottom" title="Editar Prontuário" data-original-title="Editar Prontuário"><i class="glyphicon glyphicon-edit"></i></button>
+                                            <button class="btn btn-warning btn-transparent" ng-disabled="inibeBtnEdicao()" ng-click="ArquivarProntuario(prontuario)" data-toggle="tooltip" data-placement="bottom" title="Arquivar Prontuário" data-original-title="Arquivar Prontuário"><i class="glyphicon glyphicon-trash"></i>&nbsp;&nbsp; Arquivar</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                                <dir-pagination-controls max-size="5" pagination-id="prontuario" direction-links="true" boundary-links="true">
+
+                                </dir-pagination-controls>
+
+                            </table>
+
+
+                            <br />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="animated fadeInRightBig" ng-if="prontuarios[0].NumAtendimento == '0000000'">
+
+                <div class="panel panel-primary toggle mt20">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;&nbsp;Evolução Médica</h4>
+                    </div>
+
+                    <br />
+                    <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12" style="margin-bottom: 8px;">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 input-group">
+                            <span class="input-group-addon"><i class="fa fa-align-left"></i></span>
+                            <a href="/Home/Paciente" class="btn btn-success" ng-disabled="inibeBtnEdicao()" data-toggle="tooltip" data-placement="bottom" title="Selecionar Outro Paciente" data-original-title="Selecionar Outro Paciente">&nbsp; VOLTAR PARA PACIENTES</a>
+                        </div>
+                    </div>
+                    <br />
+
+
+                    <div class="panel-body p0">
+                        <div class="content col-lg-12">
+
+                            <table ng-show="prontuarios.length > 0" class="table table-hover table-bordered table-responsive table-bordered">
+                                <thead class="alert alert-info">
+                                    <tr>
+                                        <th><a href="#" ng-click="ordenarPor('ProntuarioId')">ID do Prontuário</a></th>
+                                        <th><a href="#" ng-click="ordenarPor('DataProntuario')">Data do Prontuário</a></th>
+                                        <th><a href="#" ng-click="ordenarPor('NumAtendimento')">Nº Atendimento</a></th>
+                                        <th><a href="#" ng-click="ordenarPor('Paciente.Nome')">Paciente</a></th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-class="{'selecionado negrito': prontuario.selecionado}" dir-paginate="prontuario in prontuarios | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" pagination-id="prontuario">
+                                        <td ng-bind="prontuario.ProntuarioId"></td>
+                                        <td ng-bind="prontuario.DataProntuario | date:'dd/MM/yyyy'"></td>
+                                        <td ng-bind="prontuario.NumAtendimento"></td>
+                                        <td ng-bind="prontuario.Paciente.Nome"></td>
+                                        <td>
+                                            <button class="btn btn-success btn-transparent" ng-disabled="inibeBtnEdicao()" ng-click="incluirProntuarioDiv(prontuario.PacienteId)" data-toggle="tooltip" data-placement="bottom" title="Adicionar Prontuário" data-original-title="Adicionar Prontuário"><i class="glyphicon glyphicon-plus"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <dir-pagination-controls max-size="5" pagination-id="prontuario" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                            </table>
+
+
+                            <br />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            @* Carlos Lista de Prontuarios *@
+
+
+            @* Carlos Conteudo de Prontuario Selecionado *@
+            <div class="row" ng-show="divprontuario">
+                <div class="col-lg-12">
+
+                    <form name="prontuarioForm">
+                        <div class="panel panel-primary toggle mt20">
+
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><i class="glyphicon glyphicon-check"></i>&nbsp;&nbsp;&nbsp;Registro de Prontuário / Evolução&nbsp;&nbsp;-&nbsp;&nbsp;{{mostrarAcao()}}&nbsp; -&nbsp; {{prontuario.Paciente.Nome}}</h4>
+                            </div>
+
+                            @* Carlos Dados do Prontuario *@
+
+
+                            <div class="panel-body p0">
+
+                                <!--/ Nome do Paciente e Guid do Prontuario -->
+                                <div class="alert alert-success">
+                                    <div class="row center">
+
+                                        <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                            <label class="col-12 control-label">Id Paciente</label>
+                                            <div class="input-group col-12">
+                                                <span class="input-group-addon"><i class="fa fa-sort-amount-asc"></i></span>
+                                                <input type="text" readonly="readonly" class="form-control col-12" ng-model="prontuario.PacienteId" name="idPaciente" id="idPaciente">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                            <label class="col-12 control-label">Nº-Atendimento</label>
+                                            <div class="input-group col-12">
+                                                <span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
+                                                <input type="text" class="form-control col-12" ng-disabled="verificaAcao()" ng-model="prontuario.NumAtendimento" name="numatendimento" id="numatdmtoprontuario" ng-required="true" ng-minlength="6" placeholder="Nº Atendimento...">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                            <label class="control-label col-12">Dt Prontuário</label>
+                                            <div class="input-group col-12">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input class="form-control col-12" id="dataprontuario"
+                                                       ng-model="prontuario.DataProntuario" name="dataprontuario" value=""
+                                                       type="date" ng-required="true" ng-minlength="10">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                            <label class="col-12 control-label">ID do Prontuário</label>
+                                            <div class="input-group col-12">
+                                                <span class="input-group-addon"><i class="fa fa-ambulance"></i></span>
+                                                <input type="text" readonly="readonly" ng-model="prontuario.ProntuarioId" class="form-control col-12"
+                                                       name="guid" id="ProntuarioId"
+                                                       ng-required="true" ng-minlength="10" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!--/ FIM: Nome do Paciente e Guid do Prontuario -->
+
+
+                                <div class="tabs inside-panel">
+
+                                    <ul id="myTab5" class="nav nav-tabs panel-success">
+
+                                        <li class=""><a href="#cabecalho" data-toggle="tab"><i class="fa fa-home"></i> Cabeçalho / Dados Pacientes</a></li>
+                                        <li class=""><a href="#evolucao" data-toggle="tab"><i class="glyphicon glyphicon-arrow-down"></i> Evolução Médica</a></li>
+                                        <li class=""><a href="#examedeimagem" data-toggle="tab"><i class="glyphicon glyphicon-arrow-up"></i> Exames de Imagem</a></li>
+                                        <li class=""><a href="#svitaisbhidrico" data-toggle="tab"><i class="glyphicon glyphicon-alert"></i> S. Vitais / B. Hídrico</a></li>
+                                        <li class=""><a href="#prescricao" data-toggle="tab"><i class="glyphicon glyphicon-alert"></i> Prescrição Médica</a></li>
+
+                                    </ul>
+
+
+                                    <div id="myTabContent5" class="tab-content">
+
+                                        <div class="tab-pane fade active in" id="cabecalho">
+                                            @Html.Partial("PartialsLayout/_CabecalhoPacientesProntuario")
+                                        </div>
+
+                                        <div class="tab-pane fade" id="evolucao">
+                                            <div class="row center">
+
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="panel panel-default">
+                                                        <!-- Start .panel -->
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title"><i class="fa fa-magic"></i> Linha Progressiva de Evolução Médica</h4>
+                                                        </div>
+                                                        <div class="panel-body pt0 pb0">
+                                                            <div id="wizard1" class="bwizard">
+                                                                <!-- Start .bwizard -->
+                                                                <ul class="bwizard-steps">
+                                                                    <li class="active">
+                                                                        <a href="#tab4" data-toggle="tab">
+                                                                            <span class="step-number">1</span>
+                                                                            <span class="step-text">Invasões</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#tab5" data-toggle="tab">
+                                                                            <span class="step-number">2</span>
+                                                                            <span class="step-text">Precaução</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#tab6" data-toggle="tab">
+                                                                            <span class="step-number">3</span>
+                                                                            <span class="step-text">Drenos</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#tab7" data-toggle="tab">
+                                                                            <span class="step-number">4</span>
+                                                                            <span class="step-text">Antibióticos</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="wizard-progress">
+                                                                    <div id="bar" class="progress">
+                                                                        <div class="progress-bar"></div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="tab-content">
+
+                                                                    <div class="tab-pane active" id="tab4">
+
+                                                                        @* Accordions de Invasões *@
+
+                                                                        <div class="panel-group accordion" id="accordion5">
+                                                                            <div class="panel panel-primary">
+                                                                                <div class="panel-heading">
+                                                                                    <h5 class="panel-title">
+                                                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapseOne5">PRESSÃO ARTERIAL MÉDIA / VIA AÉREA / MARCAPASSO</a>
+                                                                                    </h5>
+                                                                                </div>
+                                                                                <div id="collapseOne5" class="panel-collapse collapse">
+                                                                                    <div class="panel-body">
+                                                                                        @Html.Partial("_Prontuario/_CheckBoxPam")
+                                                                                        @Html.Partial("_Prontuario/_CheckBoxViaAerea")
+                                                                                        @Html.Partial("_Prontuario/_Marcapasso")
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="panel panel-primary">
+                                                                                <div class="panel-heading">
+                                                                                    <h5 class="panel-title">
+                                                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapseTwo5">PIC / PIA / VIA DIGESTIVA / VIA URINÁRIA</a>
+                                                                                    </h5>
+                                                                                </div>
+                                                                                <div id="collapseTwo5" class="panel-collapse collapse">
+                                                                                    <div class="panel-body">
+                                                                                        <div class="row center">
+
+                                                                                            @Html.Partial("_Prontuario/_CheckBoxPic")
+                                                                                            @Html.Partial("_Prontuario/_CheckBoxPia")
+
+                                                                                        </div><!--/ Fim do terceiro grupo -->
+
+
+                                                                                        <div class="row center">
+
+                                                                                            @Html.Partial("_Prontuario/_CheckBoxViaDigestiva")
+
+                                                                                            @Html.Partial("_Prontuario/_CheckBoxViaUrinaria")
+
+                                                                                        </div><!--/ Fim do quarto grupo -->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="panel panel-primary">
+                                                                                <div class="panel-heading">
+                                                                                    <h5 class="panel-title">
+                                                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapseThree5">HEMODIÁLISE / ACESSO VENOSO / ANTICOAGULAÇÃO</a>
+                                                                                    </h5>
+                                                                                </div>
+                                                                                <div id="collapseThree5" class="panel-collapse collapse">
+                                                                                    <div class="panel-body">
+                                                                                        <div class="row center">
+
+                                                                                            @Html.Partial("_Prontuario/_CheckBoxHemodialize")
+                                                                                            @Html.Partial("_Prontuario/_CheckBoxAcessoVenoso")
+                                                                                            @Html.Partial("_Prontuario/_Anticoagulacao")
+
+                                                                                        </div><!--/ Fim do quinto grupo -->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        @* Fim de Accordions de Invasões *@
+
+                                                                    </div>
+
+                                                                    <div class="tab-pane" id="tab5">
+                                                                        <div class="panel-body">
+                                                                            <div class="row center">
+                                                                                @Html.Partial("_Prontuario/_ProntuarioPrecaucao")
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="tab-pane" id="tab6">
+                                                                        <div class="panel-body">
+                                                                            <div class="row center">
+                                                                                @Html.Partial("_Prontuario/_Dreno")
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="tab-pane" id="tab7">
+                                                                        @* Accordions de Antibióticos *@
+                                                                        <div class="panel-group accordion" id="accordion6">
+                                                                            <div class="panel panel-primary">
+                                                                                <div class="panel-heading">
+                                                                                    <h5 class="panel-title">
+                                                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion6" href="#collapse77"><strong>Antibióticos em Uso</strong></a>
+                                                                                    </h5>
+                                                                                </div>
+                                                                                <div id="collapse77" class="panel-collapse collapse">
+                                                                                    <div class="panel-body">
+                                                                                        <div class="row">
+                                                                                            @Html.Partial("_Prontuario/_AtbEmUso")
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="panel panel-primary">
+                                                                                <div class="panel-heading">
+                                                                                    <h5 class="panel-title">
+                                                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion6" href="#collapse88"><strong>Antibióticos Já Utilizados</strong></a>
+                                                                                    </h5>
+                                                                                </div>
+                                                                                <div id="collapse88" class="panel-collapse collapse">
+                                                                                    <div class="panel-body">
+                                                                                        <div class="row">
+                                                                                            @Html.Partial("_Prontuario/_AtbJaUtilizados")
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        @* Fim de Accordions de Antibióticos *@
+                                                                    </div>
+
+                                                                </div>
+                                                                <ul class="pager">
+                                                                    <li class="previous">
+                                                                        <a href="#">&larr; Anterior</a>
+                                                                    </li>
+                                                                    <li class="next">
+                                                                        <a href="#">Próximo &rarr;</a>
+                                                                    </li>
+                                                                    <li class="next finish" style="display:none;">
+                                                                        <a href="#">Fim</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <!-- End .bwizard -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- End .panel -->
+                                                </div>
+                                                <!-- col-lg-12 end here -->
+
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="examedeimagem">
+                                            <div class="row center">
+                                                @Html.Partial("_Prontuario/_ExameDeImagem")
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="svitaisbhidrico">
+
+                                            @* Accordions de Sinais Vitais e Balanço Hídrico *@
+                                            <div class="panel-group accordion" id="accordion7">
+                                                <div class="panel panel-primary">
+                                                    <div class="panel-heading">
+                                                        <h5 class="panel-title">
+                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapse101"><strong> SINAIS VITAIS</strong></a>
+                                                        </h5>
+                                                    </div>
+                                                    <div id="collapse101" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <div class="row center" ng-controller="SinaisVitaisCtrl">
+                                                                @Html.Partial("_Prontuario/_SinaisVitais")
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-primary">
+                                                    <div class="panel-heading">
+                                                        <h5 class="panel-title">
+                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapse102"><strong> BALANÇO HÍDRICO</strong></a>
+                                                        </h5>
+                                                    </div>
+                                                    <div id="collapse102" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <div class="row center" ng-controller="balancoHidricoCtrl">
+                                                                @Html.Partial("_Prontuario/_BalancoHidrico")
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            @* Fim de Accordions de Sinais Vitais e Balanço Hídrico *@
+
+                                        </div>
+
+                                        @* Começo da Prescricao *@
+                                        <div class="tab-pane fade" id="prescricao" ng-controller="PrescricaoCtrl">
+
+                                            <div class="row">
+                                                <div class="content col-lg-12">
+                                                    <div class="panel panel-primary toggle mt20">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;&nbsp;Listagem de Prescrições</h4>
+                                                        </div>
+                                                        <br />
+                                                        <div class="col-md-12" style="margin-bottom: 8px;">
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                                <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?" />
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                        <table ng-show="prescricoes.length > 0" class="table table-hover table-bordered table-responsive table-bordered">
+                                                            <thead class="alert alert-info">
+                                                                <tr>
+                                                                    <th><a href="#" ng-click="ordenarPor('PrescricaoId')">ID da Prescrição</a></th>
+                                                                    <th><a href="#" ng-click="ordenarPor('DataPrescricao')">Data da Prescrição</a></th>
+                                                                    <th><a href="#" ng-click="ordenarPor('Nome')">Paciente</a></th>
+                                                                    <th>Ação</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-class="{'selecionado negrito': prescricao.selecionado}" dir-paginate="prescricao in prescricoes | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" pagination-id="listadeprescricao">
+                                                                    <td ng-bind="prescricao.PrescricaoId"></td>
+                                                                    <td ng-bind="prescricao.DataPrescricao | date:'dd/MM/yyyy'"></td>
+                                                                    <td ng-bind="prescricao.Paciente.Nome"></td>
+                                                                    <td>
+                                                                        <button class="btn btn-success btn-transparent" ng-disabled="inibeBtnEdicao()" ng-click="incluirPrescricaoDiv(prescricao.PacienteId)" data-toggle="tooltip" data-placement="bottom" title="Adicionar Prescrição" data-original-title="Adicionar Prescrição"><i class="glyphicon glyphicon-plus"></i></button>
+
+                                                                        <button class="btn btn-primary btn-transparent" ng-disabled="inibeBtnEdicao()" ng-click="obterPorId(prescricao)" data-toggle="tooltip" data-placement="bottom" title="Editar Prescrição" data-original-title="Editar Prescrição"><i class="glyphicon glyphicon-edit"></i></button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <dir-pagination-controls max-size="5" pagination-id="listadeprescricao" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                                                        </table>
+
+                                                        <br />
+                                                    </div>
+                                                    <p>
+                                                        <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirPrecricaoDiv()">Adicionar Prescrição</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <!--/ Div de Inclusão de uma Prescrição neste prontuario -->
+
+                                            <div class="row center" ng-show="divprescricao">
+
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <form name="prescricaoForm">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title"><i class="fa fa-magic"></i> Linha Progressiva de Prescrição Médica</h4>
+                                                            </div>
+                                                            <div class="panel-body pt0 pb0">
+                                                                <div id="wizard" class="bwizard">
+                                                                    <ul class="bwizard-steps">
+                                                                        <li class="active">
+                                                                            <a href="#tab8" data-toggle="tab">
+                                                                                <span class="step-number">1</span>
+                                                                                <span class="step-text">Apontamentos</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#tab9" data-toggle="tab">
+                                                                                <span class="step-number">2</span>
+                                                                                <span class="step-text"> Outras Complicações</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#tab10" data-toggle="tab">
+                                                                                <span class="step-number">3</span>
+                                                                                <span class="step-text">Apresentação / Ajustes </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                    <div class="wizard-progress">
+                                                                        <div id="bar2" class="progress">
+                                                                            <div class="progress-bar"></div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="tab-content">
+
+                                                                        <div class="tab-pane active" id="tab8">
+
+                                                                            @* Accordions de Sinais  Prescrição *@
+
+                                                                            <div class="panel-group accordion" id="accordion8">
+
+                                                                                <div class="panel panel-primary">
+                                                                                    <div class="panel-heading">
+                                                                                        <h5 class="panel-title">
+                                                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapse103"><strong> DIETA / CO-MORBIDADES</strong></a>
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                    <div id="collapse103" class="panel-collapse collapse">
+                                                                                        <div class="panel-body">
+                                                                                            <div class="row center">
+
+                                                                                                @Html.Partial("_Prescricao/_DietaComorbidade")
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="panel panel-primary">
+                                                                                    <div class="panel-heading">
+                                                                                        <h5 class="panel-title">
+                                                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapse104"><strong> HIDRATAÇÃO / NEBULIZAÇÃO</strong></a>
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                    <div id="collapse104" class="panel-collapse collapse">
+                                                                                        <div class="panel-body">
+                                                                                            <div class="row center">
+                                                                                                @Html.Partial("_Prescricao/_Hidratacao")
+                                                                                                @Html.Partial("_Prescricao/_Nebulizacao")
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="panel panel-primary">
+                                                                                    <div class="panel-heading">
+                                                                                        <h5 class="panel-title">
+                                                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapse105"><strong> ANTI-ÁCIDO / ANTICOAGULAÇÃO / PROCINÉTICO</strong></a>
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                    <div id="collapse105" class="panel-collapse collapse">
+                                                                                        <div class="panel-body">
+                                                                                            <div class="row center">
+                                                                                                @Html.Partial("_Prescricao/_Antiacido")
+                                                                                                @Html.Partial("_Prescricao/_AnticoagulacaoPrescricao")
+                                                                                                @Html.Partial("_Prescricao/_Procinetico")
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="panel panel-primary">
+                                                                                    <div class="panel-heading">
+                                                                                        <h5 class="panel-title">
+                                                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapse106"><strong> DRIPPINGS / GLICEMIA CAPILAR</strong></a>
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                    <div id="collapse106" class="panel-collapse collapse">
+                                                                                        <div class="panel-body">
+                                                                                            <div class="row center">
+                                                                                                @Html.Partial("_Prescricao/_Drippings")
+                                                                                                @Html.Partial("_Prescricao/_GlicemiaCapilar")
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            @* Fim de Accordions de Sinais Prescricao *@
+
+                                                                        </div>
+
+                                                                        <div class="tab-pane" id="tab9">
+                                                                            <div class="panel-body">
+                                                                                <div class="row center">
+                                                                                    @Html.Partial("_Prescricao/_PrescricaoOutros")
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="tab-pane" id="tab10">
+                                                                            <div class="panel-body">
+                                                                                <div class="row center">
+                                                                                    @Html.Partial("_Prescricao/_ApresentacaoAjusteInteracao")
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                    <ul class="pager">
+                                                                        <li class="previous">
+                                                                            <a href="#">&larr; Anterior</a>
+                                                                        </li>
+                                                                        <li class="next">
+                                                                            <a href="#">Próximo &rarr;</a>
+                                                                        </li>
+                                                                        <li class="next finish" style="display:none;">
+                                                                            <a href="#">Fim</a>
+                                                                        </li>
+                                                                    </ul>
+
+                                                                </div>
+                                                                <!-- End .bwizard -->
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <br />
+                                                    <div>
+                                                        <span class="btn btn-primary" ng-disabled="!inibeBtnEdicao()" ng-click="AdicionarEditarPrescricao()">Salvar Prescrição</span>
+                                                        <span class="btn btn-danger" ng-disabled="!inibeBtnEdicao()" ng-click="cancelaEdicao()">Calcelar</span>
+                                                    </div>
+                                                    <br />
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    @* Fim da Prescricao *@
+
+                                </div>
+                            </div>
+                        </div>
+
+                        @* Carlos Dados do Prontuario *@
+
+                        <br />
+                        <div>
+                            <span class="btn btn-primary" ng-disabled="!inibeBtnEdicao()" ng-click="AdicionarEditarProntuario()">Salvar Prontuário</span>
+                            <span class="btn btn-danger" ng-disabled="!inibeBtnEdicao()" ng-click="cancelaEdicao()">Calcelar</span>
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <p>
+                    <br />
+                    <br />
+                    <div class="container col-md-12 col-lg-12">
+
+
+                        <div ng-if="prontuarioForm.guid.$dirty" ng-messages="prontuarioForm.guid.$error">
+                            <div ng-message="required" class="alert alert-danger">
+                                Por favor, preencha o campo prontuário ID!
+                            </div>
+                            <div ng-message="minlength" class="alert alert-danger">
+                                O campo descrição deve ter no mínimo 10 caracteres.
+                            </div>
+                        </div>
+
+                        <div ng-if="prontuarioForm.numatendimento.$dirty" ng-messages="prontuarioForm.numatendimento.$error">
+                            <div ng-message="required" class="alert alert-danger">
+                                Por favor, preencha o campo Nº de Atendimento!
+                            </div>
+                            <div ng-message="minlength" class="alert alert-danger">
+                                O campo Nº de Atendimento deve ter no mínimo 6 caracteres.
+                            </div>
+                        </div>
+
+                        <div ng-if="prontuarioForm.dataprontuario.$dirty" ng-messages="prontuarioForm.dataprontuario.$error">
+                            <div ng-message="required" class="alert alert-danger">
+                                Por favor, preencha o campo data do prontuário!
+                            </div>
+                            <div ng-message="minlength" class="alert alert-danger">
+                                O campo data do prontuário deve ter no mínimo 10 caracteres.
+                            </div>
+                        </div>
+
+                    </div>
+                </p>
+
+
+            </div>
+        </div>
+        @* Carlos Conteudo de Prontuario Selecionado *@
+
+
+    </div>  <!--/ col-lg-12 -->
+</div> <!--/ row -->
+
+
+
+@section Scripts{
+
+    <script src="~/tpl/plugins/forms/bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/tpl/plugins/forms/validation/additional-methods.min.js"></script>
+    <script src="~/tpl/plugins/charts/sparklines/jquery.sparkline.js"></script>
+    <script src="~/tpl/js/jquery.dynamic.js"></script>
+    <script src="~/tpl/js/main.js"></script>
+    <script src="~/tpl/js/pages/forms-wizard.js"></script>
+
+}

@@ -1,0 +1,264 @@
+﻿
+
+<div style="margin-top:30px;"></div>
+
+<div ng-controller="dashboardCtrl">
+
+
+
+    <div class="row">
+        @Html.Partial("PartialsHome/_4QuadrosDashboard")
+    </div>
+
+    <div class="row">
+        @Html.Partial("PartialsHome/_EvolucaoVSQCritico")
+        @Html.Partial("PartialsHome/_QuadroEvolutivoGeral")
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+
+            <div class="panel panel-default plain toggle">
+                <div class="panel panel-heading">
+                    <h4><i class="glyphicon glyphicon-briefcase"></i>&nbsp;&nbsp; Balanço de Evolução / Altas</h4>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <!-- #96 -->
+                            <div class="a-96">
+                                <div class="a-96-bar a-bg-red" style="width:50%"></div>
+                                <span>Agendamentos - 50%</span>
+                            </div>
+
+                            <div class="a-96">
+                                <div class="a-96-bar a-bg-lblue" style="width:70%"></div>
+                                <span>Entradas - 70%</span>
+                            </div>
+
+                            <div class="a-96">
+                                <div class="a-96-bar a-bg-orange" style="width:45%"></div>
+                                <span>Internações - 45%</span>
+                            </div>
+
+                            <div class="a-96">
+                                <div class="a-96-bar a-bg-green" style="width:65%"></div>
+                                <span>Altas - 65%</span>
+                            </div>
+                            <!-- #96 -->
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        @*<div class="col-lg-4 col-md-4 col-sm-12 col-sx-12">
+            @Html.Partial("PartialsHome/_ChamadasLeitosMedicos")
+        </div>*@
+
+    </div>
+
+    <div class="row">
+        @Html.Partial("PartialsHome/_GraficoLinhaEstadoPaciente")
+        @Html.Partial("PartialsHome/_GraficoAreaEvolucaoAltaBaixa")
+    </div>
+
+
+
+</div>
+
+
+
+<div class="row">
+
+    <div class="col-lg-4 col-md-4 col-sm-12 col-sx-12">
+        @Html.Partial("PartialsHome/_GraficoAgendaFaltososAtendidos")
+    </div>
+
+    <div class="col-lg-8 col-md-8 col-sm-12 col-sx-12">
+        @Html.Partial("PartialsHome/_GraficoInternacaoAlta")
+    </div>
+
+</div>
+
+
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-sx-12">
+        @Html.Partial("PartialsHome/_PacientePorSetor")
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-sx-12">
+        @Html.Partial("PartialsHome/_AtendimentoPorSetor")
+    </div>
+
+</div>
+
+
+
+<div class="panel panel-default plain toggle">
+    <!-- Start .panel -->
+    <div class="panel-heading">
+        <h4 class="panel-title"><i class="fa fa-bookmark"></i>&nbsp;&nbsp; Agendamentos</h4>
+    </div>
+    <div class="panel-body">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="per40">Paciente</th>
+                            @*<th class="per40">Médico(a)</th>*@
+                            <th class="per40">Setor</th>
+                            <th class="per15">Data</th>
+                            <th class="per15">Hora</th>
+                            <th>Exames</th>
+                            <th class="per5">Check</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jair Silva</td>
+                            @*<td>Dr. J, Olsen</td>*@
+                            <td>Oncologista</td>
+                            <td>25/10/2016.</td>
+                            <td>07:00h.</td>
+                            <td><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Acessar Exames e Laudos" data-original-title="Acessar Exames e Laudos"><i class="glyphicon glyphicon-edit"></i></button></td>
+                            <td>
+                                <div class="checkbox-custom">
+                                    <input id="check4" class="check" type="checkbox" value="option2">
+                                    <label for="check4"></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rosa de Souza</td>
+                            @*<td>Dra. Jane</td>*@
+                            <td>Ginecologista</td>
+                            <td>19/09/2016.</td>
+                            <td>14:30h.</td>
+                            <td><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Acessar Exames e Laudos" data-original-title="Acessar Exames e Laudos"><i class="glyphicon glyphicon-edit"></i></button></td>
+                            <td>
+                                <div class="checkbox-custom">
+                                    <input id="check5" class="check" type="checkbox" value="option3">
+                                    <label for="check5"></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rita de Cássia</td>
+                            @*<td>Dr. Estevan</td>*@
+                            <td>Traumatorpedista</td>
+                            <td>03/12/2016.</td>
+                            <td>06:30h.</td>
+                            <td><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Acessar Exames e Laudos" data-original-title="Acessar Exames e Laudos"><i class="glyphicon glyphicon-edit"></i></button></td>
+                            <td>
+                                <div class="checkbox-custom">
+                                    <input id="check6" class="check" type="checkbox" value="option4">
+                                    <label for="check6"></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lair Lourenço</td>
+                            @*<td>Dra. Elena</td>*@
+                            <td>Cardiologista</td>
+                            <td>19/09/2016.</td>
+                            <td>08:30h.</td>
+                            <td><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Acessar Exames e Laudos" data-original-title="Acessar Exames e Laudos"><i class="glyphicon glyphicon-edit"></i></button></td>
+                            <td>
+                                <div class="checkbox-custom">
+                                    <input id="check7" class="check" type="checkbox" value="option5">
+                                    <label for="check7"></label>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Maria de Oliveira</td>
+                            @*<td>Dr. Claudio</td>*@
+                            <td>Cardiologista</td>
+                            <td>20/07/2016.</td>
+                            <td>05:00h.</td>
+                            <td><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Acessar Exames e Laudos" data-original-title="Acessar Exames e Laudos"><i class="glyphicon glyphicon-edit"></i></button></td>
+                            <td>
+                                <div class="checkbox-custom">
+                                    <input id="check4" class="check" type="checkbox" value="option2">
+                                    <label for="check4"></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Mariana Licheski</td>
+                            @*<td>Dr. Leonardo</td>*@
+                            <td>Neurologista</td>
+                            <td>04/10/2016.</td>
+                            <td>10:40h.</td>
+                            <td><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Acessar Exames e Laudos" data-original-title="Acessar Exames e Laudos"><i class="glyphicon glyphicon-edit"></i></button></td>
+                            <td>
+                                <div class="checkbox-custom">
+                                    <input id="check5" class="check" type="checkbox" value="option3">
+                                    <label for="check5"></label>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Clóvis Borges</td>
+                            @*<td>Dra. Robnson</td>*@
+                            <td>Neurologista</td>
+                            <td>09/08/2016.</td>
+                            <td>11:00h.</td>
+                            <td><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Acessar Exames e Laudos" data-original-title="Acessar Exames e Laudos"><i class="glyphicon glyphicon-edit"></i></button></td>
+                            <td>
+                                <div class="checkbox-custom">
+                                    <input id="check5" class="check" type="checkbox" value="option3">
+                                    <label for="check5"></label>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+@section Scripts
+{
+
+
+
+    @Scripts.Render("~/bundles/otherdashboard")
+    <script src="~/tpl/js/main.js"></script>
+
+
+    @* SÓ DEVE SER CHAMADO EM DASHBOARD OU ONDE MAIS EU QUISER UM GRÁFICO MORRIS *@
+    <script src="~/Scripts/cooperchip/graficosCooperchip.js"></script>
+
+}
+
+
+
+
+
+

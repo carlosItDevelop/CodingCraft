@@ -1,0 +1,112 @@
+﻿
+
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-9 col-sm-9 col-xs-12 p0">
+
+        <div class="panel panel-default plain toggle" style="width: 100%; height: 323px;">
+            <div class="panel-heading white-bg">
+                <h4 class="panel-title"><i class="fa fa-github"></i> Evolução vs Q. Crítico</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped scroll-horizontal">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th class="per40">Estado Clínico</th>
+                        <th class="per40">Qtde</th>
+                        <th class="per15">Perct</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="checkbox-custom">
+                                <img src="~/images/status_evolucao_estavel.png"/>
+                            </div>
+                        </td>
+                        <td>Estável</td>
+                        <td ng-bind="estavel"></td>
+                        <td ng-bind="((estavel*100/total) | number:1)+' %'"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox-custom">
+                                <img src="~/images/status_evolucao_observacao.png"/>
+                            </div>
+                        </td>
+                        <td>Em observação</td>
+                        <td ng-bind="observacao"></td>
+                        <td ng-bind="((observacao*100/total) | number:1)+' %'"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox-custom">
+                                <img src="~/images/status_evolucao_critico.png"/>
+                            </div>
+                        </td>
+                        <td>Crítico</td>
+                        <td ng-bind="critico"></td>
+                        <td ng-bind="((critico*100/total) | number:1)+' %'"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox-custom">
+                                <img src="~/images/status_evolucao_savaliacao.png"/>
+                            </div>
+                        </td>
+                        <td>Sem Avaliação</td>
+                        <td ng-bind="semavaliacao"></td>
+                        <td ng-bind="((semavaliacao*100/total) | number:1)+' %'"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="db per100">
+                <a href="/Paciente/Index/" class="btn btn-info ml20 mt5">Detalhes</a>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+    <div class="col-lg-3 col-sm-3 col-xs-12 p0">
+        <div class="panel panel-default tile btlr0 bblr0" style="width: 100%; height: 323px;" data-mh="payments">
+            <div class="panel-body">
+                <div class="spark clearfix">
+                    <div class="spark-info mb0">
+                        <span class="color-gray-light"></span> <h1 ng-bind="(((estavel+critico+observacao)*100/total) | number:1)+' %'"></h1>
+                    </div>
+                    <div class="sparkline spark-payments mt0"></div>
+
+                    <div class="spark-info">PRESCRITOS</div>
+                </div>
+                <div class="spark clearfix">
+                    <div class="spark-info mb0">
+                        <span class="color-gray-light"></span> <h1 ng-bind="((semavaliacao*100/total) | number:1)+' %'"></h1>
+                    </div>
+                    <div class="sparkline spark-payments mt0"></div>
+
+                    <div class="spark-info">AVALIAR</div>
+                </div>
+                <div class="db per100" style="margin-top: 17px;">
+                    <a href="/Paciente/Index/" class="btn btn-info ml20 mt5">Detalhes</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

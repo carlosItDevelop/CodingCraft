@@ -1,0 +1,99 @@
+﻿
+
+
+
+<div ng-controller="exameDescricaoCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <form class="panel-body" name="examedescricaoForm">
+
+        <div class="row">
+
+            <div class="divList">
+
+                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+                <table ng-show="examedescricaos.length > 0" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><b><a href="#" ng-click="ordenarPor('ExameDescricaoId')">Id</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Exame')">Exame</a></b></th>
+                            <th><b>AÇÃO</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="examedescricao in examedescricaos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:3" pagination-id="examedescricao">
+                            <td ng-bind="examedescricao.ExameDescricaoId"></td>
+                            <td ng-bind="examedescricao.Exame"></td>
+                            <td>
+                                <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(examedescricao)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar ExameDescricao" data-original-title="Editar ExameDescricao"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirExameDescricao(examedescricao)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir ExameDescricao" data-original-title="Excluir ExameDescricao"><i class="glyphicon glyphicon-trash"></i></button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <dir-pagination-controls max-size="5" pagination-id="examedescricao" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirExameDescricaoDiv()">Adicionar ExameDescricao</span>
+            <hr />
+
+            <div ng-show="divexamedescricao" class="col-md-12 col-lg-12 col-sm-12">
+                <h3>{{Acao}} Exame Descrição</h3>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <table class="table table-responsive table-bordered">
+                        <tbody>
+                            <tr>
+                                <th><b>Id</b></th>
+                                <th colspan="4"><b>Exame Descrição</b></th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" readonly="readonly" ng-model="examedescricao.ExameDescricaoId" class="form-control" /></td>
+                                <td colspan="4"><input type="text" name="exame" ng-model="examedescricao.Exame" class="form-control" placeholder="Exame..." ng-required="true" ng-minlength="2" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <span class="btn btn-primary" ng-disabled="examedescricaoForm.$invalid" ng-click="AdicionarEditarPrecaucaoContato()">Salvar</span>
+                        <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <br />
+
+        <div class="row">
+            <div ng-show="examedescricaoForm.exame.$dirty" ng-messages="examedescricaoForm.exame.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Exame!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Exame deve ter no mínimo 2 caracteres.
+                </div>
+            </div>
+
+
+
+        </div>
+    </form>
+
+</div>
+
+
+
+
+
+
+

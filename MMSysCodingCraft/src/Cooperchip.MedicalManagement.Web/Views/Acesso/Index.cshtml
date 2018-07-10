@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Cooperchip.MedicalManagement.Domain.Entidade.Acesso>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Claim)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowRead)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowUpdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowCreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowDelete)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowAll)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdUsuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AcessoTipo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Claim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowRead)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowUpdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowCreate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowDelete)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowAll)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdUsuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AcessoTipo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AcessoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AcessoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AcessoId })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+
+

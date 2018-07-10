@@ -1,0 +1,195 @@
+﻿
+<div class="container  col-md-12 col-lg-12 col-sm-12 panel-success">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <div class="panel-body">
+
+
+        <form name="sinaisVitaisForm">
+
+            <div class="row">
+
+
+                <div class="panel-body panel-default row">
+                    <table ng-show="sinaisvitais.length > 0" class="table">
+                        <tr class="alert alert-success">
+                            <th>Excluir?</th>
+                            <th><a href="#" ng-click="ordenarPor('SinaisVitaisId')">ID</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Data')">Data</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Hora')">Hora</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Entubado')">Entubado?</a></th>
+                            <th>Nº Atendimento</th>
+                            <th>Ação</th>
+                        </tr>
+                        <tbody>
+                            <tr ng-class="{'selecionado negrito': sinalvital.selecionado}" dir-paginate="sinalvital in sinaisvitais | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:3" pagination-id="sinalvital">
+                                <td><input type="checkbox" ng-model="sinalvital.selecionado" /></td>
+                                <td class="text-left">{{sinalvital.SinaisVitaisId}}</td>
+                                <td class="text-left">{{sinalvital.Data | jsonToDate}}</td>
+                                <td class="text-left">{{sinalvital.Hora}}</td>
+                                <td class="text-left">{{sinalvital.Entubado}}</td>
+                                <td class="text-left">{{sinalvital.Prontuario.NumAtendimento}}</td>
+
+                                <td><button class="btn btn-success" ng-click="alterarSinaisVitais(sinalvital)" ng-disabled=true>Editar</button></td>
+                            </tr>
+                        </tbody>
+                        <dir-pagination-controls max-size="5" pagination-id="sinalvital" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </table>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="row center">
+                        <label class="col-xs-5 col-lg-5 col-md-5 control-label">Data</label>
+                        <label class="col-xs-3 control-label">Hora</label>
+                        <label class="col-xs-4 control-label">Entubado ?</label>
+                        <div class="col-xs-5 col-lg-5 col-md-5">
+                            <input type="date" class="form-control" ng-model="sinalvital.Data" name="datasinaisvitais" id="datasinaisvitais" ng-requerid="true" ng-minlength="10">
+                        </div>
+                        <div class="col-xs-3 col-lg-3 col-md-3">
+                            <select class="form-control" name="horasinaisvitais" id="horasinaisvitais" ng-model="sinalvital.Hora"
+                                    ng-options="hora.Hora as hora.Hora for hora in sinaisvitaisHoras" ng-requerid="true" ng-minlength="5">
+                                <option value="">Hora...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                            <select class="form-control" name="entubadosinaisvitais" id="entubadosinaisvitais" ng-model="sinalvital.Entubado" ng-requerid="true" ng-minlength="3">
+                                <option value="">Entubado...</option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row center">
+                        <label class="col-xs-4 col-lg-4 col-md-4 control-label">Pressão Arterial</label>
+                        <label class="col-xs-3 control-label">Freq. Cardíaca</label>
+                        <label class="col-xs-3 control-label">Freq. Respiratória</label>
+                        <label class="col-xs-2 control-label">Temp. Axiliar</label>
+
+                        <div class="form-group">
+                            <div class="col-xs-4 col-lg-4 col-md-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="sinalvital.PressaoSistolica" id="pressaoAlta" name="pressaoAlta" placeholder="Sistólica" ng-required="true" />
+                                    <span class="input-group-addon">por</span>
+                                    <input type="text" class="form-control" ng-model="sinalvital.PressaoDiastolica" id="pressaoBaixa" name="pressaoBaixa" placeholder="Diastólica" ng-required="true" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-3 col-lg-3 col-md-3">
+                            <input type="text" class="form-control" ng-model="sinalvital.FrequenciaCardiaca" name="frequenciacardiaca" id="frequenciacardiaca" placeholder="Freq. Cardíaca">
+                        </div>
+                        <div class="col-xs-3 col-lg-3 col-md-3">
+                            <input type="text" class="form-control" ng-model="sinalvital.FrequenciaRespiratoria" name="frequenciarespiratoria" id="frequenciarespiratoria" placeholder="Freq. Respiratória">
+                        </div>
+                        <div class="col-xs-2 col-lg-2 col-md-2">
+                            <input type="text" class="form-control" ng-model="sinalvital.TemperaturaAxilar" name="temperaturaaxiliar" id="temperaturaaxiliar" placeholder="Temp. Axilar">
+                        </div>
+
+                    </div>
+                    <div class="row center">
+                        <label class="col-xs-2 col-lg-2 col-md-2 control-label">Sat. Oxigênio</label>
+                        <label class="col-xs-2 col-lg-2 col-md-2 control-label">PVC</label>
+                        <label class="col-xs-1 col-lg-1 col-md-1 control-label">PIC</label>
+                        <label class="col-xs-1 col-lg-1 col-md-1 control-label">PIA</label>
+
+                        <label class="col-xs-2 col-lg-2 col-md-2 control-label">Glic. Capilar</label>
+                        <label class="col-xs-2 col-lg-2 col-md-2 control-label">Insulina (und)</label>
+                        <label class="col-xs-2 col-lg-2 col-md-2 control-label">Glicose (amp)</label>
+
+                        <div class="col-xs-2 col-lg-2 col-md-2">
+                            <input type="text" class="form-control" ng-model="sinalvital.SaturacaoOxigenio" name="saturacaooxigenio" id="saturacaooxigenio" placeholder="Sat. Oxigênio">
+                        </div>
+                        <div class="col-xs-2 col-lg-2 col-md-2">
+                            <input type="text" class="form-control" ng-model="sinalvital.Pvc" name="pvc" id="pvc" placeholder="PVC">
+                        </div>
+                        <div class="col-xs-1 col-lg-1 col-md-1">
+                            <input type="text" class="form-control" ng-model="sinalvital.Pic" name="idpic" id="idpic" placeholder="PIC">
+                        </div>
+                        <div class="col-xs-1 col-lg-1 col-md-1">
+                            <input type="text" class="form-control" ng-model="sinalvital.Pia" name="idpia" id="idpia" placeholder="PIA">
+                        </div>
+                        <div class="col-xs-2 col-lg-2 col-md-2">
+                            <input type="text" class="form-control" ng-model="sinalvital.GlicemiaCapilar" name="glicemiacapilar" id="glicemiacapilar" placeholder="Glic. Capilar">
+                        </div>
+                        <div class="col-xs-2 col-lg-2 col-md-2">
+                            <input type="text" class="form-control" ng-model="sinalvital.Insulina" name="insulina" id="insulina" placeholder="Insulina (und)">
+                        </div>
+                        <div class="col-xs-2 col-lg-2 col-md-2">
+                            <input type="text" class="form-control" ng-model="sinalvital.Glicose" name="glicose" id="glicose" placeholder="Glicose (amp)">
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+
+        <hr />
+
+        <div class="row">
+            <button class="btn btn-primary" ng-click="adicionarSinaisVitais(sinalvital)" ng-disabled="sinaisVitaisForm.$invalid || isIdPacienteInvalido()">Adicionar Sinais Vitais</button>
+            <button class="btn btn-danger" ng-click="apagarSinaisVitais(sinaisvitais)" ng-if="isSinaisVitaisSelecionado(sinaisvitais)">Apagar Sinais Vitais</button>
+
+            <hr />
+
+
+            <div ng-show="sinaisVitaisForm.datasinaisvitais.$dirty" ng-messages="sinaisVitaisForm.datasinaisvitais.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo data!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo data deve ter no mínimo 10 caracteres.
+                </div>
+            </div>
+
+
+            <div ng-show="sinaisVitaisForm.horasinaisvitais.$error.required && sinaisVitaisForm.horasinaisvitais.$dirty" ng-messages="sinaisVitaisForm.horasinaisvitais.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo hora!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo hora deve ter no mínimo 5 caracteres.
+                </div>
+            </div>
+
+            <div ng-show="sinaisVitaisForm.entubadosinaisvitais.$dirty" ng-messages="sinaisVitaisForm.entubadosinaisvitais.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    O campo entubado ainda não foi selecionado!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo entubado deve ter no mínimo 3 caracteres.
+                </div>
+            </div>
+
+            <div ng-show="sinaisVitaisForm.pressaoAlta.$dirty" ng-messages="sinaisVitaisForm.pressaoAlta.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    O campo Pressão Sistólica é obrigatório!
+                </div>
+            </div>
+
+            <div ng-show="sinaisVitaisForm.pressaoBaixa.$dirty" ng-messages="sinaisVitaisForm.pressaoBaixa.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    O campo Pressão Diastólica é obrigatório!
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    @*<hr />
+
+    <div class="jumbotron">
+        Sinais Vitais: {{sinalvital}}
+    </div>*@
+
+
+</div>
+
+
+
+

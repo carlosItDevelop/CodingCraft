@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Cooperchip.MedicalManagement.Domain.Entidade.UnidadeGeografica>
+
+@{
+    ViewBag.Title = "Dados adicionados em unidadegeografica.json";
+}
+
+<h2>Dados adicionados em unidadegeográfica.json com sucesso!</h2>
+
+@*@foreach (var item in Model)
+{
+    <div class="panel panel body">
+        <div class="panel panel-heading">
+            <h3><i class="glyphicon glyphicon-arrow-up">&nbsp;&nbsp; Lista Json de Unidade Geográfa</i></h3>
+        </div>
+
+        <br />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Logradouro</th>
+                    <th>Complemento</th>
+                    <th>Cep</th>
+                    <th>Id Bairro</th>
+                    <th>Id Cidade</th>
+                    <th>Id Uf</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@item.UnidadeGeograficaId</td>
+                    <td>@item.Complemento</td>
+                    <td>@item.Cep</td>
+                    <td>@item.IdBairro</td>
+                    <td>@item.IdCidade</td>
+                    <td>@item.IdUf</td>
+                    <td>@item.Logradouro</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+}*@

@@ -1,0 +1,164 @@
+﻿
+
+
+<div class="col-lg-12 col-md-12 col-sm-12" ng-controller="apresentacaoajusteinteracaoCtrl">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <b>Apresentação, Ajustes e Interações Medicamentosas</b>
+            </h3>
+        </div>
+        <div class="panel-body">
+
+            <form name="ApresAjInterForm">
+                <div class="row">
+
+                    <div class="panel-body panel-default">
+                        <table ng-show="apresentacaoajusteinteracaos.length > 0" class="table">
+                            <tr class="alert alert-success">
+                                <th>EXCLUIR?</th>
+                                <th><a href="#" ng-click="ordenarPor('IdMedicamento')">MEDICAMENTO</a></th>
+                                <th><a href="#" ng-click="ordenarPor('IdGenerico')">GENÉRICO</a></th>
+                                <th><a href="#" ng-click="ordenarPor('IdPosologia')">POSOLOGIA</a></th>
+                                <th></th>
+                            </tr>
+                            <tbody>
+                                <tr ng-class="{'selecionado negrito': apresentacaoajusteinteracao.selecionado}" dir-paginate="apresentacaoajusteinteracao in apresentacaoajusteinteracaos | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:8" pagination-id="apresentacaoajusteinteracaopagination">
+                                    <td><input type="checkbox" ng-model="apresentacaoajusteinteracao.selecionado" /></td>
+                                    <td class="text-left">{{apresentacaoajusteinteracao.Medicamento.Descricao}}</td>
+                                    <td class="text-left">{{apresentacaoajusteinteracao.Medicamento.Generico}}</td>
+                                    <td class="text-left">{{apresentacaoajusteinteracao.MedicamentoPosologia.Descricao}}</td>
+                                    <td>
+                                        <button id="apresentacaoXXX" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-font"></i></button>
+                                        
+                                        <button id="ajusteXXX" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ajustes do Medicamento" data-original-title="Ajustes do Medicamento"><i class="glyphicon glyphicon-wrench"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            
+                            <dir-pagination-controls 
+                                                     max-size="5" 
+                                                     pagination-id="apresentacaoajusteinteracaopagination" 
+                                                     direction-links="true" 
+                                                     boundary-links="true">
+                            </dir-pagination-controls>
+
+                        </table>
+                    </div>
+                    <br />
+                    <table class="table table-striped alert alert-success">
+                        <thead>
+                            <tr>
+                                <th>MEDICAMENTO</th>
+                                <th>POSOLOGIA</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+                                    <div class="form-group">
+
+                                        <input type="text" class="form-control busca-ajax-apresentacao-interacao col-12" ng-model="apresentacaoajusteinteracao.IdMedicamento"
+                                               name="medicamentoajusteapresentacaoparaposologia" id="medicamentoajusteapresentacaoparaposologia" placeholder="Selecione um medicamento..." ng-required="true" />
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="form-group">
+                                        <select class="form-control" name="posologia" id="posologia" ng-model="apresentacaoajusteinteracao.IdPosologia" ng-required="true"
+                                                ng-options="medicamentosposologia.MedicamentoPosologiaId as medicamentosposologia.Descricao for medicamentosposologia in medicamentosposologias">
+                                            <option value="">Selecione a posologia...</option>
+                                        </select>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    
+                                    <button id="modalapresentacaoInteracao" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-font"></i></button>
+                                    
+                                    <button id="modalajuste" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ajustes do Medicamento" data-original-title="Ajustes do Medicamento"><i class="glyphicon glyphicon-wrench"></i></button>
+                                    
+                                    <button id="modalinteracao" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Interação Medicamentosa" data-original-title="Interação Medicamentosa"><i class="glyphicon glyphicon-filter"></i></button>
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+
+                <div>
+                    
+                    <button class="btn btn-primary" ng-click="adicionarApresentacaoAjusteInteracao(apresentacaoajusteinteracao)" ng-disabled="ApresAjInterForm.$invalid">Prescrever Medicação</button>
+                    
+                    <button class="btn btn-danger" ng-click="apagarApresentacaoAjusteInteracaos(apresentacaoajusteinteracaos)" ng-if="isApresentacaoAjusteInteracaoSelecionado(apresentacaoajusteinteracaos)">Excluir Medicação</button>
+
+
+                    <hr />
+                    <div ng-show="ApresAjInterForm.medicamentoajusteapresentacaoparaposologia.$dirty" ng-messages="ApresAjInterForm.medicamentoajusteapresentacaoparaposologia.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Medicamento!
+                        </div>
+                    </div>
+
+                    <div ng-show="ApresAjInterForm.posologia.$dirty" ng-messages="ApresAjInterForm.posologia.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Posologia!
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+    <!--/ Modal -->
+    <script type="text/ng-template" id="modalApresentacao.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Apresentação, Ajustes e Interação de Medicamentos</h3>
+        </div>
+        <div class="modal-body">
+
+            <table class="table table-responsive table-bordered">
+                <thead class="color-green-light">
+                    <tr>
+                        <th><h3><strong>Medicamento</strong></h3></th>
+                        <th><h3><strong>Genérico</strong></h3></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><h4>{{vMdct[0].Medicamento.Descricao}}</h4></td>
+                        <td><h4>{{vMdct[0].Medicamento.Generico}}</h4></td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <h2>Apresentações:</h2>
+            <div class="alert alert-success">
+                <ul>
+                    <li ng-repeat="m in vMdct">
+                        <h4>{{m.Descricao}}</h4>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        </div>
+    </script>
+    <!--/ Modal -->
+
+</div>
+

@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Lista de Classes";
+}
+
+
+<div ng-controller="classeCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <form class="panel-body" name="classeForm">
+
+        <div class="row">
+
+            <div class="divList">
+
+                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+                <table ng-show="classes.length > 0" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><b><a href="#" ng-click="ordenarPor('ClasseId')">ID</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Descricao')">Anticoagulação</a></b></th>
+                            <th><b>AÇÃO</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="classe in classes | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:3" pagination-id="classe">
+                            <td ng-bind="classe.ClasseId"></td>
+                            <td ng-bind="classe.Descricao"></td>
+                            <td>
+                                <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(classe)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Classe" data-original-title="Editar Classe"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirClasse(classe)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Classe" data-original-title="Excluir Classe"><i class="glyphicon glyphicon-trash"></i></button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <dir-pagination-controls max-size="5" pagination-id="classe" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirClasseDiv()">Adicionar Classe</span>
+            <hr />
+
+            <div ng-show="divclasse" class="col-md-12 col-lg-12 col-sm-12">
+                <h3>{{Acao}} Classe</h3>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <table class="table table-responsive table-bordered">
+                        <tbody>
+                            <tr>
+                                <th><b>Id</b></th>
+                                <th colspan="4"><b>Classe</b></th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" readonly="readonly" ng-model="classe.ClasseId" class="form-control" /></td>
+                                <td colspan="4"><input type="text" name="descricao" ng-model="classe.Descricao" class="form-control" placeholder="Classe..." ng-required="true" ng-minlength="2" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <span class="btn btn-primary" ng-disabled="classeForm.$invalid" ng-click="AdicionarEditarClasse()">Salvar</span>
+                        <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <br />
+
+        <div class="row">
+            <div ng-show="classeForm.descricao.$dirty" ng-messages="classeForm.descricao.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Descrição!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Descrição deve ter no mínimo 2 caracteres.
+                </div>
+            </div>
+
+
+
+        </div>
+    </form>
+
+</div>
+
+
+
+
+

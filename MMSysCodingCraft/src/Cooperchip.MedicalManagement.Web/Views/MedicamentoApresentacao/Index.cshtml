@@ -1,0 +1,95 @@
+﻿<!--/ MedicamentoApresentacao -->
+
+<div class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-default" ng-controller="MedicamentoApresentacaoCtrl">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <div class="panel-body">
+
+
+        <form name="medicamentoApresentacaoForm">
+
+            <div class="row">
+
+                <div class="col-md-12 col-lg-12 col-sm-12 row">
+                    <input class="form-control col-md-4 col-lg-4 col-sm-4" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?" />
+                </div>
+
+                <div class="panel-body panel-default row">
+                    <table ng-show="medicamentosapresentacao.length > 0" class="table">
+                        <tr>
+                            <th>Excluir?</th>
+                            <th><a href="#" ng-click="ordenarPor('MedicamentoApresentacaoId')">ID</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Descricao')">Apresentacao</a></th>
+                            <th><a href="#" ng-click="ordenarPor('IdMedicamento')">Medicamento</a></th>
+                            <th>Ação</th>
+                        </tr>
+                        <tbody>
+                            <tr ng-class="{'selecionado negrito': medicamentoapresentacao.selecionado}" dir-paginate="medicamentoapresentacao in medicamentosapresentacao | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:6" pagination-id="mapresentacao">
+                                <td><input type="checkbox" ng-model="medicamentoapresentacao.selecionado" /></td>
+                                <td class="text-left">{{medicamentoapresentacao.MedicamentoApresentacaoId}}</td>
+                                <td class="text-left">{{medicamentoapresentacao.Descricao}}</td>
+                                <td class="text-left">{{medicamentoapresentacao.Medicamento.Descricao}}</td>
+                                <td><button class="btn btn-success" ng-click="alterarMedicamentoApresentacao(medicamentoapresentacao)" ng-disabled=true>Editar</button></td>
+                            </tr>
+                        </tbody>
+                        <dir-pagination-controls max-size="5" pagination-id="mapresentacao" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </table>
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-lg-8 col-md-8 col-sm-12">
+                        <input id="apresentacao" type="text" ng-model="medicamentoapresentacao.Descricao" class="form-control" name="apresentacao" placeholder="Apresentação..." ng-required="true" ng-minlength="4">
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <input type="text" name="medicamento" id="medicamentoapresentacao" class="form-control busca-ajax-apresentacao-ajuste col-lg-4 col-md-4 col-sm-12"
+                               ng-model="medicamentoapresentacao.IdMedicamento" ng-required="true" placeholder="Selecione um Medicamento..." />
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </form>
+
+
+        <div class="row">
+            <button class="btn btn-primary" ng-click="adicionarMedicamentoApresentacao(medicamentoapresentacao)" ng-disabled="medicamentoApresentacaoForm.$invalid">Adicionar Apresentacao</button>
+            <button class="btn btn-danger" ng-click="apagarMedicamentosApresentacao(medicamentosapresentacao)" ng-if="isMedicamentoApresentacaoSelecionado(medicamentosapresentacao)">Apagar Apresentacao</button>
+
+            <hr />
+
+            <div ng-show="medicamentoApresentacaoForm.medicamento.$dirty" ng-messages="medicamentoApresentacaoForm.medicamento.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo medicamento!
+                </div>
+            </div>
+
+            <div ng-show="medicamentoApresentacaoForm.apresentacao.$dirty" ng-messages="medicamentoApresentacaoForm.apresentacao.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Apresentacao!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo apresentacao do pedido deve ter no mínimo 5 caracteres.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr />
+
+    <p>{{medicamento}}</p>
+
+</div>
+
+
+
+

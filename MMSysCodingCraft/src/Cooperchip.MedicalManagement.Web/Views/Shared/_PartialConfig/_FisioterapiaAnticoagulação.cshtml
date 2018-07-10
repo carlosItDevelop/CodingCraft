@@ -1,0 +1,165 @@
+﻿
+
+<div class="row">
+
+    <div class="col-6">
+        @* Início das configurações de Fisioterapia *@
+
+        <div ng-controller="fisioterapiaCtrl" class="container col-md-6 col-lg-6 col-sm-12 col-xl-12 panel-collapse panel-evolumed">
+            <div class="panel-heading">
+                <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+            </div>
+            <form class="panel-body" name="fisioterapiaForm">
+                <div class="row">
+                    <div class="divList">
+                        <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                        <table ng-show="fisioterapias.length > 0" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><b><a href="#" ng-click="ordenarPor('FisioterapiaId')">ID</a></b></th>
+                                    <th><b><a href="#" ng-click="ordenarPor('Descricao')">Descrição</a></b></th>
+                                    <th><b>AÇÃO</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="fisioterapia in fisioterapias | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:3" pagination-id="fisioterapia">
+                                    <td ng-bind="fisioterapia.FisioterapiaId"></td>
+                                    <td ng-bind="fisioterapia.Descricao"></td>
+                                    <td>
+                                        <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(fisioterapia)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Fisioterapia" data-original-title="Editar Fisioterapia"><i class="glyphicon glyphicon-edit"></i></button>
+                                        <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirFisioterapia(fisioterapia)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Fisioterapia" data-original-title="Excluir Fisioterapia"><i class="glyphicon glyphicon-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <dir-pagination-controls max-size="5" pagination-id="fisioterapia" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirFisioterapiaDiv()">Adicionar Fisioterapia</span>
+                    <hr />
+                    <div ng-show="divfisioterapia" class="col-md-12 col-lg-12 col-sm-12">
+                        <h3>{{Acao}} Fisioterapia</h3>
+                        <div class="col-12">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><b>ID</b></th>
+                                        <th><b>FISIOTERAPIA</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" readonly="readonly" ng-model="fisioterapia.FisioterapiaId" class="form-control" /></td>
+                                        <td><input type="text" name="descricao" ng-model="fisioterapia.Descricao" class="form-control" placeholder="Fisioterapia..." ng-required="true" ng-minlength="2" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <span class="btn btn-primary" ng-disabled="fisioterapiaForm.$invalid" ng-click="AdicionarEditarFisioterapia()">Salvar</span>
+                                <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+                    <div ng-show="fisioterapiaForm.descricao.$dirty" ng-messages="fisioterapiaForm.descricao.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Descrição!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo Descrição deve ter no mínimo 2 caracteres.
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    <div class="col-6">
+        @* Início das configurações de Anticoagulação *@
+
+        <div ng-controller="anticoagulacaoCtrl" class="container col-md-6 col-lg-6 col-sm-12 col-xl-12 panel-collapse panel-evolumed">
+            @*<div class="jumbotron">Anticoagulacao: {{anticoagulacaos}}</div>*@
+            <div class="panel-heading">
+                <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+            </div>
+            <form class="panel-body" name="anticoagulacaoForm">
+                <div class="row">
+                    <div class="divList">
+                        <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                        <table ng-show="anticoagulacaos.length > 0" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><b><a href="#" ng-click="ordenarPor('AnticoagulacaoId')">ID</a></b></th>
+                                    <th><b><a href="#" ng-click="ordenarPor('Descricao')">Anticoagulação</a></b></th>
+                                    <th><b>AÇÃO</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="anticoagulacao in anticoagulacaos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:3" pagination-id="anticoagulacao">
+                                    <td ng-bind="anticoagulacao.AnticoagulacaoId"></td>
+                                    <td ng-bind="anticoagulacao.Descricao"></td>
+                                    <td>
+                                        <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(anticoagulacao)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Anticoagulacao" data-original-title="Editar Anticoagulacao"><i class="glyphicon glyphicon-edit"></i></button>
+                                        <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirAnticoagulacao(anticoagulacao)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Anticoagulacao" data-original-title="Excluir Anticoagulacao"><i class="glyphicon glyphicon-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <dir-pagination-controls max-size="5" pagination-id="anticoagulacao" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirAnticoagulacaoDiv()">Adicionar Anticoagulacao</span>
+                    <hr />
+                    <div ng-show="divanticoagulacao" class="col-md-12 col-lg-12 col-sm-12">
+                        <h3>{{Acao}} Anticoagulação</h3>
+                        <div class="col-12">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><b>ID</b></th>
+                                        <th><b>ANTICOAGULAÇÃO</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" readonly="readonly" ng-model="anticoagulacao.AnticoagulacaoId" class="form-control" /></td>
+                                        <td><input type="text" name="descricao" ng-model="anticoagulacao.Descricao" class="form-control" placeholder="Anticoagulação..." ng-required="true" ng-minlength="2" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <span class="btn btn-primary" ng-disabled="anticoagulacaoForm.$invalid" ng-click="AdicionarEditarAnticoagulacao()">Salvar</span>
+                                <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+                    <div ng-show="anticoagulacaoForm.descricao.$dirty" ng-messages="anticoagulacaoForm.descricao.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Descrição!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo Descrição deve ter no mínimo 2 caracteres.
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        
+    </div>
+
+</div>

@@ -1,0 +1,373 @@
+﻿
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="App">
+
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title - MedicalManagement - Sys</title>
+    <!-- Mobile specific metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 user-scalable=no">
+    <!-- Force IE9 to render in normal mode -->
+    <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+    <meta name="author" content="Carlos Alberto dos Santos / Cooperchip Informática" />
+    <meta name="description" content="O Sistema MedicalManagement-Sys controla a evolução médica e a prescrição médica dos pacientes intrnados. Projetado por médicos e desenvolvido pela Cooperchip Informática" />
+    <meta name="keywords" content="Evolução Médica, Prescrição Médica, Clínicas, Sistemas para Clínicas, Sistemas para Hospitais, gerenciamento de gestão Médica" />
+    <meta name="application-name" content="MedicalManagement-Sys" />
+
+    <!-- Import google fonts - Heading first/ text second -->
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Css files -->
+    <!-- ESTILOS PERSONALIZADOS Carlos /-->
+    <link href="~/tpl/css/cooperchip/notes.css" rel="stylesheet" />
+
+    <!-- INI - ESTILOS GRÁFICOS MORRIS Carlos /-->
+    <link href="~/Content/morris.css" rel="stylesheet" />
+
+
+
+
+
+    @* Make-Admin *@
+    <link href="~/Scripts/make-admin/select2/select2.css" rel="stylesheet" />
+    <link href="~/Scripts/make-admin/select2/select2-bootstrap.css" rel="stylesheet" />
+    <link href="~/Scripts/make-admin/bootstrap-tags-input/bootstrap-tagsinput.css" rel="stylesheet" />
+    @* Adaptado por Carlos de make-Admin *@
+    <link href="~/Content/cooperchip/styleCooperchip.css" rel="stylesheet" />
+    @* Make-Admin *@
+
+
+    <!--/ Carlos BoxInit  -->
+    <link href="~/Scripts/cooperchip/boxinit/css/style.css" rel="stylesheet" />
+    <!--/ Carlos BoxInit  -->
+    @* Carlos *@
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/tpl/css/icons.css" rel="stylesheet" />
+    <!-- Bootstrap stylesheets (included template modifications) -->
+    <link href="~/tpl/css/bootstrap-evolumed.css" rel="stylesheet" />
+    <!-- Plugins stylesheets (all plugin custom css) -->
+    <link href="~/tpl/css/plugins.css" rel="stylesheet" />
+    <!-- Main stylesheets (template main css file) -->
+    <link href="~/tpl/css/main.css" rel="stylesheet" />
+    <!-- Custom stylesheets ( Put your own changes here ) -->
+    <link href="~/tpl/css/custom.css" rel="stylesheet" />
+
+    <!--/ CSS da tabela nova -->
+    <link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.tableTools.css" rel="stylesheet" />
+
+
+
+    <script src="~/Scripts/cooperchip/modernizr-custom.js"></script>
+
+
+    @Styles.Render("~/Content/angularcss")
+
+    <link type="text/css" href="~/Content/toastr.css" rel="stylesheet" />
+
+
+    @* Carlos ashobiz *@
+
+    <!-- Page CSS -->
+    <link href="~/Scripts/cooperchip/componentes/ashobiz/css/others/shCore.css" rel="stylesheet" />
+    <link href="~/Scripts/cooperchip/componentes/ashobiz/css/others/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Scripts/cooperchip/componentes/ashobiz/css/ashobiz.base.css" rel="stylesheet" />
+    <link href="~/Scripts/cooperchip/componentes/ashobiz/css/others/shThemeDefault.css" rel="stylesheet" />
+
+    @* Carlos Componentes *@
+    <link href="~/Scripts/cooperchip/componentes/ashobiz/css/ashobiz-8.css" rel="stylesheet" />
+    <link href="~/Scripts/cooperchip/componentes/ashobiz/css/ashobiz-46.css" rel="stylesheet" />
+    <link href="~/Scripts/cooperchip/componentes/ashobiz/css/ashobiz-96.css" rel="stylesheet" />
+    <link href="~/Scripts/cooperchip/componentes/ashobiz/css/ashobiz-65.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
+
+    @* Carlos ashobiz *@
+
+
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/tpl/img/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/tpl/img/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/tpl/img/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/tpl/img/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="icon" href="~/tpl/img/ico/favicon.ico" type="image/png">
+    <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+    <meta name="msapplication-TileColor" content="#3399cc" />
+
+
+</head>
+
+<body>
+
+
+    <div id="header" class="page-navbar">
+        <!-- .navbar-brand -->
+        <a href="/Home/index" class="navbar-brand hidden-xs hidden-sm" data-togge="tooltip" data-placement="bottom" data-original-title="Medical Management - Sys" title="Medical Management - Sys">
+            <img src="~/tpl/img/logo.png" class="logo hidden-xs" alt="MedicalManagement-Sys / Management Logo">
+            <img src="~/tpl/img/logosm.png" class="logo-sm hidden-lg hidden-md" alt="MedicalManagement-Sys / Management Logo">
+        </a>
+        <!-- / navbar-brand -->
+        <!-- .no-collapse -->
+        <div id="navbar-no-collapse" class="navbar-no-collapse">
+            <!-- top left nav -->
+            <ul class="nav navbar-nav">
+                <li class="toggle-sidebar">
+                    <a href="#" data-togge="tooltip" data-placement="bottom" data-original-title="Recolher Sidebar" title="Recolher Sidebar">
+                        <i class="fa fa-reorder"></i>
+                        <span class="sr-only">Recolher Sidebar</span>
+                    </a>
+                </li>
+
+            </ul>
+
+            @Html.Partial("_LoginPartial")
+
+            <!-- top right nav -->
+            <ul class="nav navbar-nav navbar-right">
+
+                @* Escopo criado para gerenciar as notificações de Prontuários Pendentes *@
+                <li class="dropdown" ng-controller="pacienteCtrl">
+                    <a href="#" data-toggle="dropdown" class="tipB" title="Prescrever / Evoluir">
+                        <i class="l-basic-elaboration-todolist-pencil"></i>
+                        <span class="sr-only">Prescrever / Evoluir</span>
+                        <span class="badge badge-danger" ng-bind="numChangeNotify"></span>
+                    </a>
+                    <ul class="dropdown-menu right dropdown-notification" role="menu">
+                        <li>
+                            <a href="#" class="dropdown-menu-header">Aguardando Prontuário</a>
+                        </li>
+
+                        @* Pesquisar como limitar o repeat em 6, ou 8, ou n <li>s *@
+                        @* RESOLVIDO: Quando usar na base de dados trazer apenas top(n) em ordem de data; *@
+                        <li ng-repeat="atendimento in prontuarioPendentes">
+                            <a href="#" ng-click="MostraPaciente(atendimento);"><i class="l-basic-todolist-pen"></i> {{atendimento.nomePaciente}} - {{atendimento.PacienteId}} - {{atendimento.NumAtd}}</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="view-all">Visualizar Todos <i class="l-arrows-right"></i> </a>
+                        </li>
+                    </ul>
+                </li>
+
+                @Html.Partial("PartialsLayout/_ConfigMenuFixed")
+
+                @Html.Partial("PartialsLayout/_MenuNotificacoes")
+
+                @Html.Partial("PartialsLayout/_ChamadasLeitosMedicos")
+
+
+                <li>
+                    <a id="toggle-right-sidebar" href="#" class="tipB" title="Exibir/Inibir Sidebar Direita">
+                        <i class="l-software-layout-sidebar-right"></i>
+                        <span class="sr-only">Exibir/Inibir Sidebar Direita</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- / top right nav -->
+
+
+        </div>
+        <!-- / collapse -->
+    </div>
+    <!-- / page-navbar -->
+    <!-- #wrapper -->
+    <div id="wrapper">
+        <!-- .page-sidebar -->
+        <aside id="sidebar" class="page-sidebar hidden-md hidden-sm hidden-xs">
+            <!-- Start .sidebar-inner -->
+            <div class="sidebar-inner">
+                <!-- Start .sidebar-scrollarea -->
+                <div class="sidebar-scrollarea">
+                    <!--  .sidebar-panel -->
+                    <div class="sidebar-panel">
+                        <h5 class="sidebar-panel-title">Seu Perfil</h5>
+                    </div>
+
+
+
+                    <div class="user-info clearfix">
+
+
+                        @{
+                            var imgUrl = Url.Content("~/Content/images/profile/" + User.Identity.Name + ".png") + "?time=" + DateTime.Now.ToString();
+                            if (User.Identity.Name != null)
+                            {
+                                <img src="@imgUrl" />
+                            }
+                        }
+
+                        @{
+                            var usuario = User.Identity.Name;
+                            <span class="name">@usuario</span>
+                        }
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs">
+                                <i class="l-basic-gear"></i>
+                            </button>
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                config <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu right" role="menu">
+                                <li>
+                                    <a href="/Manage/Index"><i class="fa fa-edit"></i>Editar Perfil</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-money"></i>Meus Papeis</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-credit-card"></i>Meus Acessos</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i>Logout</a>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <!-- / .sidebar-panel -->
+                    @Html.Partial("PartialsLayout/_MenuLeft")
+
+
+                </div>
+                <!-- End .sidebar-scrollarea -->
+            </div>
+            <!-- End .sidebar-inner -->
+        </aside>
+        <!-- / page-sidebar -->
+        <!-- Start #right-sidebar -->
+        <aside id="right-sidebar" class="right-sidebar hidden-md hidden-sm hidden-xs">
+            <div class="sidebar-inner">
+                <div class="sidebar-scrollarea">
+                    <div class="tabs">
+
+                        <!-- Start .rs tabs -->
+                        <ul id="rstab" class="nav nav-tabs nav-justified">
+
+                            <li class="active"><a href="#users" data-toggle="tab"><i class="fa fa-male"></i> </a></li>
+                            <li><a href="#activity" data-toggle="tab"><i class="fa fa-file"></i> </a></li>
+
+                        </ul>
+
+                        <div id="rstab-content" class="tab-content">
+
+                            @Html.Partial("PartialsLayout/_MenuRightTabLeitosePacientes")
+                            @Html.Partial("PartialsLayout/_MenuRightTabCadastrosBases")
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End .sidebar-inner -->
+        </aside>
+        <!-- End #right-sidebar -->
+        <!-- .page-content -->
+        <div class="page-content sidebar-page right-sidebar-page clearfix">
+            <!-- .page-content-wrapper -->
+            <div class="page-content-wrapper">
+                <div class="page-content-inner">
+
+                    <!-- .page-content-inner -->
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default" style="margin-top: 12px;">
+
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><i class="fa fa-list-alt"></i> Medical Management - Sys</h4>
+                                </div>
+
+                                <div class="panel-body">
+
+                                    @RenderBody()
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- / .page-content-inner -->
+            </div>
+            <!-- / page-content-wrapper -->
+        </div>
+        <!-- / page-content -->
+    </div>
+
+
+
+
+    <!-- Back to top -->
+    <div id="back-to-top">
+        <a href="#">Voltar para o Topo</a>
+    </div>
+
+
+    <div class="panel" style="clear: both; margin-top: 25px; margin-top: 10px;">
+        @Html.Partial("_LayoutFooter")
+    </div>
+
+
+    @* Carlos: Modal que mostra ChamadaMedico e permite atender/excluir, agora aqui na MasterPage *@
+    <div class="modal fade modal-style6" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    </div>
+
+
+
+
+    @Scripts.Render("~/bundles/core")
+    @Scripts.Render("~/bundles/datatableswithtools")
+
+
+    <!-- Other plugins ( load only nessesary plugins for every page) -->
+    @Scripts.Render("~/bundles/formonlypage")
+
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    @Scripts.Render("~/bundles/angularjs")
+    @Scripts.Render("~/bundles/angularservices")
+    @Scripts.Render("~/bundles/angularctrl")
+
+    @Scripts.Render("~/bundles/toastr")
+
+
+    <script src="~/Scripts/Others/raphael-min.js"></script>
+    <script src="~/Scripts/cooperchip/morris.js"></script>
+
+    <script src="~/Scripts/cooperchip/libCooperchip.js"></script>
+
+
+    @Scripts.Render("~/bundles/formtabs")
+
+    <script src="~/tpl/plugins/ui/bootstrap-sweetalert/sweet-alert.js"></script>
+
+
+    @* Carlos ashobiz *@
+    <script src="~/Scripts/cooperchip/componentes/ashobiz/js/shCore.js"></script>
+    <script src="~/Scripts/cooperchip/componentes/ashobiz/js/shBrushXml.js"></script>
+    @* Carlos ashobiz *@
+
+    @RenderSection("styles", required: false)
+    @RenderSection("scripts", required: false)
+
+    @* Carlos: Chamada do Modal que atende/exclui ChamadaMedico, agora aqui na MasterPage *@
+    <script type="text/javascript">
+
+        $(".atenderChamadaMedico").click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/Home/ExcluirChamadaMedico?id=" + id, function () {
+                $("#modal").modal();
+            });
+        });
+
+    </script>
+
+</body>
+</html>

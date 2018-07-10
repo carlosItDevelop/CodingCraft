@@ -1,0 +1,123 @@
+﻿<!-- .side-nav -->
+<div class="side-nav">
+    <ul class="nav">
+        <li>
+            <a href="/Home/Index"><i class="l-basic-home"></i><span class="txt">Home</span></a>
+        </li>
+        <li>
+            <a href="/Home/Dashboard"><i class="l-basic-display"></i><span class="txt">Dashboard</span></a>
+        </li>
+
+        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <li>
+                <a href="#"><i class="l-basic-chronometer"></i> <span class="txt">Configurações</span></a>
+                <ul class="sub">
+                    <li><a href="/Configuracoes/index"><span class="txt">Tabelas Bases</span></a></li>
+                    <li><a href="/ExameParametros/index"><span class="txt">Exame Parâmetros</span></a></li>
+                    <li><a href="/HistoriaPatologicaPregressa/Listar"> Hist Pat Pregressa</a></li>
+                    <li><a href="/Complicacao/Index"> Complicações</a></li>
+                    <li><a href="/Alergia/Index"> Alergias</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="l-basic-lock"></i><span class="txt">Segurança</span></a>
+                <ul class="sub">
+                    <li><a href="/UsersAdmin/Index"><span class="txt">Admin Usuários</span></a></li>
+                    <li><a href="/UsersAdmin/ListarClaims"><span class="txt">Política/Acesso</span></a></li>
+                </ul>
+            </li>
+        }
+
+        <li>
+            <a href="#"><i class="l-basic-elaboration-folder-note"></i> <span class="txt">Pacientes</span></a>
+            <ul class="sub">
+                <li><a href="/Home/Paciente"><span class="txt">Dados Paciente</span></a></li>
+                <li><a href="/Prontuario/ListaProntuario"><span class="txt">Prontuários</span></a></li>
+                <li><a href="/ResultadoExame/index"><span class="txt">Resultados Exame</span></a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#"><i class="l-basic-geolocalize-01"></i><span class="txt">Medicamentos</span></a>
+            <ul class="sub">
+                <li><a href="/Medicamento/Index"><span class="txt">Medicamentos</span></a></li>
+                <li><a href="/MedicamentoAjustes/Index"><span class="txt">Ajustes</span></a></li>
+                <li><a href="/MedicamentoPosologia/Index"><span class="txt">Posologia</span></a></li>
+                <li><a href="/MedicamentoApresentacao/Index"><span class="txt">Apresentação</span></a></li>
+                <li><a href="/Home/InteracaoMedicamentosa"><span class="txt">Interaçãoes</span></a></li>
+                <li><a href="/ContraIndicacao/Index"><span class="txt">Contra Indicação</span></a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#"><i class="l-basic-archive"></i><span class="txt">Cadastro Base</span></a>
+            <ul class="sub">
+
+                <li><a href="/AgendaCalendar/Index"><span class="txt">Agenda</span></a></li>
+                <li><a href="/Home/Agendamento"><span class="txt">Agdmtos/Exames</span></a></li>
+                <li><a href="/Home/Classe"><span class="txt">Classes de Medicamento</span></a></li>
+                <li><a href="/Home/CidAdaptada"><span class="txt">Lista de CIDs</span></a></li>
+                <li><a href="/Home/Endereco"><span class="txt">Endereços</span></a></li>
+                <li><a href="/UniGeog/Listar"><span class="txt">Unde Geográfica</span></a></li>
+                @*<li><a href="/Home/UnidadeGeografica"><span class="txt">U.Geog Angular</span></a></li>*@
+
+                <li><a href="/Home/Especialidade"><span class="txt">Especialidades</span></a></li>
+                <li><a href="/Home/Medico"><span class="txt">Médicos</span></a></li>
+                <li><a href="/Home/ChamadaMedico"><span class="txt">Chamada Médico</span></a></li>
+
+                <li><a href="/TipoTelefone/Index"><span class="txt">Tipo de Telefone</span></a></li>
+
+            </ul>
+
+        </li>
+
+    </ul>
+</div>
+<!-- / side-nav -->
+
+
+<div class="sidebar-panel">
+
+    <h5 class="sidebar-panel-title">Dev Plus+</h5>
+    <div class="side-nav">
+        <ul class="nav">
+            <li><a href="/swagger/ui/index" target="_blank"><i class="l-basic-cloud"></i><span class="txt">MedicalManagement APIs</span></a></li>
+            <li>
+                <a href="#"><i class="l-basic-elaboration-folder-note"></i><span class="txt">Developers</span></a>
+                <ul class="sub">
+                    @*@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                        {*@
+                    <li><a href="/Home/Slides"><span class="txt">Dev Slides</span></a></li>
+                    @*}*@
+                    <li><a href="/Home/Contatos"><span class="txt">Lista de Contatos</span></a></li>
+                    <li><a href="/Home/Abertura"><span class="txt">Abertura/TabTeste</span></a></li>
+                    <li><a href="/Home/Icons"><span class="txt">Ícones do Tema</span></a></li>
+                    <li><a href="/Home/TabsDoTema"><span class="txt">TabInside Panel</span></a></li>
+                    <li><a href="/Home/Calendario"><span class="txt">Novo Calendário</span></a></li>
+                    <li><a href="/Home/Portais"><span class="txt">Developers Portais</span></a></li>
+                    <li><a href="/Pessoa/Index"><span class="txt">Pessoa</span></a></li>
+                    @*<li><a href="/PessoaFisica/Index"><span class="txt">Pessoa Física</span></a></li>
+                        <li><a href="/PessoaJuridica/Index"><span class="txt">Pessoa Jurídica</span></a></li>*@
+                    <li><a href="/Acesso/Index"><span class="txt">Central de Acesso</span></a></li>
+                    <li><a href="/Home/Manuais"><span>Manuais/Procedimentos</span></a></li>
+
+
+                    <li><a href="/Home/ModalAngularUI"><span class="txt">Modal Angula UI</span></a></li>
+                </ul>
+            </li>
+
+            <li><a href="/TabelasBase/Index"><i class="l-basic-webpage-img-txt"></i> <span class="txt">Menu Interativo</span></a></li>
+
+            <li>
+                <a href="#"><i class="l-basic-elaboration-folder-note"></i><span class="txt">Componentes</span></a>
+                <ul class="sub">
+                    <li><a href="/Componentes/Timeline"><span class="txt">AshoBiz Timeline</span></a></li>
+                    <li><a href="/Componentes/BlogItem"><span class="txt">AshoBiz blog item</span></a></li>
+                    <li><a href="/Componentes/Notificacoes"><span class="txt">AshoBiz Notificações</span></a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>

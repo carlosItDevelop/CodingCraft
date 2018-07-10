@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Tentativa de acesso de recurso indevido!";
+}
+
+<div class="alert alert-danger">
+<p>
+    <h2>Acesso Negado!</h2>
+</p>
+</div>
+
+<hr />
+
+<div class="jumbotron">
+
+    <h3>@ViewBag.User, você está sem acesso a este recurso!</h3>
+
+</div>
+<p>
+    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("Dashboard", "Dashboard", "Home", null, new { @class = "btn btn-success" })
+</p>

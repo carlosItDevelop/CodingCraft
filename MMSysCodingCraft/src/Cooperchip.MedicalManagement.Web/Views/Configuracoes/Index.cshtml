@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "MedicalManagement-Sys - Configurações do Sistem";
+}
+
+<p>
+    <a href="/Home/Index" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Voltar pra Home" data-original-title="Voltar pra Home"> <i class="glyphicon glyphicon-home"></i> </a>
+    <a href="/Home/Dashboard" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Dashboard / Estatística" data-original-title="Dashboard / Estatística"> <i class="glyphicon glyphicon-dashboard">&nbsp;&nbsp;Dashboard</i> </a>
+    @*@Html.ActionLink("Home", "Index", "Home", null, new { @class = "btn btn-default" })*@
+</p>
+
+<div class="row">
+
+    <div class="col-lg-12">
+        <div class="animated fadeInRightBig">
+            <div class="panel panel-primary">
+                <!-- Start .panel -->
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="fa fa-magic"></i> Configurações do Sistema</h4>
+                </div>
+                <div class="panel-body">
+
+                    <div class="tabs inside-panel">
+
+                        <ul id="myTab5" class="nav nav-tabs panel-success">
+                            @*<li class=""><a href="#geral" data-toggle="tab"><i class="fa fa-adjust"></i>&nbsp;Geral</a></li>*@
+                            <li class=""><a href="#setoregenerico" data-toggle="tab"><i class="fa fa-hospital-o"></i>&nbsp;Setor e Genérico</a></li>
+                            <li class=""><a href="#dietaeconvenio" data-toggle="tab"><i class="fa fa-bank"></i>&nbsp;Dieta e Convênio</a></li>
+                            <li class=""><a href="#leitoeprecaucao" data-toggle="tab"><i class="fa fa-ambulance"></i>&nbsp;Leito e Precaução</a></li>
+                            <li class=""><a href="#fisioterapiaanticoagulacao" data-toggle="tab"><i class="fa fa-android"></i>&nbsp;Fisio/Anticoagulação</a></li>
+
+                            <li class=""><a href="#ufcidade" data-toggle="tab"><i class="fa fa-location-arrow"></i>&nbsp;Uf/Cidade</a></li>
+                            <li class=""><a href="#tipodrenocomplicacao" data-toggle="tab"><i class="fa fa-pencil-square"></i>&nbsp;TpDreno/Complicacao</a></li>
+                        </ul>
+
+                        @* Aqui os conteúdos *@
+                        <div id="myTabContent5" class="tab-content">
+
+                            @*<div class="tab-pane fade active in" id="setoregenerico">
+                                @Html.Partial("_PartialConfig/_Geral")
+                            </div>*@
+
+                            <div class="tab-pane fade active" id="setoregenerico">
+                                @Html.Partial("_PartialConfig/_SetorGenerico")
+                            </div>
+
+                            <div class="tab-pane fade active" id="dietaeconvenio">
+                                @Html.Partial("_PartialConfig/_DietaConvenio")
+                            </div>
+
+                            <div class="tab-pane fade active" id="leitoeprecaucao">
+                                @Html.Partial("_PartialConfig/_LeitoPrecaucao")
+                            </div>
+
+                            <div class="tab-pane fade active" id="fisioterapiaanticoagulacao">
+                                @Html.Partial("_PartialConfig/_FisioterapiaAnticoagulação")
+                            </div>
+
+                            <div class="tab-pane fade active" id="ufcidade">
+                                @Html.Partial("_PartialConfig/_UfCidade")
+                            </div>
+
+                            <div class="tab-pane fade active" id="tipodrenocomplicacao">
+                                @Html.Partial("_PartialConfig/_TipoDrenoComplicacao")
+                            </div>
+
+                        </div>
+                        @* Fim dos Conteúdos *@
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

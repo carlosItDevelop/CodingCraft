@@ -1,0 +1,188 @@
+﻿
+
+<div class="row">
+    <div class="col-6">
+        @* Início das configurações de Leitos *@
+        <div ng-controller="leitoCtrl" class="container col-md-6 col-lg-6 col-sm-12 col-xl-12 panel-collapse panel-evolumed">
+            <div class="panel-heading">
+                <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+            </div>
+            <form class="panel-body" name="leitoForm">
+                <div class="row">
+
+                    <div class="divList">
+                        <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                        <table ng-show="leitos.length > 0" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><b><a href="#" ng-click="ordenarPor('LeitoId')">#Id</a></b></th>
+                                    <th><b><a href="#" ng-click="ordenarPor('EspecificacaoDoLeito')">Especificação</a></b></th>
+
+                                    <th><b>AÇÃO</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="leito in leitos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:4" pagination-id="leito">
+                                    <td ng-bind="leito.LeitoId"></td>
+                                    <td ng-bind="leito.EspecificacaoDoLeito"></td>
+                                    <td>
+                                        <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(leito)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Leito" data-original-title="Editar Leito"><i class="glyphicon glyphicon-edit"></i></button>
+                                        <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirLeito(leito)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Leito" data-original-title="Excluir Leito"><i class="glyphicon glyphicon-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <dir-pagination-controls max-size="5" pagination-id="leito" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirLeitoDiv()">Adicionar Leito</span>
+                    <hr />
+                    <div ng-show="divleito" class="col-md-12 col-lg-12 col-sm-12">
+                        <h3>{{Acao}} Leito</h3>
+                        <div class="col-12">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><b>ID</b></th>
+                                        <th><b>ESPECIFICAÇÃO</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" readonly="readonly" ng-model="leito.LeitoId" class="form-control" /></td>
+                                        <td><input type="text" name="especificacao" ng-model="leito.EspecificacaoDoLeito" class="form-control" placeholder="Especificação..." ng-required="true" ng-minlength="3" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <span class="btn btn-primary" ng-disabled="leitoForm.$invalid" ng-click="AdicionarEditarLeito()">Salvar</span>
+                                <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <br />
+            <div class="row">
+                <div ng-show="leitoForm.especificacao.$dirty" ng-messages="leitoForm.especificacao.$error">
+                    <div ng-message="required" class="alert alert-danger">
+                        Por favor, preencha o campo Especificação!
+                    </div>
+                    <div ng-message="minlength" class="alert alert-danger">
+                        O campo Especificação deve ter no mínimo 3 caracteres.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        @* Fim das configurações de Letos *@
+    </div>
+
+    <div class="col-6">
+        @* Início das configurações de Precaução *@
+        <div ng-controller="crudprecaucaoCtrl" class="container col-md-6 col-lg-6 col-sm-12 col-xl-12 panel-collapse panel-evolumed">
+            <div class="panel-heading">
+                <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+            </div>
+            <form class="panel-body" name="precaucaoForm">
+                <div class="row">
+
+                    <div class="divList">
+                        <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                        <table ng-show="precaucaos.length > 0" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><b><a href="#" ng-click="ordenarPor('PrecaucaoId')">ID</a></b></th>
+                                    <th><b><a href="#" ng-click="ordenarPor('Descricao')">CAUSA DA PRECAUÇÃO</a></b></th>
+                                    <th><b><a href="#" ng-click="ordenarPor('IdTipoPrecaucao')">TIPO DE PRECAUÇÃO</a></b></th>
+                                    <th><b>AÇÃO</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="precaucao in precaucaos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:4" pagination-id="precaucao">
+                                    <td ng-bind="precaucao.PrecaucaoId"></td>
+                                    <td ng-bind="precaucao.Descricao"></td>
+                                    <td ng-bind="precaucao.TipoDePrecaucao.Descricao"></td>
+                                    <td>
+                                        <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(precaucao)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Precaucao" data-original-title="Editar Precaucao"><i class="glyphicon glyphicon-edit"></i></button>
+                                        <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirPrecaucao(precaucao)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Precaucao" data-original-title="Excluir Precaucao"><i class="glyphicon glyphicon-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                            <dir-pagination-controls max-size="5"
+                                                     pagination-id="precaucao"
+                                                     direction-links="true"
+                                                     boundary-links="true">
+                            </dir-pagination-controls>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirPrecaucaoDiv()">Adicionar Precaucao</span>
+                    <hr />
+                    <div ng-show="divprecaucao" class="col-md-12 col-lg-12 col-sm-12">
+                        <h3>{{Acao}} Precaucão</h3>
+                        <div class="col-12">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><b>ID</b></th>
+                                        <th><b>CAUSA DA PRECAUÇÃO</b></th>
+                                        <th><b>TIPO DE PRECAUÇÃO</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" readonly="readonly" ng-model="precaucao.PrecaucaoId" class="form-control" /></td>
+                                        <td><input type="text" name="descricao" ng-model="precaucao.Descricao" class="form-control" placeholder="Descrição..." ng-required="true" ng-minlength="3" /></td>
+
+                                        <td>
+                                            <select class="form-control" name="tipodeprecaucao" id="tipodeprecaucao" ng-model="precaucao.IdTipoPrecaucao" ng-required="true"
+                                                    ng-options="tipoprecaucao.Id as tipoprecaucao.Descricao for tipoprecaucao in tipoprecaucaos">
+                                                <option value="">Causa da Precaução</option>
+                                            </select>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <span class="btn btn-primary" ng-disabled="precaucaoForm.$invalid" ng-click="AdicionarEditarPrecaucao()">Salvar</span>
+                                <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+            <br />
+            <div class="row">
+                <div ng-show="precaucaoForm.descricao.$dirty" ng-messages="precaucaoForm.descricao.$error">
+                    <div ng-message="required" class="alert alert-danger">
+                        Por favor, preencha o campo Descrição!
+                    </div>
+                    <div ng-message="minlength" class="alert alert-danger">
+                        O campo Descrição deve ter no mínimo 3 caracteres.
+                    </div>
+                </div>
+
+                <div ng-show="precaucaoForm.tipodeprecaucao.$dirty" ng-messages="precaucaoForm.tipodeprecaucao.$error">
+                    <div ng-message="required" class="alert alert-danger">
+                        Por favor, preencha o campo Tipo de Precaução!
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        @* Fim das configurações de Precaução *@
+    </div>
+
+</div>
+

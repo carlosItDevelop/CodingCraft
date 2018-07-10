@@ -1,0 +1,204 @@
+﻿
+@{
+    ViewBag.Title = "Lista de Agendamentos";
+}
+
+
+<div ng-controller="agendamentoCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+
+    @*<div class="jumbotron">Agendamento: {{agendamentos}}</div>*@
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <form class="panel-body" name="agendamentoForm">
+
+        <div class="row">
+
+            <div class="divList">
+
+                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+                <table ng-show="agendamentos.length > 0" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><b><a href="#" ng-click="ordenarPor('AgendamentoId')">ID</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Paciente')">Paciente</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Data')">Data</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Hora')">Hora</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Medico')">Medico</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Exames')">Exames</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Confirmado')">Confirmado</a></b></th>
+                            <th><b>AÇÃO</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="agendamento in agendamentos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:3" pagination-id="agendamento">
+                            <td ng-bind="agendamento.AgendamentoId"></td>
+                            <td ng-bind="agendamento.Paciente.Nome"></td>
+                            <td ng-bind="agendamento.Data | date: 'dd/MM/yyyy'"></td>
+                            <td ng-bind="agendamento.Hora"></td>
+                            <td ng-bind="agendamento.Medico.Nome"></td>
+                            <td ng-bind="agendamento.Exames"></td>
+                            <td><input type="checkbox" ng-bind="agendamento.Confirmado" /></td>
+                            <td>
+                                <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(agendamento)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Agendamento" data-original-title="Editar Agendamento"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirAgendamento(agendamento)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Agendamento" data-original-title="Excluir Agendamento"><i class="glyphicon glyphicon-trash"></i></button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <dir-pagination-controls max-size="5" pagination-id="agendamento" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirAgendamentoDiv()">Adicionar Agendamento</span>
+            <hr />
+
+            <div ng-show="divagendamento" class="col-md-12 col-lg-12 col-sm-12">
+                <h3>{{Acao}} Agendamentos</h3>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><b>Id</b></td>
+                                <td><input type="text" readonly="readonly" ng-model="agendamento.AgendamentoId" class="form-control" /></td>
+                                <td><b>Paciente</b></td>
+                                @*<td><input type="text" name="paciente" ng-model="agendamento.NomePaciente" class="form-control" placeholder="Paciente..." ng-required="true" ng-minlength="3" /></td>*@
+
+                                <td>
+                                    <div class="form-group">
+
+                                        <select class="form-control" name="paciente" id="paciente" ng-model="agendamento.PacienteId"
+                                                ng-options="paciente.PacienteId as paciente.Nome for paciente in pacientes | orderBy:'Nome'" ng-required="true">
+                                            <option value="">Paciente...</option>
+                                        </select>
+                                    </div>
+                                </td>
+
+
+
+                                <td><b>Data</b></td>
+                                <td>
+
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input type="date" class="form-control" ng-model="agendamento.Data" name="data" id="data" ng-required="true" ng-minlength="10" />
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        <tr>
+                            <td><b>Hora</b></td>
+                            <td>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-time"></i></span>
+                                        <input type="text" id="horaAgenda" ng-model="agendamento.Hora" name="hora" class="form-control" placeholder="Hora..." ng-required="true" ng-minlength="5">
+                                    </div>
+                                </div>
+                            </td>
+                            <td><b>Médico</b></td>
+
+                            <td>
+                                <div class="form-group">
+
+                                    <select class="form-control" name="medico" id="medico" ng-model="agendamento.MedicoId"
+                                            ng-options="medico.MedicoId as medico.Nome for medico in medicos | orderBy:'Nome'" ng-required="true">
+                                        <option value="">Médicos...</option>
+                                    </select>
+                                </div>
+                            </td>
+
+
+
+                        </tr>
+
+
+                        <tr>
+                            <td><b>Exames</b></td>
+                            <td><input type="text" name="exames" ng-model="agendamento.Exames" class="form-control" placeholder="Exames..." /></td>
+                            <td><b>Confirmado?</b></td>
+                            <td><input type="checkbox" name="confirmado" ng-model="agendamento.Confirmado" class="form-control" /></td>
+                            
+                        </tr>
+
+
+
+                        </tbody>
+                    </table>
+                    <div>
+                        <span class="btn btn-primary" ng-disabled="agendamentoForm.$invalid" ng-click="AdicionarEditarAgendamento()">Salvar</span>
+                        <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <hr/>
+
+        <div class="row">
+            <div ng-show="agendamentoForm.paciente.$dirty" ng-messages="agendamentoForm.paciente.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Paciente!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Descrição deve ter no mínimo 3 caracteres.
+                </div>
+            </div>
+
+
+
+            <div ng-show="agendamentoForm.medico.$dirty" ng-messages="agendamentoForm.medico.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Médico!
+                </div>
+            </div>
+
+
+
+
+            <div ng-show="agendamentoForm.data.$dirty" ng-messages="agendamentoForm.data.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Data!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Data deve ter no mínimo 10 caracteres.
+                </div>
+            </div>
+
+
+            <div ng-show="agendamentoForm.hora.$dirty" ng-messages="agendamentoForm.hora.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Hora!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo hora deve ter no mínimo 5 caracteres.
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+    </form>
+
+</div>
+
+
+
+
+

@@ -1,0 +1,192 @@
+﻿
+
+<div ng-controller="enderecoCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+
+    @*<div class="jumbotron">Endereco: {{enderecos}}</div>*@
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <form class="panel-body" name="enderecoForm">
+
+        <div class="row">
+
+            <div class="divList">
+
+                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+                <table ng-show="enderecos.length > 0" class="table table-hover">
+                    <thead>
+                        <tr>
+                            @*<th><b><a href="#" ng-click="ordenarPor('EnderecoId')">#ID</a></b></th>*@
+                            <th><b><a href="#" ng-click="ordenarPor('PacienteId')">PACIENTE</a></b></th>
+                           <th><b><a href="#" ng-click="ordenarPor('IdUf')">UF</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('IdCidade')">CIDADE</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('IdBairro')">BAIRRO</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Local')">LOCAL</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Numero')">Nº</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Complemento')">COMPLEMENTO</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Referencia')">REFERÊNCIA</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Cep')">CEP</a></b></th>
+                            <th><b>AÇÃO</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="endereco in enderecos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" pagination-id="endereco">
+                            @*<td ng-bind="endereco.EnderecoId"></td>*@
+                            <td ng-bind="endereco.Paciente.Nome"></td>
+                            <td ng-bind="endereco.Uf.Sigla"></td>
+                            <td ng-bind="endereco.Cidade.Descricao"></td>
+                            <td ng-bind="endereco.Bairro.Descricao"></td>
+                            <td ng-bind="endereco.Local"></td>
+                            <td ng-bind="endereco.Numero"></td>
+                            <td ng-bind="endereco.Complemento"></td>
+                            <td ng-bind="endereco.Referencia"></td>
+                            <td ng-bind="endereco.Cep"></td>
+                            <td>
+                                <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(endereco)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Endereco" data-original-title="Editar Endereco"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirEndereco(endereco)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Endereco" data-original-title="Excluir Endereco"><i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <dir-pagination-controls max-size="5" pagination-id="endereco" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirEnderecoDiv()">Adicionar Endereco</span>
+            <hr />
+
+            <div ng-show="divendereco" class="col-md-12 col-lg-12 col-sm-12">
+                <h3>{{Acao}} Enderecos</h3>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                @*<td><b>Id</b></td>*@
+                                <td><input type="text" readonly="readonly" ng-model="endereco.EnderecoId" class="form-control" /></td>
+
+
+
+                                @*<td><b>Paciente</b></td>*@
+                                <td>
+                                    <select class="form-control" name="paciente" ng-model="endereco.PacienteId"
+                                            ng-options="paciente.PacienteId as paciente.Nome for paciente in pacientes" ng-required="true">
+                                        <option value="">Selecione o Paciente</option>
+                                    </select>
+                                </td>
+
+                                @*<td><b>UF</b></td>*@
+                                <td>
+                                    <select class="form-control" name="uf" ng-model="endereco.IdUf"
+                                            ng-options="uf.UfId as uf.Sigla for uf in ufs" ng-required="true">
+                                        <option value="">Selecione a UF</option>
+                                    </select>
+                                </td>
+
+                            </tr>
+                            <tr>
+
+                                @*<td><b>Cidade</b></td>*@
+                                <td colspan="2">
+                                    <select class="form-control" name="cidade" ng-model="endereco.IdCidade"
+                                            ng-options="cidade.CidadeId as cidade.Descricao for cidade in cidades" ng-required="true">
+                                        <option value="">Selecione a Cidade</option>
+                                    </select>
+                                </td>
+
+                                @*<td><b>Bairro</b></td>*@
+                                <td>
+                                    <select class="form-control" name="bairro" ng-model="endereco.IdBairro"
+                                            ng-options="bairro.BairroId as bairro.Descricao for bairro in bairros" ng-required="true">
+                                        <option value="">Selecione o Bairro</option>
+                                    </select>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                @*<td><b>Local</b></td>*@
+                                <td><input type="text" name="local" ng-model="endereco.Local" class="form-control" placeholder="Local..." ng-required="true" ng-minlength="2" /></td>
+                                @*<td><b>Número</b></td>*@
+                                <td><input type="text" name="numero" ng-model="endereco.Numero" class="form-control" placeholder="Número..." /></td>
+                                @*<td><b>Complemento</b></td>*@
+                                <td><input type="text" name="complemento" ng-model="endereco.Complemento" class="form-control" placeholder="Complemento..." /></td>
+                            </tr>
+                            <tr>
+                                @*<td><b>Referência</b></td>*@
+                                <td colspan="2"><input type="text" name="referencia" ng-model="endereco.Referencia" class="form-control" placeholder="Referência..." /></td>
+                                @*<td><b>CEP</b></td>*@
+                                <td><input type="text" name="cep" ng-model="endereco.Cep" class="form-control" placeholder="CEP..." ng-required="true" ng-minlength="8" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <span class="btn btn-primary" ng-disabled="enderecoForm.$invalid" ng-click="AdicionarEditarEndereco()">Salvar</span>
+                        <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        @*<br />*@
+        <div class="row">
+            <div ng-show="enderecoForm.local.$dirty" ng-messages="enderecoForm.local.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Local!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Local deve ter no mínimo 2 caracteres.
+                </div>
+            </div>
+
+
+            <div ng-show="enderecoForm.cep.$dirty" ng-messages="enderecoForm.cep.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo CEP!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo CEP deve ter no mínimo 8 caracteres.
+                </div>
+            </div>
+            <div ng-show="enderecoForm.paciente.$dirty" ng-messages="enderecoForm.paciente.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Paciente!
+                </div>
+            </div>
+            <div ng-show="enderecoForm.uf.$dirty" ng-messages="enderecoForm.uf.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo UF!
+                </div>
+            </div>
+
+            <div ng-show="enderecoForm.cidade.$dirty" ng-messages="enderecoForm.cidade.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Cidade!
+                </div>
+            </div>
+            <div ng-show="enderecoForm.bairro.$dirty" ng-messages="enderecoForm.bairro.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Bairro!
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </form>
+
+</div>
+
+
+
+
+
+

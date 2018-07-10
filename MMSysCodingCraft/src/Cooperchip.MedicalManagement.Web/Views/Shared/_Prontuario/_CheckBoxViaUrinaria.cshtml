@@ -1,0 +1,40 @@
+﻿
+
+<div class="col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Via Urinária</h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+
+                <div class="col-lg-5 col-md-4">                    
+
+                    <UL>
+                        <li ng-repeat="viaurinaria in viasurinarias">
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="radio" name="idViaUrinaria" ng-model="prontuario.ViaUrinaria" value="{{viaurinaria.Descricao}}" class="form-control" />
+                                    <span class="button-radio"></span>
+                                </label>
+                                <label>{{viaurinaria.Descricao}}</label>
+                            </div>
+                        </li>
+                    </UL>
+
+                </div>
+
+                <div class="form-group col-lg-5 col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input id="ViaUrinariaData" ng-disabled="getInibirEAnularData(prontuario.ViaUrinaria, 'Espontânea','ViaUrinariaData')" 
+                               ng-model="prontuario.ViaUrinariaData" name="ViaUrinariaData" type="date" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

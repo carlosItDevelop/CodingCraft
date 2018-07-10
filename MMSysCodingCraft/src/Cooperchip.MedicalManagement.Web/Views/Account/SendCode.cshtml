@@ -1,0 +1,33 @@
+﻿@model Cooperchip.Common.Identity.Model.SendCodeViewModel
+@{
+    ViewBag.Title = "Enviar Código de Verificação";
+}
+
+
+<div class="panel panel-body">
+    @using (Html.BeginForm("SendCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+
+
+        <div class="row">
+
+            <div class="jumbotron">
+                <h3><i class="glyphicon glyphicon-envelope"></i>&nbsp;&nbsp;@ViewBag.Title.</h3>
+            </div>
+
+            @Html.AntiForgeryToken()
+
+            <div class="col-md-12">
+                <div class="panel panel-heading">
+                    <h4 class="col-4"><i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;Autenticação em 2 (dois) fatores:</h4>
+                    @Html.DropDownListFor(model => model.SelectedProvider, Model.Providers, "", new { @class = "form-control col-4" })
+                </div>
+                <input type="submit" value="Enviar" class="btn btn-default" />
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

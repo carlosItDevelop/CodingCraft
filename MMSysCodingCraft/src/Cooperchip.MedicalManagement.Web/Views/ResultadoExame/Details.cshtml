@@ -1,0 +1,82 @@
+﻿@model Cooperchip.MedicalManagement.Domain.Entidade.ResultadoExame
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ResultadoExame</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ExameParametros.Exame)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExameParametros.Exame)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Medico.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Medico.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PacienteId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PacienteId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdPrescricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdPrescricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PedidoEm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PedidoEm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataResultado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataResultado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Resultado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resultado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observacao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ResultadoExameId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

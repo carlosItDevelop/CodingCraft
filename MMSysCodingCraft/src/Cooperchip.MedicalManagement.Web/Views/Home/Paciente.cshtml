@@ -1,0 +1,72 @@
+﻿
+
+@{
+    ViewBag.Title = "Cadastro de Paciente";
+}
+
+
+<p>
+    <a href="/Home/Index" class="btn btn-default btn-tranparent" data-toggle="tooltip" data-placement="bottom" title="Voltar pra Home" data-original-title="Voltar pra Home"> <i class="glyphicon glyphicon-home"></i> </a>
+    <a href="/Home/Dashboard" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Dashboard / Estatística" data-original-title="Dashboard / Estatística"> <i class="glyphicon glyphicon-dashboard">&nbsp;&nbsp;Dashboard</i> </a>
+</p>
+
+<div class="row" ng-controller="pacienteCtrl">
+
+    <div class="col-lg-12">
+        <div class="animated fadeInRightBig">
+            <div class="panel panel-primary">
+
+                @*<div class="alert alert-info">
+                    <h3>Paciente:</h3>
+                    <h4>{{paciente}}</h4>
+                </div>*@
+
+                <!-- Start .panel -->
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="fa fa-magic"></i> Entradas de Pacientes</h4>
+                </div>
+                <div class="panel-body">
+
+                    <div class="tabs inside-panel">
+
+                        <ul id="myTab5" class="nav nav-tabs panel-success">
+                            <li class=""><a href="#paciente" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;Paciente</a></li>
+                            <li class=""><a href="#diagnostico" data-toggle="tab"><i class="fa fa-bookmark"></i>&nbsp;Diagnóstico</a></li>
+                            <li class=""><a href="#endereco" data-toggle="tab"><i class="fa fa-bus"></i>&nbsp;Endereço</a></li>
+                            <li class=""><a href="#telefones" data-toggle="tab"><i class="fa fa-phone"></i>&nbsp;Telefones</a></li>
+                            <li class=""><a href="#complementos" data-toggle="tab"><i class="fa fa-android"></i>&nbsp;Dados Complementares</a></li>
+                        </ul>
+
+                        @* Aqui os conteúdos *@
+                        <div id="myTabContent5" class="tab-content">
+
+                            <div class="tab-pane fade active in" id="paciente">
+                                @Html.Partial("_PartialPaciente/_Paciente")
+                            </div>
+
+
+                            <div class="tab-pane fade active" id="diagnostico">
+                                @Html.Partial("_PartialPaciente/_Diagnostico")
+                            </div>
+
+
+                            <div class="tab-pane fade active" id="endereco">
+                            </div>
+
+                            <div class="tab-pane fade active" id="telefones">
+                            </div>
+
+                            <div class="tab-pane fade active" id="complementos">
+                            </div>
+
+                        </div>
+                        @* Fim dos Conteúdos *@
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

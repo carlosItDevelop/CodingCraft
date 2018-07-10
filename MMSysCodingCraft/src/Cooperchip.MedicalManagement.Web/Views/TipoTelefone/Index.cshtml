@@ -1,0 +1,132 @@
+﻿@model IEnumerable<Cooperchip.MedicalManagement.Domain.Entidade.TipoTelefone>
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+@{
+    ViewBag.Title = "MedicalManagement-Sys - Cadastro de Tipo de Telefones";
+}
+
+
+<p>
+
+    <button class="btn btn-default create" data-toggle="tooltip" data-placement="bottom" title="Adicionar um novo tipo de telefone" data-original-title="Adicionar um novo tipo de telefone">  <i class="glyphicon glyphicon-plus-sign"></i>  </button>
+    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "btn btn-default" })
+
+</p>
+
+
+<!-- Start .row -->
+<div class="row">
+
+    <div class="col-lg-12">
+        <div class="animated fadeInRightBig">
+            <div class="panel panel-primary toggle">
+                <!-- Start .panel -->
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="fa fa-magic"></i> MedicalManagement-Sys - Cadastro de Tipo de Telefones</h4>
+                </div>
+                <div class="panel-body">
+                    <table id="evolumed" class="table table-striped table-bordered dataTables_filter" cellspacing="0" width="100%">
+
+
+                        <thead>
+                            <tr>
+                                <th>Id do Tipo/Telefone</th>
+                                <th>Descrição</th>
+                                <th class="text-center">Ação</th>
+
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Id do Tipo/Telefone</th>
+                                <th>Descrição</th>
+                                <th class="text-center">Ação</th>
+                            </tr>
+                        </tfoot>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TipoTelefoneId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Descricao)
+                                    </td>
+
+                                    <td class="text-center">
+                                        <button class="btn btn-default details" data-id="@item.TipoTelefoneId" data-toggle="tooltip" data-placement="bottom" title="Detalhes de Tipo de Telefone" data-original-title="Detalhes de Tipo de Telefone"><i class="glyphicon glyphicon-file"></i></button>
+                                        <button class="btn btn-danger delete" data-id="@item.TipoTelefoneId" data-toggle="tooltip" data-placement="bottom" title="Excluir Tipo de Telefone" data-original-title="Excluir Tipo de Telefone"><i class="glyphicon glyphicon-trash"></i></button>
+                                        <button class="btn btn-primary edit" data-id="@item.TipoTelefoneId" data-toggle="tooltip" data-placement="bottom" title="Editar Tipo de Telefone" data-original-title="Editar Tipo de Telefone"><i class="glyphicon glyphicon-edit"></i></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade modal-style6" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+</div>
+
+
+
+
+@section Scripts {
+
+
+    <script type="text/javascript">
+
+        $(".details").click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/TipoTelefone/Details?id=" + id, function () {
+                $("#modal").modal();
+            });
+        });
+
+
+        $(".delete").click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/TipoTelefone/Delete?id=" + id, function () {
+                $("#modal").modal();
+            });
+        });
+
+        $(".edit").click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("/TipoTelefone/Edit?id=" + id, function () {
+                $("#modal").modal();
+            });
+        });
+
+
+        $(".create").click(function () {
+            $("#modal").load("/TipoTelefone/Create", function () {
+                $("#modal").modal();
+            });
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#evolumed').DataTable({
+                dom: 'T<"clear">lfrtip',
+                tableTools: {
+                    "sSwfPath": "../../myPlugins/copy_csv_xls_pdf.swf"
+                }
+            });
+        });
+    </script>
+
+}
+
+

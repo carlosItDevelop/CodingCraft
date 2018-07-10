@@ -1,0 +1,85 @@
+﻿<div class="row center">
+
+    <!--/ Endereço... -->
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><i class="l-software-paintbrush"></i>&nbsp;&nbsp;&nbsp;Endereço</h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="row center">
+
+                    <label class="col-md-3 control-label">ID PACIENTE</label>
+                    <label class="col-md-3 control-label">UF</label>
+                    <label class="col-md-3 control-label">CIDADE</label>
+                    <label class="col-md-3 control-label">BAIRRO</label>
+
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="endereco.PacienteId" ng-disabled="verificaAcao()" name="pacienteendereco" id="pacienteendereco" value="" placeholder="Id Paciente...">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="endereco.Uf.Sigla" ng-disabled="verificaAcao()" name="enderecouf" id="enderecouf" value="" placeholder="UF...">
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="endereco.Cidade.Descricao" ng-disabled="verificaAcao()" name="enderecocidade" id="enderecocidade" value="" placeholder="Cidade...">
+                    </div>
+
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="endereco.Bairro.Descricao" ng-disabled="verificaAcao()" name="enderecobairro" id="enderecobairro" value="" placeholder="Bairro...">
+                    </div>
+                </div>
+
+
+                <div class="row center">
+
+                    <label class="col-md-6 control-label">Local</label>
+                    <label class="col-md-3 control-label">Número</label>
+                    <label class="col-md-3 control-label">Complemento</label>
+
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" ng-model="endereco.Local" ng-disabled="verificaAcao()" name="enderecolocal" id="enderecolocal" value="" placeholder="Local...">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="endereco.Numero" ng-disabled="verificaAcao()" name="endereconumero" id="endereconumero" value="" placeholder="Número...">
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="endereco.Complemento" ng-disabled="verificaAcao()" name="enderecocomplemento" id="enderecocomplemento" value="" placeholder="Complemento...">
+                    </div>
+
+                </div>
+
+
+                <div class="row center">
+
+                    <label class="col-md-3 control-label">Id Endereço</label>
+                    <label class="col-md-3 control-label">CEP</label>
+                    <label class="col-md-6 control-label">Referência</label>
+
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="endereco.EnderecoId" ng-disabled="verificaAcao()" name="enderecoid" id="enderecoid" value="" placeholder="ID do Endereço...">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="endereco.Cep" ng-disabled="verificaAcao()" name="enderecocep" id="enderecocep" value="" placeholder="CEP...">
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" ng-model="endereco.Referencia" ng-disabled="verificaAcao()" name="enderecoreferencia" id="enderecoreferencia" value="" placeholder="Referência...">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+

@@ -1,0 +1,41 @@
+﻿
+
+<div class="col-lg-4 col-md-4 col-sm-12 col-xl-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Pressão Arterial Média</h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+
+
+
+                <div class="col-12">
+
+                    <ul>
+                        <li ng-repeat="pam in pams">
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="radio" name="idPam" ng-model="prontuario.Pam" value="{{pam.Descricao}}" checked class="form-control"/>
+                                    <span class="button-radio"></span>
+                                </label>
+                                <label>{{pam.Descricao}}</label>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input id="PamData" ng-disabled="getInibirEAnularData(prontuario.Pam, 'Não Medida','PamData')"  ng-model="prontuario.PamData" name="PamData" type="date" class="form-control">
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Testes JavaScripts e jQuery LibCooperchip";
+}
+
+<link href="~/Content/cooperchip/styleCooperchip.css" rel="stylesheet" />
+
+
+<h2 id="titulo">Testes JavaScripts e jQuery LibCooperchip</h2>
+<a href="#">Executar</a>
+
+
+
+@section Scripts
+{
+    <!-- Códigos e Scripts JavaScripts -->
+    <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("a").click(function () {
+                $("#titulo").css("color", "#0000FF");
+                alert("Erro corrigido com combinações e posições das TagsScrpits?!");
+            });
+        });
+    </script>
+    <!-- Códigos e Scripts JavaScripts -->
+
+}
+

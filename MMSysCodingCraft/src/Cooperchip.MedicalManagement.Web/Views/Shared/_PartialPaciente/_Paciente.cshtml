@@ -1,0 +1,383 @@
+﻿
+
+<div class="row">
+    <div class="container col-md-12 col-lg-12 col-sm-12 col-xs-12 panel-collapse panel-evolumed">
+
+        <form class="panel-body" name="pacienteForm">
+
+            <div class="row alert alert-info">
+                <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+            </div>
+
+            <div class="row">
+
+                <div class="divList">
+
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                </span>
+                                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div class="col-12">
+                                <a href="/Prontuario/ListaProntuario" class="btn btn-default btn-transparent"><i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp; TODOS OS PRONTUARIOS</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <table ng-show="pacientes.length > 0" class="table table-bordered">
+                        <thead class="panel-heading">
+                            <tr class="alert alert-success">
+                                <th><b><a href="#" ng-click="ordenarPor('Nome')">NOME</a></b></th>
+                                <th><b><a href="#" ng-click="ordenarPor('DataInternacao')">INTERNAÇÃO</a></b></th>
+                                <th><b><a href="#" ng-click="ordenarPor('Leito.EspecificacaoDoLeito')">LEITO</a></b></th>
+                                <th><b><a href="#" ng-click="ordenarPor('EstadoDoPaciente.Descricao')">QUADRO</a></b></th>
+                                <th><b><a href="#" ng-click="ordenarPor('Setor.Sigla')">SETOR</a></b></th>
+                                <th align="center"><b> PACIENTE</b></th>
+                                <th align="center"><b> PRONTUÁRIO</b></th>
+                                <th align="center">&nbsp;<i class="fa fa-angle-double-right">&nbsp;<b> ANAMNESE</b></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="paciente in pacientes | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:6" pagination-id="paciente">
+                                <td ng-bind="paciente.Nome"></td>
+                                <td ng-bind="paciente.DataInternacao | date:'dd/MM/yyyy'"></td>
+                                <td ng-bind="paciente.Leito.EspecificacaoDoLeito"></td>
+                                <td ng-bind="paciente.EstadoDoPaciente.Descricao"></td>
+                                <td ng-bind="paciente.Setor.Sigla"></td>
+                                <td>
+                                    <button class="btn btn-primary btn-transparent" ng-disabled="inibeBtnAtualizar()" ng-click="ctrlObterPorId(paciente)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Paciente" data-original-title="Editar Paciente"><i class="glyphicon glyphicon-edit"></i></button>
+                                    <button class="btn btn-danger btn-transparent" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirPaciente(paciente)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Paciente" data-original-title="Excluir Paciente"><i class="glyphicon glyphicon-trash"></i></button>
+                                </td>
+
+                                <td>
+                                    <a ng-click="CriarNovoProntuario(paciente)"
+                                       class="btn btn-primary btn-transparent"
+                                       data-id="prontuariobase"
+                                       data-toggle="tooltip"
+                                       data-placement="bottom"
+                                       title="Gerar Atendimento"
+                                       data-original-title="Gerar Atendimento">
+                                        <i class="glyphicon glyphicon-plus">
+                                        </i>&nbsp;&nbsp; Gerar Atendimento
+                                    </a>
+                                </td>
+
+
+                                <td>
+                                    <a href="/Prontuario/ListaProntuarioBase/{{paciente.PacienteId}}" ng-click="PrescreverEvoluir(paciente)" class="btn btn-primary btn-transparent" data-id="prontuario" data-toggle="tooltip" data-placement="bottom" title="Prescrever / Evoluir" data-original-title="Prescrever / Evoluir"><i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp; Prescrever / Evoluir</a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                        <dir-pagination-controls max-size="5" pagination-id="paciente" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </table>
+
+                </div>
+
+            </div>
+
+            <br />
+
+            <div class="row">
+                <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirPacienteDiv()">Adicionar Paciente</span>
+
+                <p>
+                    <div ng-show="divpaciente" class="col-md-12 col-lg-12 col-sm-12 alert alert-success">
+
+                        <h3>{{Acao}} Paciente</h3>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+
+                            <!--/ Início de edição de Pacientes -->
+
+                            <div class="row center col-12" style="margin-top: 8px;">
+
+                                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label"><strong>ID</strong></label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-arrow-right"></i></span>
+                                        <strong><input type="text" name="pacienteid" id="pacienteid" class="form-control" ng-model="paciente.PacienteId" placeholder="ID Paciente" ng-readonly="true"></strong>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label"><strong>NOME DO PACIENTE</strong></label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-anchor"></i></span>
+                                        <strong><input type="text" class="form-control" ng-model="paciente.Nome" name="nomepaciente" id="nomepaciente" placeholder="Nome do Paciente..." ng-required="true" ng-minlength="2"></strong>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row center col-12" style="margin-top: 8px;">
+
+                                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label"><strong>SETOR</strong></label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-android"></i></span>
+                                        <strong>
+                                            <select class="form-control" name="setor" id="setor" ng-model="paciente.IdSetor"
+                                                    ng-options="setor.SetorId as setor.Descricao for setor in setors" ng-required="true">
+                                                <option value="">Setor...</option>
+                                            </select>
+                                        </strong>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label"><strong>SEXO</strong></label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-female"></i></span>
+                                        <strong>
+                                            <select class="form-control" name="sexo" id="sexo" ng-model="paciente.idSexo"
+                                                    ng-options="sexo.SexoId as sexo.Descricao for sexo in sexos" ng-required="true">
+                                                <option value="">Sexo...</option>
+                                            </select>
+                                        </strong>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+
+                                    <label class="col-12 control-label"><strong>STATUS</strong></label>
+                                    <div class="toggle-custom col-12">
+                                        <strong><label for=ativo>Paciente Ativo?&nbsp;&nbsp;&nbsp;</label></strong>
+                                        <label class="toggle" data-on="SIM" data-off="NÃO">
+                                            <input type="checkbox" id="ativo" name="ativo" ng-model="paciente.Ativo" class="form-control" />
+                                            <span class="button-checkbox"></span>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row center col-12" style="margin-top: 8px;">
+
+                                <!--/ Idade é campo calculado e nem consta na tabela Paciente -->
+                                <!--/ ======================================================= -->
+                                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label">IDADE</label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
+                                        <input type="text" ng-model="Idade" class="form-control" readonly name="idade" id="idade" value="" placeholder="Idade...">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label"><strong>DATA de NASCIMENTO</strong></label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <strong><input type="date" class="form-control" ng-model="paciente.DataNascimento" name="dataNascimento" id="dataNascimento" placeholder="Data de Nascimento..." ng-required="true" ng-minlength="10"></strong>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label"><strong>PESO</strong></label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-puzzle-piece"></i></span>
+                                        <strong><input type="text" class="form-control" ng-model="paciente.Peso" name="peso" id="peso" value="" placeholder="Peso..." ng-required="true"></strong>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row center col-12" style="margin-top: 8px;">
+
+                                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label">DATA da INTERNAÇÃO</label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-ambulance"></i></span>
+                                        <input type="date" class="form-control" ng-model="paciente.DataInternacao" name="dataInternacao" id="dataInternacao" placeholder="Data da Internação..." ng-required="true" ng-minlength="10">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label">LEITO</label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-anchor"></i></span>
+
+                                        <select class="form-control" name="leito" id="leito" ng-model="paciente.IdLeito"
+                                                ng-options="leito.LeitoId as leito.EspecificacaoDoLeito for leito in leitos" ng-required="true">
+                                            <option value="">Leito...</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label">CONVÊNIO</label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-area-chart"></i></span>
+                                        <select class="form-control" name="convenio" id="convenio" ng-model="paciente.idConvenio"
+                                                ng-options="convenio.ConvenioId as convenio.Descricao for convenio in convenios" ng-required="true">
+                                            <option value="">Convênio...</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row center col-12" style="margin-top: 8px;">
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label"><strong>QUADRO CLÍNICO</strong></label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-heart"></i></span>
+                                        <strong>
+                                            <select class="form-control" name="estadodopaciente" id="estadodopaciente" ng-model="paciente.EstadoPacienteId"
+                                                    ng-options="estadoDoPaciente.EstadoDoPacienteId as estadoDoPaciente.Descricao for estadoDoPaciente in estadoDoPacientes" ng-required="true">
+                                                <option value="">Situação...</option>
+                                            </select>
+                                        </strong>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label"><strong>E-MAIL</strong></label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-mail-reply"></i></span>
+                                        <strong><input type="text" class="form-control" ng-model="paciente.Email" name="emailpaciente" id="emailpaciente" placeholder="E-Mail..." ng-show="true" ng-required="true" ng-minlength="5"></strong>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label"><strong>CPF</strong></label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
+                                        <strong><input type="text" class="form-control" ng-model="paciente.Cpf" name="cpfpaciente" id="cpfpaciente" placeholder="CPF..."></strong>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row center col-12" style="margin-top: 8px;">
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label"><strong>RG</strong></label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                        <strong><input type="text" class="form-control" ng-model="paciente.Rg" name="rgpaciente" id="rgpaciente" placeholder="RG do Paciente..."></strong>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label"><strong>DATA de EMISSÃO</strong></label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <strong><input type="date" class="form-control" ng-model="paciente.RgDataEmissao" name="emissaopaciente" id="emissaopaciente" placeholder="Data de Emissão..."></strong>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                    <label class="col-12 control-label"><strong>ÓRGÃO EMISSOR</strong></label>
+                                    <div class="input-group col-12">
+                                        <span class="input-group-addon"><i class="fa fa-reddit"></i></span>
+                                        <strong><input type="text" class="form-control" ng-model="paciente.RgOrgao" name="orgaopaciente" id="orgaopaciente" placeholder="Órgão Emissor..."></strong>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!--/ Fim de edição de Pacientes -->
+
+                            <br />
+                            <div>
+                                <span class="btn btn-primary" ng-disabled="pacienteForm.$invalid" ng-click="AdicionarEditarPaciente()">Salvar</span>
+                                <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </p>
+            </div>
+
+            <br />
+            <!--/  VALIDAÇÃO  -->
+            <div class="row">
+                <div ng-if="pacienteForm.nomepaciente.$dirty" ng-messages="pacienteForm.nomepaciente.$error">
+                    <div ng-message="required" class="alert alert-danger">Por favor, preencha o campo Nome!</div>
+                    <div ng-message="minlength" class="alert alert-danger">O campo Nome deve ter no mínimo 2 caracteres.</div>
+                </div>
+                <div ng-if="pacienteForm.setor.$dirty" ng-messages="pacienteForm.setor.$error">
+                    <div ng-message="required" class="alert alert-danger">Por favor, preencha o campo Setor!</div>
+                </div>
+                <div ng-if="pacienteForm.sexo.$dirty" ng-messages="pacienteForm.sexo.$error">
+                    <div ng-message="required" class="alert alert-danger">Por favor, preencha o campo Sexo!</div>
+                </div>
+                <div ng-if="pacienteForm.dataNascimento.$dirty" ng-messages="pacienteForm.dataNascimento.$error">
+                    <div ng-message="required" class="alert alert-danger">Por favor, preencha o campo Data de Nascimento!</div>
+                    <div ng-message="minlength" class="alert alert-danger">O campo Data de Nascimento deve ter no mínimo 10 caracteres.</div>
+                </div>
+                <div ng-if="pacienteForm.peso.$dirty" ng-messages="pacienteForm.peso.$error">
+                    <div ng-message="required" class="alert alert-danger">Por favor, preencha o campo Peso!</div>
+                </div>
+                <div ng-if="pacienteForm.estadodopaciente.$dirty" ng-messages="pacienteForm.estadodopaciente.$error">
+                    <div ng-message="required" class="alert alert-danger">Por favor, preencha o campo Estado do Paciente!</div>
+                </div>
+                <div ng-if="pacienteForm.emailpaciente.$dirty" ng-messages="pacienteForm.emailpaciente.$error">
+                    <div ng-message="required" class="alert alert-danger">Por favor, preencha o campo Estado do e-mail do paciente!</div>
+                    <div ng-message="minlength" class="alert alert-danger">O campo e-mail do paciente deve ter no mínimo 5 caracteres.</div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+<!--/ Modal -->
+<script type="text/ng-template" id="novoprontuario.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Novo Prontuário</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="panel panel-body col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                <div class="panel-heading"><h3><i class="glyphicon glyphicon-check"></i>&nbsp;&nbsp; Resumo</h3></div>
+                <ul>
+                    <li><strong>Id do prontuário</strong>&nbsp; <span ng-bind="oProntuario.ProntuarioId"></span></li>
+                    <li><strong>Id Paciente</strong>&nbsp; <span ng-bind="oProntuario.Paciente.PacienteId"></span></li>
+                    <li><strong>Paciente</strong>&nbsp; <span ng-bind="oProntuario.Paciente.Nome"></span></li>
+                    <li><strong>Nº de Atendimento</strong>&nbsp; <span ng-bind="oProntuario.NumAtendimento"></span></li>
+                    <li><strong>Data do Prontuário</strong>&nbsp; <span ng-bind="oProntuario.DataProntuario | date:'dd/MM/yyyy'"></span></li>
+                </ul>
+            </div>
+            <div class="panel panel-body col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                <div class="panel-heading"><h3><i class="glyphicon glyphicon-barcode"></i>&nbsp;&nbsp; Dados</h3></div>
+                <div class="form">
+                    <form id="formProntuarioBase" name="formProntuarioBase">
+                        <label>Nº de Atendimento</label>
+                        <input type="text" name="numatendimento" value="" class="form-control" ng-model="newAtendimento" ng-required="true" ng-minlength="4" />
+                        <input type="button" name="btngravarnovoprontuario" id="btngravarnovoprontuario"
+                               class="form-control btn btn-success btn-transparent" value="Gerar Novo Prontuário"
+                               ng-click="gerarNovoProntuario(oProntuario, newAtendimento)"
+                               ng-disabled="formProntuarioBase.$invalid" />
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div ng-if="formProntuarioBase.numatendimento.$dirty" ng-messages="formProntuarioBase.numatendimento.$error">
+                <div ng-message="required" class="alert alert-danger">Por favor, preencha o campo Nº de Atendimento!</div>
+                <div ng-message="minlength" class="alert alert-danger">O campo Nº de Atendimento deve ter no mínimo 4 caracteres.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="fechar()">Fechar</button>
+    </div>
+</script>
+<!--/ Modal -->

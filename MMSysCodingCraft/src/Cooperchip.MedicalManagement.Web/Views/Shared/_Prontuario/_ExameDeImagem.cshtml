@@ -1,0 +1,124 @@
+﻿
+<div ng-controller="exameDeImagemCtrl" class="container col-md-12 col-lg-12 col-sm-12 col-xl-12 panel-collapse panel-default">
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <div class="panel-body">
+
+        <form name="exameDeImagemForm">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12 row">
+                    <input class="form-control col-md-4 col-lg-4 col-sm-4" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?" />
+                </div>
+                <div class="panel-body panel-default row">
+                    <table ng-show="examedeimagens.length > 0" class="table table-hover table-bordered">
+                        <thead>
+                            <tr class="alert alert-success">
+                                <th>Excluir?</th>
+                                <th><a href="#" ng-click="ordenarPor('ExameDeImagemId')">ID</a></th>
+                                <th><a href="#" ng-click="ordenarPor('Exame')">EXAME</a></th>
+                                <th><a href="#" ng-click="ordenarPor('PedidoEm')">DATA do PEDIDO</a></th>
+                                <th><a href="#" ng-click="ordenarPor('RealizadoEm')">FEITO EM</a></th>
+                                <th><a href="" ng-click="ordenarPor('LaudoEssencial')">LAUDO ESSENCIAL</a></th>
+                                <th><a href="#" ng-click="ordenarPor('ExameDeImagem.Paciente.Nome')">PACIENTE</a></th>
+                                <th><a href="#" ng-click="ordenarPor('ExameDeImagem.Prontuario.NumAtendimento')">Nº ATENDIMENTO</a></th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-class="{'selecionado negrito': examedeimagem.selecionado}" dir-paginate="examedeimagem in examedeimagens | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" pagination-id="examedeimagemprontuario">
+                                <td><input type="checkbox" ng-model="examedeimagem.selecionado" /></td>
+                                <td class="text-left">{{examedeimagem.ExameDeImagemId}}</td>
+                                <td class="text-left">{{examedeimagem.Exame}}</td>
+                                <td class="text-left">{{examedeimagem.PedidoEm | jsonToDate}}</td>
+                                <td class="text-left">{{examedeimagem.RealizadoEm | jsonToDate}}</td>
+                                <td class="text-left">{{examedeimagem.LaudoEssencial}}</td>
+                                <td class="text-left">{{examedeimagem.Paciente.Nome}}</td>
+                                <td class="text-left">{{examedeimagem.Prontuario.NumAtendimento}}</td>
+                                <td><button class="btn btn-success" ng-click="alterarExameDeImagem(examedeimagem)" ng-disabled=true>Editar</button></td>
+                            </tr>
+                        </tbody>
+                        <dir-pagination-controls max-size="5" pagination-id="examedeimagemprontuario" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </table>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-3">
+                        <select class="form-control" name="exame" placeholder="Exame de Imagem..." ng-required="true" ng-minlength="3" ng-model="examedeimagem.Exame"
+                                ng-options="examedescricao.Exame as examedescricao.Exame for examedescricao in examesdescricaos | orderBy:'Exame'">
+                            <option value="">Selecione um Exame</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group col-lg-3 col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input id="pedidoem" type="date" ng-model="examedeimagem.PedidoEm" class="form-control" name="pedidoem" placeholder="Pedido em..." ng-required="true" ng-minlength="10">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input id="realizadoem" ng-model="examedeimagem.RealizadoEm" name="realizadoem" type="date" class="form-control" placeholder="Realizado em...">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3">
+                        <input class="form-control" type="text" ng-model="examedeimagem.LaudoEssencial" name="laudoessencial" placeholder="Laudo Essencial..." ng-required="true" ng-minlength="5" />
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <button class="btn btn-primary" ng-click="adicionarExameDeImagem(examedeimagem)" ng-disabled="exameDeImagemForm.$invalid">Adicionar Exame de Imagem</button>
+                <button class="btn btn-danger" ng-click="apagarExameDeImagens(examedeimagens)" ng-if="isExameDeImagemSelecionado(examedeimagens)">Apagar Exame de Imagem</button>
+
+                <hr />
+
+                <div ng-show="exameDeImagemForm.exame.$dirty" ng-messages="exameDeImagemForm.exame.$error">
+                    <div ng-message="required" class="alert alert-danger">
+                        Por favor, preencha o campo exame!
+                    </div>
+                    <div ng-message="minlength" class="alert alert-danger">
+                        O campo exame deve ter no mínimo 3 caracteres.
+                    </div>
+                </div>
+
+                <div ng-show="exameDeImagemForm.pedidoem.$dirty" ng-messages="exameDeImagemForm.pedidoem.$error">
+                    <div ng-message="required" class="alert alert-danger">
+                        Por favor, preencha o campo Pedido!
+                    </div>
+                    <div ng-message="minlength" class="alert alert-danger">
+                        O campo data do pedido deve ter no mínimo 10 caracteres.
+                    </div>
+                </div>
+
+
+                <div ng-show="exameDeImagemForm.laudoessencial.$dirty" ng-messages="exameDeImagemForm.laudoessencial.$error">
+                    <div ng-message="required" class="alert alert-danger">
+                        Por favor, preencha o campo Laudo Essencial!
+                    </div>
+                    <div ng-message="minlength" class="alert alert-danger">
+                        O campo exame laudo essencial ter no mínimo 5 caracteres.
+                    </div>
+                </div>
+
+
+            </div>
+
+            <hr />
+            <p>{{examedeimagem}}</p>
+            <p>Form Válido: {{exameDeImagemForm.$valid}}</p>
+
+        </form>
+
+    </div>
+</div>
+
+
+

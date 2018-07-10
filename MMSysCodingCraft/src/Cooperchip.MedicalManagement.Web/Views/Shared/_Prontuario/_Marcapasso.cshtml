@@ -1,0 +1,41 @@
+﻿
+
+<div class="col-lg-4 col-md-4 col-sm-12 col-xl-12">
+    <!--/  Acesso Venoso  -->
+    <div class="panel panel-default">
+        <!-- Start .panel -->
+        <div class="panel-heading">
+            <h4 class="panel-title">Marcapasso</h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-12">                    
+                    <ul>
+                        <li ng-repeat="marcapasso in marcapassos">
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="radio" name="idMarcapasso" ng-model="prontuario.Marcapasso" value="{{marcapasso.Descricao}}">
+                                    <span class="button-radio"></span>
+                                </label>
+                                <label>{{marcapasso.Descricao}}</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input id="MarcapassoData" ng-disabled="getInibirEAnularData(prontuario.Marcapasso, 'Não','MarcapassoData')" 
+                           ng-model="prontuario.MarcapassoData" name="MarcapassoData" type="date" class="form-control">
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+

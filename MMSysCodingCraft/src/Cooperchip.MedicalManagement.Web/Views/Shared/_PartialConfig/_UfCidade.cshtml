@@ -1,0 +1,235 @@
+﻿
+
+
+<div class="row">
+    <div class="col-md-6">
+            <div ng-controller="ufCtrl" class="container col-md-12 col-lg-12 col-sm-12 col-xl-12 panel-collapse panel-evolumed">
+
+
+                <div class="panel-heading">
+                    <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+                </div>
+                <form class="panel-body" name="ufForm">
+                    <div class="row">
+
+                        <div class="divList">
+                            <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                            <table ng-show="ufs.length > 0" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><b><a href="#" ng-click="ordenarPor('UfId')">ID</a></b></th>
+                                        <th><b><a href="#" ng-click="ordenarPor('Sigla')">SIGLA</a></b></th>
+                                        <th><b><a href="#" ng-click="ordenarPor('Estado')">ESTADO</a></b></th>
+                                        <th><b><a href="#" ng-click="ordenarPor('CodgigoEstado')">CÓDIGO</a></b></th>
+                                        <th><b>AÇÃO</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="uf in ufs | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" pagination-id="uf">
+                                        <td ng-bind="uf.UfId"></td>
+                                        <td ng-bind="uf.Sigla"></td>
+                                        <td ng-bind="uf.Estado"></td>
+                                        <td ng-bind="uf.CodigoEstado"></td>
+                                        <td>
+                                            <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(uf)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Uf" data-original-title="Editar Uf"><i class="glyphicon glyphicon-edit"></i></button>
+                                            <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirUf(uf)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Uf" data-original-title="Excluir Uf"><i class="glyphicon glyphicon-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <dir-pagination-controls max-size="5" pagination-id="uf" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirUfDiv()">Adicionar Uf</span>
+                        <hr />
+                        <div ng-show="divuf" class="col-md-12 col-lg-12 col-sm-12">
+                            <h3>{{Acao}} Ufs</h3>
+                            <div class="col-12">
+                                <table class="table table-responsive table-bordered">
+
+                                    <thead>
+                                        <tr>
+                                            <th><b>ID</b></th>
+                                            <th><b>SIGLA</b></th>
+                                            <th><b>ESTADO</b></th>
+                                            <th><b>ID ESTADO</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" readonly="readonly" ng-model="uf.UfId" class="form-control" /></td>
+                                            <td><input type="text" name="sigla" ng-model="uf.Sigla" class="form-control" placeholder="Sigla..." ng-required="true" ng-minlength="2" /></td>
+                                            <td><input type="text" name="estado" ng-model="uf.Estado" class="form-control" placeholder="Estado..." ng-required="true" ng-minlength="2" /></td>
+                                            <td><input type="text" name="codigo" ng-model="uf.CodigoEstado" class="form-control" placeholder="Código..." ng-required="true" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <span class="btn btn-primary" ng-disabled="ufForm.$invalid" ng-click="AdicionarEditarUf()">Salvar</span>
+                                    <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="row">
+                        <div ng-show="ufForm.sigla.$dirty" ng-messages="ufForm.sigla.$error">
+                            <div ng-message="required" class="alert alert-danger">
+                                Por favor, preencha o campo Sigla!
+                            </div>
+                            <div ng-message="minlength" class="alert alert-danger">
+                                O campo Sigla deve ter no mínimo 2 caracteres.
+                            </div>
+                        </div>
+
+                        <div ng-show="ufForm.estado.$dirty" ng-messages="ufForm.estado.$error">
+                            <div ng-message="required" class="alert alert-danger">
+                                Por favor, preencha o campo Estado!
+                            </div>
+                            <div ng-message="minlength" class="alert alert-danger">
+                                O campo Estado deve ter no mínimo 2 caracteres.
+                            </div>
+                        </div>
+
+                        <div ng-show="ufForm.codigo.$dirty" ng-messages="ufForm.codigo.$error">
+                            <div ng-message="required" class="alert alert-danger">
+                                Por favor, preencha o campo Codigo!
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+    </div>
+
+    <div class="col-md-6">
+        <div ng-controller="cidadeCtrl" class="container col-md-12 col-lg-12 col-sm-12 col-xl-12 panel-collapse panel-evolumed">
+
+            <div class="panel-heading">
+                <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+            </div>
+            <form class="panel-body" name="cidadeForm">
+
+                <div class="row">
+
+                    <div class="divList">
+
+                        <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+                        <table ng-show="cidades.length > 0" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><b><a href="#" ng-click="ordenarPor('CidadeId')">#ID</a></b></th>
+                                    <th><b><a href="#" ng-click="ordenarPor('Descricao')">DESCRIÇÃO</a></b></th>
+                                    <th><b><a href="#" ng-click="ordenarPor('IdUf')">UF</a></b></th>
+                                    <th><b>AÇÃO</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="cidade in cidades | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" pagination-id="cidade">
+                                    <td ng-bind="cidade.CidadeId"></td>
+                                    <td ng-bind="cidade.Descricao"></td>
+                                    <td ng-bind="cidade.IdUf"></td>
+                                    <td>
+                                        <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(cidade)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Cidade" data-original-title="Editar Cidade"><i class="glyphicon glyphicon-edit"></i></button>
+                                        <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirCidade(cidade)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Cidade" data-original-title="Excluir Cidade"><i class="glyphicon glyphicon-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <dir-pagination-controls max-size="5" pagination-id="cidade" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="row">
+
+                    <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirCidadeDiv()">Adicionar Cidade</span>
+                    <hr />
+
+                    <div ng-show="divcidade" class="col-md-12 col-lg-12 col-sm-12">
+                        <h3>{{Acao}} Cidades</h3>
+
+                        <div class="col-12">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><b>ID</b></th>
+                                        <th><b>DESCRIÇÃO</b></th>
+                                        <th><b>UF</b></th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+
+                                        <td><input type="text" readonly="readonly" ng-model="cidade.CidadeId" class="form-control" /></td>
+                                        <td><input type="text" name="descricao" ng-model="cidade.Descricao" class="form-control" placeholder="Descrição..." ng-required="true" ng-minlength="2" /></td>
+
+                                        <td>
+                                            <select class="form-control" name="uf" ng-model="cidade.IdUf"
+                                                    ng-options="uf.UfId as uf.Sigla for uf in ufs" ng-required="true">
+                                                <option value="">Selecione a UF</option>
+                                            </select>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <span class="btn btn-primary" ng-disabled="cidadeForm.$invalid" ng-click="AdicionarEditarCidade()">Salvar</span>
+                            <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <br />
+                <div class="row">
+                    <div ng-show="cidadeForm.descricao.$dirty" ng-messages="cidadeForm.descricao.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Descrição!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo Descrição deve ter no mínimo 2 caracteres.
+                        </div>
+                    </div>
+
+
+                    <div ng-show="cidadeForm.uf.$dirty" ng-messages="cidadeForm.uf.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo UF!
+                        </div>
+                    </div>
+
+                </div>
+
+
+        </form>
+
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

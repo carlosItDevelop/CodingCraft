@@ -1,0 +1,113 @@
+﻿
+
+<div ng-controller="prontuarioprecaucaoCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <form class="panel-body" name="prontuarioprecaucaoForm">
+        <div class="row">
+
+            <div class="divList">
+                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                <table ng-show="prontuarioprecaucaos.length > 0" class="table table-hover table-bordered">
+                    <thead>
+                        <tr class="alert alert-success">
+                            <th><b><a href="#" ng-click="ordenarPor('ProntuarioPrecaucaoId')">ID</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('IdTipoPrecaucao')">TIPO DE PRECAUÇÃO</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('IdPrecaucao')">CAUSA DA PRECAUÇÃO</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('PacienteId')">PACIENTE</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('ProntuarioPrecaucao.Prontuario.NumAtendimento')">Nº. ATENDIMENTO</a></b></th>
+                            <th><b></b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="prontuarioprecaucao in prontuarioprecaucaos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" pagination-id="pprecaucao">
+                            <td ng-bind="prontuarioprecaucao.ProntuarioPrecaucaoId"></td>
+                            <td ng-bind="prontuarioprecaucao.TipoDePrecaucao.Descricao"></td>
+                            <td ng-bind="prontuarioprecaucao.Precaucao.Descricao"></td>
+                            <td ng-bind="prontuarioprecaucao.Paciente.Nome"></td>
+                            <td ng-bind="prontuarioprecaucao.Prontuario.NumAtendimento"></td>                            
+                            <td>
+                                <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(prontuarioprecaucao)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Precaucao" data-original-title="Editar Precaucao"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirProntuarioPrecaucao(prontuarioprecaucao)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Precaucao" data-original-title="Excluir Precaucao"><i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <dir-pagination-controls 
+                                             max-size="5"
+                                             pagination-id="pprecaucao"
+                                             direction-links="true"
+                                             boundary-links="true">
+                    </dir-pagination-controls>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirProntuarioPrecaucaoDiv()">Adicionar Precaucao</span>
+            <hr />
+            <div ng-show="divprontuarioprecaucao" class="col-md-12 col-lg-12 col-sm-12">
+                <h3>{{Acao}} Precaucão</h3>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <table class="table alert alert-success">
+                        <tbody>
+                            <tr>
+                                <th><b>ID</b></th>
+                                <th><b>TIPO DE PRECAUÇÃO</b></th>
+                                <th><b>CAUSA DA PRECAUÇÃO</b></th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" readonly="readonly" ng-model="prontuarioprecaucao.ProntuarioPrecaucaoId" class="form-control" /></td>
+
+                                <td>
+                                    <select class="form-control" name="tipodeprecaucao" id="tipodeprecaucao" ng-model="prontuarioprecaucao.IdTipoPrecaucao" ng-required="true"
+                                            ng-options="tipoprecaucao.Id as tipoprecaucao.Descricao for tipoprecaucao in tipoprecaucaos">
+                                        <option value="">Tipo de Precaução</option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <select class="form-control" name="descricao" id="descricao" ng-model="prontuarioprecaucao.IdPrecaucao" 
+                                            ng-options="precaucao.PrecaucaoId as precaucao.Descricao for precaucao in precaucaos">
+                                        <option value="">Causa da Precaução</option>
+                                    </select>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <span class="btn btn-primary" ng-disabled="prontuarioprecaucaoForm.$invalid" ng-click="AdicionarEditarProntuarioPrecaucao()">Salvar</span>
+                        <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                    </div>
+
+                    <input type="hidden" name="idpaciente" ng-model="prontuarioprecaucao.PacienteId" value="{{IdPacienteselecionado}}"/>
+
+                    @*<div class="jumbotron">{{prontuarioprecaucao}}</div>*@
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+    <br />
+    <div class="row">
+        <div ng-if="prontuarioprecaucaoForm.descricao.$dirty" ng-messages="prontuarioprecaucaoForm.descricao.$error">
+            <div ng-message="required" class="alert alert-danger">
+                Por favor, preencha o campo Causa de Precaução!
+            </div>
+
+        </div>
+
+        <div ng-if="prontuarioprecaucaoForm.tipodeprecaucao.$dirty" ng-messages="prontuarioprecaucaoForm.tipodeprecaucao.$error">
+            <div ng-message="required" class="alert alert-danger">
+                Por favor, preencha o campo Tipo de Precaução!
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

@@ -1,0 +1,187 @@
+﻿
+
+<div class="row">
+    <div class="col-6>"> @* Tipo de Dreno *@
+
+        <div ng-controller="tipodrenoCtrl" class="container col-md-6 col-lg-6 col-sm-12 col-sm-12 panel-collapse panel-evolumed">
+
+                <div class="panel-heading">
+                    <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+                </div>
+                <form class="panel-body" name="tipodrenoForm">
+                    <div class="row">
+                        <div class="divList">
+                            <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                            <table ng-show="tipodrenos.length > 0" class="table table-hover">
+
+
+                                <thead class="panel-heading" style="background-color: azure;">
+                                    <tr>
+                                        <th><b><a href="#" ng-click="ordenarPor('TipoDrenoId')">ID</a></b></th>
+                                        <th><b><a href="#" ng-click="ordenarPor('Descricao')">DESCRIÇÃO</a></b></th>
+                                        <th align="center"><b>&nbsp;<i class="fa fa-info">&nbsp; AÇÂO</i></b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="tipodreno in tipodrenos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:3" pagination-id="tipodreno">
+                                        <td ng-bind="tipodreno.TipoDrenoId"></td>
+                                        <td ng-bind="tipodreno.Descricao"></td>
+                                        <td>
+                                            <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="ctrlObterPorId(tipodreno)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Paciente" data-original-title="Editar Tipo de Dreno"><i class="glyphicon glyphicon-edit"></i></button>
+                                            <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirTipoDreno(tipodreno)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Paciente" data-original-title="Excluir Tipo de Dreno"><i class="glyphicon glyphicon-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                                <dir-pagination-controls max-size="5"
+                                                         pagination-id="tipodreno"
+                                                         direction-links="true"
+                                                         boundary-links="true">
+
+                                </dir-pagination-controls>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirTipoDrenoDiv()">Adicionar Tipo de Dreno</span>
+                        <hr />
+
+                        <div ng-show="divtipodreno" class="col-md-12 col-lg-12 col-sm-12 alert alert-success">
+                            <h3>{{Acao}} Tipo de Dreno</h3>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                <div class="row center col-12" style="margin-top: 8px;">
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xl-12">
+                                        <label class="col-12 control-label"><strong>ID</strong></label>
+                                        <div class="input-group col-12">
+                                            <span class="input-group-addon"><i class="fa fa-arrow-right"></i></span>
+                                            <strong><input type="text" name="tipodrenoid" id="tipodrenoid" class="form-control" ng-model="tipodreno.TipoDrenoId" placeholder="ID..." ng-readonly="true"></strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 col-lg-9 col-sm-12 col-xl-12">
+                                        <label class="col-12 control-label"><strong>TIPO DE DRENO</strong></label>
+                                        <div class="input-group col-12">
+                                            <span class="input-group-addon"><i class="fa fa-anchor"></i></span>
+                                            <strong><input type="text" class="form-control" ng-model="tipodreno.Descricao" name="descricao" id="descricao" placeholder="Tipo de Dreno..." ng-required="true" ng-minlength="3"></strong>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <br />
+
+                                <div>
+                                    <span class="btn btn-primary" ng-disabled="tipodrenoForm.$invalid" ng-click="AdicionarEditarTipoDreno()">Salvar</span>
+                                    <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!--/  VALIDAÇÃO  -->
+                    <br />
+                    <div class="row">
+
+                        <div ng-show="tipodrenoForm.descricao.$dirty" ng-messages="tipodrenoForm.descricao.$error">
+                            <div ng-message="required" class="alert alert-danger">
+                                Por favor, preencha o campo Tipo de Dreno!
+                            </div>
+                            <div ng-message="minlength" class="alert alert-danger">
+                                O campo Tipo de Dreno deve ter no mínimo 3 caracteres.
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+    <div class="col-6>"> @* Complicação *@
+
+        <div ng-controller="complicacaoCtrl" class="container col-md-6 col-lg-6 col-sm-12 col-sm-12 panel-collapse panel-evolumed">
+
+                <div class="panel-heading">
+                    <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+                </div>
+                <form class="panel-body" name="complicacaoForm">
+                    <div class="row">
+                        <div class="divList">
+                            <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                            <table ng-show="complicacaos.length > 0" class="table table-hover">
+                                <thead class="panel-heading" style="background-color: azure;">
+                                    <tr>
+                                        <th><b><a href="#" ng-click="ordenarPor('ComplicacaoId')">ID</a></b></th>
+                                        <th><b><a href="#" ng-click="ordenarPor('Descricao')">Descrição</a></b></th>
+                                        <th><b>AÇÃO</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="complicacao in complicacaos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:3" pagination-id="complicacao">
+                                        <td ng-bind="complicacao.ComplicacaoId"></td>
+                                        <td ng-bind="complicacao.Descricao"></td>
+                                        <td>
+                                            <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(complicacao)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Complicacao" data-original-title="Editar Complicacao"><i class="glyphicon glyphicon-edit"></i></button>
+                                            <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirComplicacao(complicacao)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Complicacao" data-original-title="Excluir Complicacao"><i class="glyphicon glyphicon-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <dir-pagination-controls max-size="5" pagination-id="complicacao" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirComplicacaoDiv()">Adicionar Complicacao</span>
+                        <hr/>
+                        <div ng-show="divcomplicacao" class="col-md-12 col-lg-12 col-sm-12">
+                            <h3>{{Acao}} Complicacao</h3>
+                            <div class="col-12">
+                                <table class="table table-responsive table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>COMPLICAÇÃO></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" readonly="readonly" ng-model="complicacao.ComplicacaoId" class="form-control" /></td>
+                                            <td><input type="text" name="descricao" ng-model="complicacao.Descricao" class="form-control" placeholder="Complicacao..." ng-required="true" ng-minlength="2" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <span class="btn btn-primary" ng-disabled="complicacaoForm.$invalid" ng-click="AdicionarEditarComplicacao()">Salvar</span>
+                                    <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--/  VALIDAÇÃO  -->
+                    <br />
+                    <div class="row">
+                        <div ng-show="complicacaoForm.descricao.$dirty" ng-messages="complicacaoForm.descricao.$error">
+                            <div ng-message="required" class="alert alert-danger">
+                                Por favor, preencha o campo Descrição!
+                            </div>
+                            <div ng-message="minlength" class="alert alert-danger">
+                                O campo Descrição deve ter no mínimo 2 caracteres.
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+
+
+
+        </div>
+
+</div>

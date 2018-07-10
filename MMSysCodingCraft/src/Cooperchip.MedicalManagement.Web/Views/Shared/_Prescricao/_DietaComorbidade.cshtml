@@ -1,0 +1,113 @@
+﻿
+
+
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4 class="panel-title">Dieta & Comorbidades</h4>
+        </div>
+        <div class="panel-body">
+
+
+            <!--/ Dieta -->
+            <div class="form-group">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <form name="principalForm">
+                        <div class="form-group">
+                            <div class="col-lg-12 col-md-12">
+                                <br />
+                                <h4><b>Dieta</b></h4>
+
+                                <!--/ ---------------------------------------------------------------------------->
+                                @{
+
+                                    var db = new Cooperchip.MedicalManagement.Infra.Data.MedicalManagementDbContext();
+                                    var listaDieta = (from l in db.Dieta select l).ToList();
+                                    var selectListDieta = new SelectList(listaDieta, "DietaId", "Descricao");
+                                    var k = 0;
+                                    var idValue = "idDieta";
+                                    var idDieta = "";
+
+                                    foreach (var chk in selectListDieta)
+                                    {
+                                        k++;
+                                        idDieta = idValue + k.ToString();
+                                        <div class="toggle-custom">
+                                            <label class="toggle" data-on="ON" data-off="OFF">
+                                                <input type="radio" name="idDieta" id="@idDieta" 
+                                                       ng-model="prescricao.Dieta" 
+                                                       value="@chk.Text" checked class="form-control" />
+                                                <span class="button-radio"></span>
+                                            </label>
+                                            <label for=@idDieta>@chk.Text</label>
+                                        </div>
+                                    }
+                                }
+                                <!--/ ---------------------------------------------------------------------------->
+
+
+                                <hr />
+
+                                <div class="col-md-12 col-lg-12 col-sm-12">
+                                    <select class="form-control" name="prescricaosondagastrica" id="prescricaosondagastrica" ng-model="prescricao.DietaSondaGastrica"
+                                            ng-options="sondagastrica.Descricao as sondagastrica.Descricao for sondagastrica in dietassondagastricas">
+                                        <option value="">Selecione a sonda gástrica</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-sm-12">
+                                    <select class="form-control" name="prescricaoconsistencia" id="prescricaoconsistencia" ng-model="prescricao.DietaConsistencia"
+                                            ng-options="dietaconsistencia.Descricao as dietaconsistencia.Descricao for dietaconsistencia in dietasconsistencias">
+                                        <option value="">Selecione a consistência</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-sm-12">
+                                    <select class="form-control" name="prescricaodietavolume" id="prescricaodietavolume" ng-model="prescricao.DietaVolume"
+                                            ng-options="dietavolume.Descricao as dietavolume.Descricao for dietavolume in dietasvolumes">
+                                        <option value="">Selecione o Volume...</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+
+
+
+
+
+            <!--/ Comorbidade -->
+            <div class="form-group">
+                <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-5 col-md-5 col-sm-5" style="padding-left: 25px;">
+
+                    <form name="comorbidadeForm">
+
+                        <h4><b>Comorbidades</b></h4>
+                        <ul>
+                            <li ng-repeat="dietacomorbidade in dietascomorbidades">
+                                <div class="toggle-custom">
+                                    <label class="toggle" data-on="ON" data-off="OFF">
+                                        <input type="radio" name="comorbidades" ng-model="prescricao.DietaComorbidade" value="{{dietacomorbidade.Descricao}}" class="form-control" />
+                                        <span class="button-radio"></span>
+                                    </label>
+                                    <label>{{dietacomorbidade.Descricao}}</label>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

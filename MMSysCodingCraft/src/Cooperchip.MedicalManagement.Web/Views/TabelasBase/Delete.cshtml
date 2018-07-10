@@ -1,0 +1,29 @@
+﻿@model Cooperchip.MedicalManagement.Domain.Entidade.TabelasBase
+
+
+@{ Layout = null;}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        @using (Html.BeginForm())
+            {
+            @Html.AntiForgeryToken()
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">MedicalManagement-Sys - Exclusão do Menu de Tabela Base</h4>
+            </div>
+
+            <div class="modal-body alert alert-danger">
+
+                    Confirma a Exclusão do Menu: @Model.Descricao
+
+            </div>
+
+            <div class="modal-footer">
+                <input type="submit" value="Sim" class="btn btn-primary" />
+                <input type="button" value="Cancelar" class="btn btn-default" data-dismiss="modal" />
+            </div>
+
+        }
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

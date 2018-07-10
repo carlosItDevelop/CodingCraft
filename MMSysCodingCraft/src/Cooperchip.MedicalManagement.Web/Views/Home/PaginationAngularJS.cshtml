@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Pagination AngularJS";
+}
+
+
+
+<div ng-controller="SimplePaginationCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-success">
+
+    <section id="content">
+        <h3>Paginação</h3> <hr> <ul> <li ng-repeat="item in paginate.result.data"> {{item.id}} -{{item.name}} </li> </ul>
+        <ul> <li> <a href="" ng-click="paginate.prev()"><span aria-hidden="true">Anterior</span></a> </li> <li> <a href="" ng-click="paginate.next()"><span aria-hidden="true">Próximo</span></a> </li> </ul>
+        <p>Mostrando registros de {{paginate.result.from}} até {{paginate.result.to}} de um total de {{paginate.total}}</p>
+    </section>
+
+</div>

@@ -1,0 +1,108 @@
+﻿
+
+
+<div ng-controller="baseDeConhecimentoCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <form class="panel-body" name="baseDeConhecimentoForm">
+
+        <div class="row">
+
+            <div class="divList">
+
+                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+                <table ng-show="baseDeConhecimentos.length > 0" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><b><a href="#" ng-click="ordenarPor('BaseDeConhecimentoId')">ID</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Pergunta')">Pergunta</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Resposta')">Resposta</a></b></th>
+                            <th><b>AÇÃO</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="baseDeConhecimento in baseDeConhecimentos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:3" pagination-id="baseDeConhecimento">
+                            <td ng-bind="baseDeConhecimento.BaseDeConhecimentoId"></td>
+                            <td ng-bind="baseDeConhecimento.Pergunta"></td>
+                            <td ng-bind="baseDeConhecimento.Resposta"></td>
+                            <td>
+                                <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(baseDeConhecimento)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar BaseDeConhecimento" data-original-title="Editar BaseDeConhecimento"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirBaseDeConhecimento(baseDeConhecimento)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir BaseDeConhecimento" data-original-title="Excluir BaseDeConhecimento"><i class="glyphicon glyphicon-trash"></i></button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <dir-pagination-controls max-size="5" pagination-id="baseDeConhecimento" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirBaseDeConhecimentoDiv()">Adicionar BaseDeConhecimento</span>
+            <hr />
+
+            <div ng-show="divbaseDeConhecimento" class="col-md-12 col-lg-12 col-sm-12">
+                <h3>{{Acao}} Base de Conhecimento</h3>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <table class="table table-responsive table-bordered">
+                        <tbody>
+                            <tr>
+                                <th><b>Id</b></th>
+                                <th><b>Pergunta</b></th>
+                                <th><b>Resposta</b></th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" readonly="readonly" ng-model="baseDeConhecimento.BaseDeConhecimentoId" class="form-control" /></td>
+                                <td><input type="text" name="pergunta" ng-model="baseDeConhecimento.Pergunta" class="form-control" placeholder="Pergunta..." ng-required="true" ng-minlength="2" /></td>
+                                <td><input type="text" name="resposta" ng-model="baseDeConhecimento.Resposta" class="form-control" placeholder="Resposta..." ng-required="true" ng-minlength="2" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <span class="btn btn-primary" ng-disabled="baseDeConhecimentoForm.$invalid" ng-click="AdicionarEditarBaseDeConhecimento()">Salvar</span>
+                        <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <br />
+
+        <div class="row">
+            <div ng-show="baseDeConhecimentoForm.pergunta.$dirty" ng-messages="baseDeConhecimentoForm.pergunta.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Pergunta!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Pergunta deve ter no mínimo 2 caracteres.
+                </div>
+            </div>
+
+            <div ng-show="baseDeConhecimentoForm.resposta.$dirty" ng-messages="baseDeConhecimentoForm.resposta.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo resposta!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo resposta deve ter no mínimo 2 caracteres.
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+
+</div>
+
+
+
+
+

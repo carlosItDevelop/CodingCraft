@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "Lista de CIDs";
+}
+
+
+<div ng-controller="cidAdaptadaCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+
+    @*<div class="jumbotron">CidAdaptada: {{cidadaptadas}}</div>*@
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <form class="panel-body" name="cidadaptadaForm">
+
+        <div class="row">
+
+            <div class="divList">
+
+                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+                <table ng-show="cidadaptadas.length > 0" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><b><a href="#" ng-click="ordenarPor('CidAdaptadaId')">ID</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Codigo')">CÓDIGO</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Diagnostico')">DIAGNÓSTICO</a></b></th>
+                            <th><b>AÇÃO</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="cidadaptada in cidadaptadas | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:6" pagination-id="cidadaptada">
+                            <td ng-bind="cidadaptada.CidAdaptadaId"></td>
+                            <td ng-bind="cidadaptada.Codigo"></td>
+                            <td ng-bind="cidadaptada.Diagnostico"></td>
+                            <td>
+                                <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(cidadaptada)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar CidAdaptada" data-original-title="Editar CidAdaptada"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirCidAdaptada(cidadaptada)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir CidAdaptada" data-original-title="Excluir CidAdaptada"><i class="glyphicon glyphicon-trash"></i></button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <dir-pagination-controls max-size="5" pagination-id="cidadaptada" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirCidAdaptadaDiv()">Adicionar CidAdaptada</span>
+            <hr />
+
+            <div ng-show="divcidadaptada" class="col-md-12 col-lg-12 col-sm-12">
+                <h3>{{Acao}} CidAdaptadas</h3>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><b>Id</b></td>
+                                <td><input type="text" readonly="readonly" ng-model="cidadaptada.CidAdaptadaId" class="form-control" /></td>
+                                <td><b>Código</b></td>
+                                <td><input type="text" name="codigo" ng-model="cidadaptada.Codigo" class="form-control" placeholder="Código..." ng-required="true" ng-minlength="3" /></td>
+                                <td><b>Diagnóstico</b></td>
+                                <td>
+                                    <input id="diagnostico" ng-model="cidadaptada.Diagnostico" name="diagnostico" type="text" class="form-control" placeholder="Diagnóstico..." ng-required="true" ng-minlength="2">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <span class="btn btn-primary" ng-disabled="cidadaptadaForm.$invalid" ng-click="AdicionarEditarCidAdaptada()">Salvar</span>
+                        <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <hr />
+
+        <div class="row">
+            <div ng-show="cidadaptadaForm.codigo.$dirty" ng-messages="cidadaptadaForm.codigo.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Código!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Código deve ter no mínimo 3 caracteres.
+                </div>
+            </div>
+
+
+            <div ng-show="cidadaptadaForm.diagnostico.$dirty" ng-messages="cidadaptadaForm.diagnostico.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Diagnóstico!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Diagnóstico deve ter no mínimo 3 caracteres.
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+
+
+

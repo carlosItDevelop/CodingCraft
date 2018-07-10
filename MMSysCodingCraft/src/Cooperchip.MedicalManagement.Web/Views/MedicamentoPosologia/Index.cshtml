@@ -1,0 +1,95 @@
+﻿
+<!--/ MedicamentoPosologia -->
+
+<div class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-default" ng-controller="MedicamentoPosologiaCtrl">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <div class="panel-body">
+
+
+        <form name="medicamentoPosologiaForm">
+
+            <div class="row">
+
+
+                <div class="col-md-12 col-lg-12 col-sm-12 row">
+                    <input class="form-control col-md-4 col-lg-4 col-sm-4" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?" />
+                </div>
+
+                <div class="panel-body panel-default row">
+                    <table ng-show="medicamentosposologia.length > 0" class="table">
+                        <tr>
+                            <th>Excluir?</th>
+                            <th><a href="#" ng-click="ordenarPor('MedicamentoPosologiaId')">ID</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Descricao')">Posologia</a></th>
+                            <th><a href="#" ng-click="ordenarPor('IdMedicamento')">Medicamento</a></th>
+                            <th>Ação</th>
+                        </tr>
+                        <tbody>
+                            <tr ng-class="{'selecionado negrito': medicamentoposologia.selecionado}" dir-paginate="medicamentoposologia in medicamentosposologia | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:6" pagination-id="mposologia">
+                                <td><input type="checkbox" ng-model="medicamentoposologia.selecionado" /></td>
+                                <td class="text-left">{{medicamentoposologia.MedicamentoPosologiaId}}</td>
+                                <td class="text-left">{{medicamentoposologia.Descricao}}</td>
+                                <td class="text-left">{{medicamentoposologia.Medicamento.Descricao}}</td>
+                                <td><button class="btn btn-success" ng-click="alterarMedicamentoPosologia(medicamentoposologia)" ng-disabled=true>Editar</button></td>
+                            </tr>
+                        </tbody>
+                        <dir-pagination-controls max-size="5" pagination-id="mposologia" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </table>
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-lg-8 col-md-8 col-sm-12">
+                        <input id="posologia" type="text" ng-model="medicamentoposologia.Descricao" class="form-control" name="posologia" placeholder="Posologia..." ng-required="true" ng-minlength="5">
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <input type="text" name="medicamento" id="medicamentoaposologia" class="form-control busca-ajax-apresentacao-ajuste col-lg-4 col-md-4 col-sm-12"
+                               ng-model="medicamentoposologia.IdMedicamento" ng-required="true" placeholder="Selecione um Medicamento..." />
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </form>
+
+
+        <div class="row">
+            <button class="btn btn-primary" ng-click="adicionarMedicamentoPosologia(medicamentoposologia)" ng-disabled="medicamentoPosologiaForm.$invalid">Adicionar Posologia</button>
+            <button class="btn btn-danger" ng-click="apagarMedicamentosPosologia(medicamentosposologia)" ng-if="isMedicamentoPosologiaSelecionado(medicamentosposologia)">Apagar Posologia</button>
+
+            <hr />
+
+            <div ng-show="medicamentoPosologiaForm.medicamento.$dirty" ng-messages="medicamentoPosologiaForm.medicamento.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo medicamento!
+                </div>
+            </div>
+
+            <div ng-show="medicamentoPosologiaForm.posologia.$dirty" ng-messages="medicamentoPosologiaForm.posologia.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Posologia!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo posologia deve ter no mínimo 5 caracteres.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+
+

@@ -1,0 +1,141 @@
+﻿@model Cooperchip.Common.Identity.Model.EditUserViewModel
+
+@{
+    ViewBag.Title = "Edição de usuários";
+}
+
+
+@{ Layout = null;}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        @using (Html.BeginForm("Edit", "UsersAdmin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">MedicalManagement-Sys - Edição de Usuário</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-horizontal">
+
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(model => model.Id)
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Usuario, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Usuario, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Usuario)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NomeCompleto, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.NomeCompleto, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.NomeCompleto)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Facebook, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Facebook, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Facebook)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Google, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Google, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Google)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Twitter, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Twitter, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Twitter)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Skype, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Skype, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Skype)
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Telefone, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Telefone, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Telefone)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AboutMe, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.AboutMe, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.AboutMe)
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.Label("Perfil", new { @class = "control-label col-md-2" })
+                            <span class="col-md-10">
+
+                                @foreach (var item in Model.RolesList)
+                                {
+                                    <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected" class="checkbox-inline" />
+                                    @Html.Label(item.Value, new { @class = "control-label" })
+                                }
+
+                            </span>
+                        </div>
+
+
+                        @*<div class="form-group">
+                            @Html.Label("Claims", new { @class = "control-label col-md-2" })
+                            <span class=" col-md-10">
+                                <a href="@Url.Action("SetUserClaim","ClaimsAdmin", new { id = Model.Id })">Adicionar Claim</a>
+                            </span>
+                        </div>*@
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Atualizar" class="btn btn-primary" />
+                <input type="button" value="Cancelar" class="btn btn-default" data-dismiss="modal" />
+            </div>
+        }
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

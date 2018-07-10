@@ -1,0 +1,50 @@
+﻿
+<div class="col-lg-4 col-md-12 col-sm-12">
+    @*<div class="panel panel-default" style="background-color: #3cb371;">*@
+    <div class="panel panel-success">
+
+        <div class="panel-heading">
+            <h4><b>HIDRATAÇÃO</b></h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-lg-12 col-md-12">
+
+                    <ul>
+
+                        <li ng-repeat="hidratacao in hidratacoes">
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="radio" name="idHidratacao" ng-model="prescricao.Hidratacao" value="{{hidratacao.Descricao}}" class="form-control" />
+                                    <span class="button-radio"></span>
+                                </label>
+                                @*<label style="color: #000; font-size: 17px; font-weight: bold;">{{hidratacao.Descricao}}</label>*@
+                                <label>{{hidratacao.Descricao}}</label>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                    <hr />
+
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <select class="form-control" name="prescricaohidratacaovolume" id="prescricaohidratacaovolume" 
+                                ng-disabled="getInibirData(prescricao.Hidratacao, 'Sem Acesso')"
+                                ng-model="prescricao.HidratacaoVolume"
+                                ng-options="hidratacaovolume.Descricao as hidratacaovolume.Descricao for hidratacaovolume in hidratacaovolumes">
+                            <option value="">Selecione o Volume</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+

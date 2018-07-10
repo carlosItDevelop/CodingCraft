@@ -1,0 +1,58 @@
+﻿@model Cooperchip.MedicalManagement.Domain.Entidade.Pessoa
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalhes de Pessoa</h2>
+
+<div>
+    <h4>Tipo de Pessoa: @Model.GetTipoPessoa(Model.TipoPessoa)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeRazao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeRazao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoPessoa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoPessoa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataInclusao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataInclusao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NascimentoFundacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NascimentoFundacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PessoaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

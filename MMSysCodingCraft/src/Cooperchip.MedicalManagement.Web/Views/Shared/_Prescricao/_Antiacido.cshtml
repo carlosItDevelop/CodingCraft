@@ -1,0 +1,46 @@
+﻿
+<div class="col-lg-4 col-md-4 col-sm-4">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            @*<h2 class="panel-title"><b>ANTIÁCIDO</b></h2>*@
+            <h4><b>ANTIÁCIDO</b></h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-lg-12 col-md-12">
+
+                    <ul>
+                        <li ng-repeat="antiacido in antiacidos">
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="radio" name="antiacido" ng-model="prescricao.Antiacido" value="{{antiacido.Descricao}}" class="form-control" />
+                                    <span class="button-radio"></span>
+                                </label>
+                                <label>{{antiacido.Descricao}}</label>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <hr />
+
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <select class="form-control" name="prescricaoconsistencia" id="prescricaoconsistencia" 
+                                ng-disabled="getInibirData(prescricao.Antiacido, 'Não fazer')"
+                                ng-model="prescricao.AntiacidoPosologia"
+                                ng-options="antiacidoposologia.Descricao as antiacidoposologia.Descricao for antiacidoposologia in antiacidoposologias">
+                            <option value="">Selecione a Posologia</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+

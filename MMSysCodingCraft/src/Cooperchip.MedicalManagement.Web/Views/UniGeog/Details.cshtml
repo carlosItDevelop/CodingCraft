@@ -1,0 +1,87 @@
+﻿
+@*@using PagedList.Mvc;
+@model PagedList.IPagedList<Cooperchip.MedicalManagement.Domain.Entidade.UnidadeGeografica>*@
+
+@model Cooperchip.MedicalManagement.Domain.Entidade.UnidadeGeografica
+
+@{
+    ViewBag.Title = "Unidade Geográfica";
+}
+
+<h3>Detailhes de Unidade Geográfica</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Cep")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cep)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Logradouro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Logradouro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Complemento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Complemento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Local)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Local)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Uf")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdUf)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Cidade")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdCidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Bairro")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdBairro)
+        </dd>
+
+    </dl>
+</div>
+<p>
+
+
+    @* Carlos Implementar se valer a pena!*@
+
+    @*@Html.ActionLink("Voltar à Lista", "Listar", new { ordenacao = ViewBag.SortCep, busca = ViewBag.FiltroAtual, campo = ViewBag.Campo, pagina = ViewBag.Pagina }, new { @class= "btn btn-default" })*@
+
+
+
+
+    @Html.ActionLink("Editar", "Edit", new { id = Model.UnidadeGeograficaId }, new { @class="btn btn-primary"}) 
+    @Html.ActionLink("Voltar", "Listar", null, new { @class = "btn btn-default" })
+
+</p>

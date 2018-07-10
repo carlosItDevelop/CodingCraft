@@ -1,0 +1,45 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+
+
+@{ Layout = null;}
+
+<div class="modal-dialog">
+
+    <div class="modal-content center-block">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Detalhes do Perfil: <strong class="active"> @Model.Name</strong></h4>
+        </div>
+
+        <br />
+        <div class="modal-body">
+
+            <h4>Lista de Usuários neste Perfil</h4>
+            <div class="form-horizontal">
+
+            @if (ViewBag.UserCount == 0)
+            {
+                    <br /><p>Não há usuários neste Perfil.</p>
+                }
+
+                <table class="table">
+
+                    @foreach (var item in ViewBag.Users)
+                    {
+                        <tr>
+                            <td>
+                                @item.UserName
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

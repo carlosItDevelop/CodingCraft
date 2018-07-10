@@ -1,0 +1,114 @@
+﻿
+
+
+<div ng-controller="AtbJaUtilizadoCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <div class="panel-body">
+
+        <form name="AtbJaUtilizadoForm">
+            <div class="row">
+
+                <div class="divList">
+                    <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+
+                    <table ng-show="atbjautilizados.length > 0" class="table table-hover table-bordered">
+                        <tr class="alert alert-success">
+
+                            <th><a href="#" ng-click="ordenarPor('AtbJaUtilizadoId')">ID</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Descricao')">Descricão</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Prontuario.NumAtendimento')">Nº Atendimento</a></th>
+
+                            <th>Ação</th>
+
+                        </tr>
+                        <tbody>
+                            <tr dir-paginate="atbjautilizado in atbjautilizados | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:3" pagination-id="dirpagatbjautilizado">
+
+                                <td class="text-left">{{atbjautilizado.AtbJaUtilizadoId}}</td>
+                                <td class="text-left">{{atbjautilizado.Descricao}}</td>
+                                <td class="text-left">{{atbjautilizado.Prontuario.NumAtendimento}}</td>
+
+                                <td>
+                                    <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(atbjautilizado)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar  Antibíótico" data-original-title="Editar  Antibíótico"><i class="glyphicon glyphicon-edit"></i></button>
+                                    <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirAtbJaUtilizado(atbjautilizado)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Antibíótico" data-original-title="Excluir  Antibíótico"><i class="glyphicon glyphicon-trash"></i></button>
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+                        <dir-pagination-controls max-size="5"
+                                                 pagination-id="dirpagatbjautilizado"
+                                                 direction-links="true"
+                                                 boundary-links="true">
+                        </dir-pagination-controls>
+
+                    </table>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="row">
+
+
+                <span class="btn btn-success" ng-disabled="inibeBtnAdicionar() || isIdPacienteInvalido()" ng-click="incluirAtbJaUtilizadoDiv()">Adicionar Antibiótico</span>
+
+                <div ng-show="divatbjautilizado" class="col-md-12 col-lg-12 col-sm-12">
+
+                    <hr />
+
+                    <h3>{{Acao}} Antibióticos Já Utilizado</h3>
+
+                    <table class="table alert alert-success">
+                        <tbody>
+                            <tr>
+                                <th ng-if="isEditando()"><b>ID</b></th>
+                                <th><b>DESCRIÇÃO</b></th>
+                            </tr>
+                            <tr>
+                                <td ng-if="isEditando()"><input type="text" readonly="readonly" ng-model="atbjautilizado.AtbJaUtilizadoId" class="form-control" /></td>
+                                <td>
+                                    <input type="text" class="form-control busca-ajax-medicamentos col-12" ng-model="atbjautilizado.Descricao"
+                                           name="descricao" placeholder="Descricao do Antibiótico Já Utilizado..." ng-required="true" ng-minlength="5" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+
+                    <button class="btn btn-primary" ng-click="AdicionarEditarAtbJaUtilizado()" ng-disabled="AtbJaUtilizadoForm.$invalid || isIdPacienteInvalido()">Salvar</button>
+                    <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+
+
+                    <hr />
+
+                    <div ng-if="AtbJaUtilizadoForm.descricao.$dirty" ng-messages="AtbJaUtilizadoForm.descricao.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Descrição!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo Descrição deve ter no mínimo 5 caracteres.
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+

@@ -1,0 +1,36 @@
+﻿@model Cooperchip.Common.Identity.Model.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+
+<div class="row">
+    <h4>Use um outro serviço de login.</h4>
+    <hr />
+    @{
+        var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+        if (loginProviders.Count() == 0)
+        {
+            <div>
+                <p>
+
+                    Não há um serviço de autenticação externa configurado. Veja <a href="http://go.microsoft.com/fwlink/?LinkId=313242" target="_blank">este artigo</a>
+                </p>
+            </div>
+        }
+        else
+        {
+            using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+                <div id="socialLoginList">
+                    <p>
+                        @foreach (AuthenticationDescription p in loginProviders)
+                        {
+                            <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Login usando uma conta @p.Caption">@p.AuthenticationType</button>
+                        }
+                    </p>
+                </div>
+            }
+        }
+    }
+
+</div>
+

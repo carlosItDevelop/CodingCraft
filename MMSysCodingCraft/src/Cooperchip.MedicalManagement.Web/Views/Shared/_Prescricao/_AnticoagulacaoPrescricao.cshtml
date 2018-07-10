@@ -1,0 +1,42 @@
+﻿
+<div class="col-lg-4 col-md-4 col-sm-4">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            @*<h2 class="panel-title"><span>ANTICOAGULAÇÃO</span></h2>*@
+            <h4><b>ANTICOAGULAÇÃO</b></h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-lg-12 col-md-12">
+
+                    <ul>
+                        <li ng-repeat="anticoagulacaoprescricao in anticoagulacoesprescricao">
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="radio" name="anticoagulacaoprescricao" ng-model="prescricao.Anticoagulacao" value="{{anticoagulacaoprescricao.Descricao}}" class="form-control" />
+                                    <span class="button-radio"></span>
+                                </label>
+                                <label>{{anticoagulacaoprescricao.Descricao}}</label>
+                            </div>                            
+                        </li>
+                    </ul>
+
+                    <hr/>
+
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <select class="form-control" name="anticoagulacaoposologia" id="anticoagulacaoposologia" 
+                                ng-disabled="getInibirData(prescricao.Anticoagulacao, 'Não fazer')"
+                                ng-model="prescricao.AnticoagulacaoPosologia"
+                                ng-options="anticoagulacaoposologia.Descricao as anticoagulacaoposologia.Descricao for anticoagulacaoposologia in anticoagulacaoposologias">
+                            <option value="">Selecione a posologia</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,56 @@
+﻿
+
+@using System.Web.Mvc.Html
+@model  IEnumerable<Cooperchip.MedicalManagement.Domain.Entidade.Prescricao>
+
+<div class="animated fadeInRightBig"
+     ng-controller="PrescricaoCtrl"
+     ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+
+    <div class="row" ng-show="divprescricao">
+        <form name="prescricaoForm">
+
+            <div class="alert alert-success">
+                <div class="row center">
+
+                    <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                        <label class="col-12 control-label">Id Paciente</label>
+                        <div class="input-group col-12">
+                            <span class="input-group-addon"><i class="fa fa-sort-amount-asc"></i></span>
+                            <input type="text" readonly="readonly" class="form-control col-12" ng-model="prescricao.PacienteId" name="idPaciente" id="idPaciente">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                        <label class="control-label col-12">Dt Prescrição</label>
+                        <div class="input-group col-12">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input class="form-control col-12" id="dataprescricao"
+                                   ng-model="prescricao.DataPrescricao" name="dataprescricao" value=""
+                                   type="date" readonly="readonly" ng-required="true" ng-minlength="10">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                        <label class="col-12 control-label">ID do Prescrição</label>
+                        <div class="input-group col-12">
+                            <span class="input-group-addon"><i class="fa fa-ambulance"></i></span>
+                            <input type="text" readonly="readonly" ng-model="prescricao.PrescricaoId" class="form-control col-12" name="guid" id="guid" ng-required="true" ng-minlength="10" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container col-md-3 col-lg-3">
+                <span class="btn btn-primary" ng-disabled="!inibeBtnEdicao()" ng-click="AdicionarEditarPrescricao()">Salvar</span>
+                <span class="btn btn-danger" ng-disabled="!inibeBtnEdicao()" ng-click="cancelaEdicao()">Calcelar</span>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+

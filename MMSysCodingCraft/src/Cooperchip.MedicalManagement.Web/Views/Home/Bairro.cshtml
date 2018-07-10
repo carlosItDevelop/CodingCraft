@@ -1,0 +1,115 @@
+﻿
+
+<div ng-controller="bairroCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <form class="panel-body" name="bairroForm">
+
+        <div class="row">
+
+            <div class="divList">
+
+                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+                <table ng-show="bairros.length > 0" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><b><a href="#" ng-click="ordenarPor('BairroId')">#Id</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Descricao')">Descrição</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('IdCidade')">Id Cidade</a></b></th>
+                            <th><b>AÇÃO</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="bairro in bairros | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" pagination-id="bairro">
+                            <td ng-bind="bairro.BairroId"></td>
+                            <td ng-bind="bairro.Descricao"></td>
+                            <td ng-bind="bairro.IdCidade"></td>
+                            <td>
+                                <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(bairro)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Bairro" data-original-title="Editar Bairro"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirBairro(bairro)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Bairro" data-original-title="Excluir Bairro"><i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <dir-pagination-controls max-size="5" pagination-id="bairro" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirBairroDiv()">Adicionar Bairro</span>
+            <hr />
+
+            <div ng-show="divbairro" class="col-md-12 col-lg-12 col-sm-12">
+                <h3>{{Acao}} Bairros</h3>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <table class="table table-responsive">
+                        <tbody>
+                            <tr>
+                                <th><b>Id</b></th>
+                                <th><b>Descricao</b></th>
+                                <th><b>Cidade</b></th>
+
+                            </tr>
+                            <tr>
+
+                                <td><input type="text" readonly="readonly" ng-model="bairro.BairroId" class="form-control" /></td>
+                                <td><input type="text" name="descricao" ng-model="bairro.Descricao" class="form-control" placeholder="Descrição..." ng-required="true" ng-minlength="2" /></td>
+
+                                <td>
+                                    <select class="form-control" name="cidade" ng-model="bairro.IdCidade"
+                                            ng-options="cidade.CidadeId as cidade.Descricao for cidade in cidades" ng-required="true">
+                                        <option value="">Selecione a Cidade</option>
+                                    </select>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <span class="btn btn-primary" ng-disabled="bairroForm.$invalid" ng-click="AdicionarEditarBairro()">Salvar</span>
+                        <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <br />
+        <div class="row">
+            <div ng-show="bairroForm.descricao.$dirty" ng-messages="bairroForm.descricao.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Descrição!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Descrição deve ter no mínimo 2 caracteres.
+                </div>
+            </div>
+
+
+            <div ng-show="bairroForm.cidade.$dirty" ng-messages="bairroForm.cidade.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Cidade!
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </form>
+
+</div>
+
+
+
+
+
+

@@ -1,0 +1,161 @@
+﻿
+
+<div class="row">
+    <div class="col-6">
+        @* Início do bloco Dieta *@
+        <div ng-controller="dietaCtrl" class="container col-md-6 col-lg-6 col-sm-12 col-xl-12 panel-collapse panel-evolumed">
+            <div class="panel-heading">
+                <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+            </div>
+            <form class="panel-body" name="dietaForm">
+                <div class="row">
+
+                    <div class="divList">
+                        <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                        <table ng-show="dietas.length > 0" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><b><a href="#" ng-click="ordenarPor('DietaId')">ID</a></b></th>
+                                    <th><b><a href="#" ng-click="ordenarPor('Descricao')">DESCRIÇÃO</a></b></th>
+                                    <th><b>AÇÃO</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="dieta in dietas | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:4" pagination-id="dieta">
+                                    <td ng-bind="dieta.DietaId"></td>
+                                    <td ng-bind="dieta.Descricao"></td>
+                                    <td>
+                                        <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(dieta)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Dieta" data-original-title="Editar Dieta"><i class="glyphicon glyphicon-edit"></i></button>
+                                        <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirDieta(dieta)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Dieta" data-original-title="Excluir Dieta"><i class="glyphicon glyphicon-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <dir-pagination-controls max-size="5" pagination-id="dieta" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirDietaDiv()">Adicionar Dieta</span>
+                    <hr />
+                    <div ng-show="divdieta" class="col-md-12 col-lg-12 col-sm-12">
+                        <h3>{{Acao}} Dieta</h3>
+                        <div class="col-12">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><b>ID</b></th>
+                                        <th><b>DESCRIÇÃO</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" readonly="readonly" ng-model="dieta.DietaId" class="form-control" /></td>
+                                        <td><input type="text" name="descricao" ng-model="dieta.Descricao" class="form-control" placeholder="Descrição..." ng-required="true" ng-minlength="3" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <span class="btn btn-primary" ng-disabled="dietaForm.$invalid" ng-click="AdicionarEditarDieta()">Salvar</span>
+                                <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div ng-show="dietaForm.descricao.$dirty" ng-messages="dietaForm.descricao.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Descrição!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo Descrição deve ter no mínimo 3 caracteres.
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+        @* Fim do bloco Dieta *@
+    </div>
+
+    <div class="col-6">
+        @* Início de Convênio *@
+        <div ng-controller="convenioCtrl" class="container col-md-6 col-lg-6 col-sm-12 col-xl-12 panel-collapse panel-evolumed">
+            <div class="panel-heading">
+                <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+            </div>
+            <form class="panel-body" name="convenioForm">
+                <div class="row">
+                    <div class="divList">
+                        <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                        <table ng-show="convenios.length > 0" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><b><a href="#" ng-click="ordenarPor('ConvenioId')">ID</a></b></th>
+                                    <th><b><a href="#" ng-click="ordenarPor('Descricao')">Descrição</a></b></th>
+                                    <th><b>AÇÃO</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="convenio in convenios | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:4" pagination-id="convenio">
+                                    <td ng-bind="convenio.ConvenioId"></td>
+                                    <td ng-bind="convenio.Descricao"></td>
+                                    <td>
+                                        <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(convenio)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Convenio" data-original-title="Editar Convenio"><i class="glyphicon glyphicon-edit"></i></button>
+                                        <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirConvenio(convenio)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Convenio" data-original-title="Excluir Convenio"><i class="glyphicon glyphicon-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <dir-pagination-controls max-size="5" pagination-id="convenio" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirConvenioDiv()">Adicionar Convenio</span>
+                    <hr />
+                    <div ng-show="divconvenio" class="col-md-12 col-lg-12 col-sm-12">
+                        <h3>{{Acao}} Convênio</h3>
+                        <div class="col-12">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><b>ID</b></th>
+                                        <th><b>CONVÊNIO</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" readonly="readonly" ng-model="convenio.ConvenioId" class="form-control" /></td>
+                                        <td><input type="text" name="descricao" ng-model="convenio.Descricao" class="form-control" placeholder="Convenio..." ng-required="true" ng-minlength="2" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <span class="btn btn-primary" ng-disabled="convenioForm.$invalid" ng-click="AdicionarEditarConvenio()">Salvar</span>
+                                <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+                    <div ng-show="convenioForm.descricao.$dirty" ng-messages="convenioForm.descricao.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Descrição!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo Descrição deve ter no mínimo 2 caracteres.
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        @* Fim de Convênio *@
+    </div>
+</div>
+

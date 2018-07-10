@@ -1,0 +1,173 @@
+﻿
+
+<div class="row">
+    <div class="col-6">
+        @* Início do bloco de Setor *@
+        <div ng-controller="setorCtrl" class="container col-md-6 col-lg-6 col-sm-12 col-sm-12 panel-collapse panel-evolumed">
+            <div class="panel-heading">
+                <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+            </div>
+            <form class="panel-body" name="setorForm" novalidate>
+                <div class="row">
+                    <div class="divList">
+                        <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                        <table ng-show="setores.length > 0" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    @*<th><b><a href="#" ng-click="ordenarPor('SetorId')">ID</a></b></th>*@
+                                    <th><b><a href="#" ng-click="ordenarPor('Sigla')">Sigla</a></b></th>
+                                    <th><b><a href="#" ng-click="ordenarPor('Descricao')">Descrição</a></b></th>
+                                    <th><b>AÇÃO</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="setor in setores | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:4" pagination-id="dirsetor">
+                                    @*<td ng-bind="setor.SetorId"></td>*@
+                                    <td ng-bind="setor.Sigla"></td>
+                                    <td ng-bind="setor.Descricao"></td>
+                                    <td>
+                                        <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(setor)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Setor" data-original-title="Editar Setor"><i class="glyphicon glyphicon-edit"></i></button>
+                                        <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="DelSetor(setor)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Setor" data-original-title="Excluir Setor"><i class="glyphicon glyphicon-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <dir-pagination-controls max-size="5" pagination-id="dirsetor" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirSetorDiv()">Adicionar Setor</span>
+                    <hr />
+                    <div ng-show="divsetor" class="col-md-12 col-lg-12 col-sm-12">
+                        <h3>{{Acao}} Setor</h3>
+                        <div class="col-12">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><b>ID</b></th>
+                                        <th><b>SIGLA</b></th>
+                                        <th><b>DESCRIÇAO</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" readonly="readonly" ng-model="setor.SetorId" class="form-control" /></td>
+                                        <td><input type="text" name="sigla" maxlength="4" ng-model="setor.Sigla" class="form-control" placeholder="Sigla..." ng-required="true" ng-minlength="2" /></td>
+                                        <td><input type="text" maxlength="35" name="descricao" ng-model="setor.Descricao" class="form-control" placeholder="Setor..." ng-required="true" ng-minlength="2" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <span class="btn btn-primary" ng-disabled="setorForm.$invalid" ng-click="AdicionarEditarSetor()">Salvar</span>
+                                <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+
+                    <div ng-show="setorForm.sigla.$dirty" ng-messages="setorForm.sigla.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Sigla!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo Sigla deve ter no mínimo 2 caracteres.
+                        </div>
+                    </div>
+
+                    <div ng-show="setorForm.descricao.$dirty" ng-messages="setorForm.descricao.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Descrição!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo Descrição deve ter no mínimo 2 caracteres.
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        @* Fim do bloco de setor *@
+    </div>
+    <div class="col-6">
+        @* Início do bloco de Genérico *@
+        <div ng-controller="genericoCtrl" class="container col-md-6 col-lg-6 col-sm-12 col-xl-12 panel-collapse panel-evolumed">
+            <div class="panel-heading">
+                <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+            </div>
+            <form class="panel-body" name="genericoForm">
+                <div class="row">
+
+                    <div class="divList">
+                        <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                        <table ng-show="genericos.length > 0" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><b><a href="#" ng-click="ordenarPor('GenericoId')">ID</a></b></th>
+                                    <th><b><a href="#" ng-click="ordenarPor('Descricao')">DESCRIÇÃO</a></b></th>
+                                    <th><b>AÇÃO</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="generico in genericos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:4" pagination-id="generico">
+                                    <td ng-bind="generico.GenericoId"></td>
+                                    <td ng-bind="generico.Descricao"></td>
+                                    <td>
+                                        <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(generico)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Generico" data-original-title="Editar Generico"><i class="glyphicon glyphicon-edit"></i></button>
+                                        <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirGenerico(generico)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Generico" data-original-title="Excluir Generico"><i class="glyphicon glyphicon-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <dir-pagination-controls max-size="5" pagination-id="generico" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirGenericoDiv()">Adicionar Generico</span>
+                    <hr />
+                    <div ng-show="divgenerico" class="col-md-12 col-lg-12 col-sm-12">
+                        <h3>{{Acao}} Genérico</h3>
+                        <div class="col-12">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><b>ID</b></th>
+                                        <th><b>DESCRIÇÃO</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" readonly="readonly" ng-model="generico.GenericoId" class="form-control" /></td>
+                                        <td><input type="text" name="descricao" ng-model="generico.Descricao" class="form-control" placeholder="Descrição..." ng-required="true" ng-minlength="3" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <span class="btn btn-primary" ng-disabled="genericoForm.$invalid" ng-click="AdicionarEditarGenerico()">Salvar</span>
+                                <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+                    <div ng-show="genericoForm.descricao.$dirty" ng-messages="genericoForm.descricao.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Descrição!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo Descrição deve ter no mínimo 3 caracteres.
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+        @* Fim do bloco de genérico *@
+    </div>
+</div>

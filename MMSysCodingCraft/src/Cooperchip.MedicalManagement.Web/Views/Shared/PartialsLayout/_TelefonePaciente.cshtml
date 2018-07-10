@@ -1,0 +1,127 @@
+﻿
+
+<div ng-controller="TelefonePacienteCtrl" class="col-md-12 col-lg-12 col-sm-12">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <div class="panel-body">
+
+
+        <form name="telefonepacienteForm">
+
+            <div class="row">
+
+                <div class="row">
+                    <table ng-show="telefonepacientes.length > 0" class="table table-info">
+                        <tr class="alert alert-success">
+                            <th>EXCLUIR?</th>
+                            <th><a href="#" ng-click="ordenarPor('TelefonePacienteId')">ID</a></th>
+                            <th><a href="#" ng-click="ordenarPor('TipoTelefone')">TIPO DE TELEFONE</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Ddd')">DDD</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Numero')">NÚMERO DO TELEFONE</a></th>
+                            <th><a href="#" ng-click="ordenarPor('PacienteId')">ID do PACIENTE</a></th>
+                            @*<th>AÇÃO</th>*@
+                        </tr>
+                        <tbody>
+                        <tr ng-class="{'selecionado negrito': telefonepaciente.selecionado}" dir-paginate="telefonepaciente in telefonepacientes | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" pagination-id="telepac">
+                            <td><input type="checkbox" ng-model="telefonepaciente.selecionado"/></td>
+                            <td class="text-left">{{telefonepaciente.TelefonePacienteId}}</td>
+                            <td class="text-left">{{telefonepaciente.TipoTelefone}}</td>
+                            <td class="text-left">{{telefonepaciente.Ddd}}</td>
+                            <td class="text-left">{{telefonepaciente.Numero}}</td>
+                            <td class="text-left">{{telefonepaciente.PacienteId}}</td>
+                            @*<td><button class="btn btn-success" ng-click="alterarTelefonePaciente(telefonepaciente)" ng-disabled=true>Editar</button></td>*@
+                        </tr>
+                        </tbody>
+                        
+                        <dir-pagination-controls 
+                                                 max-size="5" 
+                                                 pagination-id="telepac" 
+                                                 direction-links="true" 
+                                                 boundary-links="true">
+
+                        </dir-pagination-controls>
+
+                    </table>
+                </div>
+
+
+                <div class="row alert alert-success">
+
+                    <div class="col-xs-4">
+                        <select class="form-control" name="tipotel" ng-model="telefonepaciente.TipoTelefone"
+                                ng-options="tipotelefone.Descricao as tipotelefone.Descricao for tipotelefone in tipotelefones" ng-requerid="true" ng-minlength="3">
+                            <option value="">Tipo de Telefone...</option>
+                        </select>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <input class="form-control" type="text" ng-model="telefonepaciente.Ddd" name="ddd" placeholder="DDD..." ng-required="true" ng-minlength="2"/>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <input class="form-control" type="text" ng-model="telefonepaciente.Numero" name="numero" placeholder="Telefone..." ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" />
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </form>
+
+
+
+
+        <br />
+
+        <div class="row">
+
+            <button class="btn btn-primary" ng-click="adicionarTelefonePaciente(telefonepaciente)" ng-disabled="telefonepacienteForm.$invalid || isIdPacienteInvalido()">Adicionar Telefone</button>
+            <button class="btn btn-danger" ng-click="apagarTelefonePacientes(telefonepacientes)" ng-if="isTelefonePacienteSelecionado(telefonepacientes)">Apagar Telefone</button>
+
+            <br />
+
+            <div ng-show="telefonepacienteForm.tipotel.$dirty" ng-messages="telefonepacienteForm.tipotel.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Tipo de Telefone!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Tipo de Telefone deve ter no mínimo 3 caracteres.
+                </div>
+            </div>
+
+            <div ng-show="telefonepacienteForm.ddd.$dirty" ng-messages="telefonepacienteForm.ddd.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo DDD!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo DDD deve ter no mínimo 2 caracteres.
+                </div>
+            </div>
+
+            <div ng-show="telefonepacienteForm.numero.$error.required && telefonepacienteForm.numero.$dirty" ng-messages="telefonepacienteForm.numero.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Número de Telefone!
+                </div>
+            </div>
+
+            <div ng-show="telefonepacienteForm.numero.$error.pattern" class="alert alert-danger">
+                O campo telefone deve ter o formato DDDDD-DDDD.
+                @*ng-pattern="/^\d{4,5}-\d{4}$/"*@
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+﻿@model Cooperchip.Common.Identity.Model.VerifyCodeViewModel
+@{
+    ViewBag.Title = "Entre com o Código de Verificação";
+}
+
+<div class="alert alert-info">
+    <h3>@ViewBag.Title.</h3>
+</div>
+
+@using (Html.BeginForm("VerifyCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.Hidden("provider", @Model.Provider)
+
+    <div class="panel panel-heading">
+        <h4><i class="glyphicon glyphicon-check"></i>&nbsp;&nbsp;@ViewBag.Status</h4>
+    </div>
+    
+    <div class="jumbotron">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(m => m.RememberBrowser)
+                    @Html.LabelFor(m => m.RememberBrowser)
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-6">
+            <input type="submit" class="btn btn-default" value="Enviar" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

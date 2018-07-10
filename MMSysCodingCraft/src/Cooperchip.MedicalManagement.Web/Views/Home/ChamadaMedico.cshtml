@@ -1,0 +1,157 @@
+﻿
+
+<div ng-controller="chamadaMedicoCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+
+    @*<div class="jumbotron">Chamadamedico: {{chamadamedicos}}</div>*@
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <form class="panel-body" name="chamadamedicoForm">
+
+        <div class="row">
+
+
+
+            <div class="divList">
+
+                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+                <table ng-show="chamadaMedicos.length > 0" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><b><a href="#" ng-click="ordenarPor('ChamadaMedicoId')">ID</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Leito')">LEITO</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Medico')">MÉDICO</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Mensagem')">MENSAGEM</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('DataChamada')">DATA-CHAMADO</a></b></th>
+
+                            <th><b>AÇÃO</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="chamadamedico in chamadaMedicos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" pagination-id="chamadamedico">
+                            <td ng-bind="chamadamedico.ChamadaMedicoId"></td>
+                            <td ng-bind="chamadamedico.Leito"></td>
+                            <td ng-bind="chamadamedico.Medico"></td>
+                            <td ng-bind="chamadamedico.Mensagem"></td>
+                            <td>{{chamadamedico.DataChamada | date:'dd/MM/yyyy'}}</td>
+                            <td>
+                                <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(chamadamedico)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Chamadamedico" data-original-title="Editar Chamadamedico"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirChamadamedico(chamadamedico)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Chamadamedico" data-original-title="Excluir Chamadamedico"><i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <dir-pagination-controls max-size="5" pagination-id="chamadamedico" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirChamadamedicoDiv()">Adicionar Chamadamedico</span>
+            <hr />
+
+            <div ng-show="divchamadaMedico" class="col-md-12 col-lg-12 col-sm-12">
+                <h3>{{Acao}} Chamadamedicos</h3>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><b>Id</b></td>
+                                <td><input type="text" readonly="readonly" ng-model="chamadamedico.ChamadaMedicoId" class="form-control" /></td>
+
+
+
+                                <td><b>Leito</b></td>
+                                <td>
+                                    <select class="form-control" name="leito" id="leito" ng-model="chamadamedico.Leito"
+                                            ng-options="leito for leito in leitos" ng-required="true" ng-minlength="3">
+                                        <option value="">Selecione o Leito</option>
+                                    </select>
+                                </td>
+
+                                <td><b>Médico</b></td>
+                                <td>
+                                    <select class="form-control" name="medico" id="medico" ng-model="chamadamedico.Medico"
+                                            ng-options="medico for medico in medicos" ng-required="true" ng-minlength="3">
+                                        <option value="">Selecione o Médico</option>
+                                    </select>
+                                </td>
+
+
+
+                            </tr>
+                            <tr>
+                                <td><b>Mensagem</b></td>
+                                <td colspan="3"><input type="text" name="mensagem" ng-model="chamadamedico.Mensagem" class="form-control" placeholder="Mensagem..." ng-required="true" ng-minlength="3" /></td>
+                                <td><b>Data-Chamado</b></td>
+                                <td><input type="date" name="datachamado" ng-model="chamadamedico.DataChamada" class="form-control" placeholder="Data-Chamado..." ng-required="true" ng-minlength="10" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <span class="btn btn-primary" ng-disabled="chamadamedicoForm.$invalid" ng-click="AdicionarEditarChamadamedico()">Salvar</span>
+                        <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <br />
+        <div class="row">
+            <div ng-show="chamadamedicoForm.leito.$dirty" ng-messages="chamadamedicoForm.leito.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Leito!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Leito deve ter no mínimo 3 caracteres.
+                </div>
+            </div>
+
+
+            <div ng-show="chamadamedicoForm.medico.$dirty" ng-messages="chamadamedicoForm.medico.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Médico!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Médico deve ter no mínimo 3 caracteres.
+                </div>
+            </div>
+            <div ng-show="chamadamedicoForm.mensagem.$dirty" ng-messages="chamadamedicoForm.mensagem.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Mensagem!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Mensagem deve ter no mínimo 3 caracteres.
+                </div>
+            </div>
+            <div ng-show="chamadamedicoForm.datachamado.$dirty" ng-messages="chamadamedicoForm.datachamado.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Data-Chamado!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Data-Chamado deve ter no mínimo 10 caracteres.
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+    </form>
+
+</div>
+
+
+
+
+
+

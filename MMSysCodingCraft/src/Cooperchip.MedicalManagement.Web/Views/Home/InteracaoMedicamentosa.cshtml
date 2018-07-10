@@ -1,0 +1,144 @@
+﻿
+
+<div ng-controller="interacaoMedicamentosaCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-success">
+
+    @*<div class="jumbotron">InteracaoMedicamentosa: {{interacaoMedicamentosas}}</div>*@
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <form class="panel-body" name="interacaoMedicamentosaForm">
+
+        <div class="row">
+
+            <div class="divList">
+
+                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+                <table ng-show="interacaoMedicamentosas.length > 0" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><b><a href="#" ng-click="ordenarPor('IdMedicamentoA')">GENÉRICO A</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('IdMedicamentoB')">GENÉRICO B</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Interacao')">EFEITO</a></b></th>
+                            <th><b>AÇÃO</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="interacaoMedicamentosa in interacaoMedicamentosas | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" 
+                            pagination-id="interacaoMedicamentosa">
+                            <td ng-bind="interacaoMedicamentosa.Generico.Descricao"></td>
+                            <td ng-bind="interacaoMedicamentosa.Generico1.Descricao"></td>
+                            @*<td ng-bind="interacaoMedicamentosa.Interacao"></td>*@
+                            <td>{{interacaoMedicamentosa.Interacao | limitTo : 80}}</td>
+                            <td>
+                                <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(interacaoMedicamentosa)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Interação" data-original-title="Editar Interação"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirInteracaoMedicamentosa(interacaoMedicamentosa)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Interação" data-original-title="Excluir Interação"><i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <dir-pagination-controls max-size="5" pagination-id="interacaoMedicamentosa" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirInteracaoMedicamentosaDiv()">Adicionar InteracaoMedicamentosa</span>
+            <hr />
+
+            <div ng-show="divinteracaoMedicamentosa" class="col-md-12 col-lg-12 col-sm-12">
+                <h3>{{Acao}} Interação Medicamentosa</h3>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <table class="table table-responsive table-hover">
+                        <tbody>
+                            <tr>
+                                <th><b>Id</b></th>
+                                <th colspan="2"><b>Medicamento A</b></th>
+                                <th colspan="2"><b>Medicamento B</b></th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" readonly="readonly" ng-model="interacaoMedicamentosa.InteracaoMedicamentosaId" class="form-control" /></td>
+
+
+
+                                <td colspan="2">
+                                    @*<select class="form-control" name="genericoA" ng-model="interacaoMedicamentosa.IdMedicamentoA"
+                                            ng-options="generico.GenericoId as generico.Descricao for generico in genericos" ng-required="true">
+                                        <option value="">Selecione o Medicamento</option>
+                                    </select>*@
+
+                                        <input type="text" name="genericoA" id="genericoA" class="form-control busca-ajax-interacao-generico"
+                                               ng-model="interacaoMedicamentosa.IdMedicamentoA" ng-required="true" placeholder="Selecione um genérico..." />
+
+                                </td>
+
+                                <td colspan="2">
+                                    @*<select class="form-control" name="genericoB" ng-model="interacaoMedicamentosa.IdMedicamentoB"
+                                            ng-options="generico.GenericoId as generico.Descricao for generico in genericos" ng-required="true">
+                                        <option value="">Selecione o Medicamento</option>
+                                    </select>*@
+
+                                    <input type="text" name="genericoB" id="genericoB" class="form-control busca-ajax-interacao-generico"
+                                           ng-model="interacaoMedicamentosa.IdMedicamentoB" ng-required="true" placeholder="Selecione um genérico..." />
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th colspan="5"><b>Interação</b></th>
+                            </tr>
+                            <tr>
+                                <td colspan="5"><textarea name="interacao" ng-model="interacaoMedicamentosa.Interacao" class="form-control" placeholder="Interacao..." ng-required="true" ng-minlength="2"></textarea></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <span class="btn btn-primary" ng-disabled="interacaoMedicamentosaForm.$invalid" ng-click="AdicionarEditarInteracaoMedicamentosa()">Salvar</span>
+                        <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <br />
+        <div class="row">
+            <div ng-show="interacaoMedicamentosaForm.genericoA.$dirty" ng-messages="interacaoMedicamentosaForm.genericoA.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Medicamento A!
+                </div>
+            </div>
+
+
+            <div ng-show="interacaoMedicamentosaForm.genericoB.$dirty" ng-messages="interacaoMedicamentosaForm.genericoB.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Medicamento B!
+                </div>
+            </div>
+            <div ng-show="interacaoMedicamentosaForm.interacao.$dirty" ng-messages="interacaoMedicamentosaForm.interacao.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Interação!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Interação deve ter no mínimo 2 caracteres.
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </form>
+
+</div>
+
+
+
+
+
+

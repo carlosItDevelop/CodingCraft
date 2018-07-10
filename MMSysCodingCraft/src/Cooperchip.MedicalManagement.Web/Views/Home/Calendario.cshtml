@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Calendario";
+}
+
+
+
+
+<!-- Start .row -->
+<div class="row">
+    <div class="col-lg-3">
+        <!-- col-lg-3 start here -->
+        <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+            <!-- Start .panel -->
+            <div class="panel-heading">
+                <h4 class="panel-title">Create event</h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-lg-12 control-label" for="">Event title</label>
+                        <div class="col-lg-12">
+                            <input type="text" class="form-control" id="event-title" name="event-title">
+                        </div>
+                    </div>
+                    <!-- End .form-group  -->
+                    <div class="form-group">
+                        <label class="col-lg-12 control-label" for="">Event state</label>
+                        <div class="col-lg-12">
+                            <select name="event-state" id="event-state" class="form-control fancy-select">
+                                <option value="fc-event-default">Default state</option>
+                                <option value="fc-event-success">Success state</option>
+                                <option value="fc-event-danger">Danger state</option>
+                                <option value="fc-event-warning">Warning state</option>
+                                <option value="fc-event-info">Info state</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- End .form-group  -->
+                    <div class="form-group">
+                        <label class="col-lg-12 control-label" for="">Event icon class</label>
+                        <div class="col-lg-12">
+                            <input type="text" class="form-control" id="event-icon" name="event-icon">
+                        </div>
+                    </div>
+                    <!-- End .form-group  -->
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <a href="#" id="add-event" class="btn btn-default">Add event</a>
+                        </div>
+                    </div>
+                    <!-- End .form-group  -->
+                </form>
+            </div>
+        </div>
+        <!-- End .panel -->
+    </div>
+    <!-- col-lg-3 end here -->
+    <div class="col-lg-6">
+        <!-- col-lg-6 start here -->
+        <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+            <!-- Start .panel -->
+            <div class="panel-heading">
+                <h4 class="panel-title">Calendar</h4>
+            </div>
+            <div class="panel-body">
+                <div id="calendar"></div>
+            </div>
+        </div>
+        <!-- End .panel -->
+    </div>
+    <!-- col-lg-6 end here -->
+    <div class="col-lg-3">
+        <!-- col-lg-3 start here -->
+        <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+            <!-- Start .panel -->
+            <div class="panel-heading">
+                <h4 class="panel-title">Draggable events</h4>
+            </div>
+            <div class="panel-body">
+                <div id="external-events">
+                    <div class="external-event label label-warning" data-event-class="fc-event-warning" data-icon="fa fa-users">
+                        <i class="fa fa-users"></i> Meeting with SEO
+                    </div>
+                    <div class="external-event label label-default" data-event-class="fc-event-default" data-icon="fa fa-support">
+                        <i class="fa fa-support"></i>
+                        Hire support assistant
+                    </div>
+                    <div class="external-event label label-info" data-event-class="fc-event-info" data-icon="fa fa-user">
+                        <i class="fa fa-user"></i>
+                        Meeting staff
+                    </div>
+                    <div class="external-event label label-danger" data-event-class="fc-event-danger" data-icon="fa fa-car">
+                        <i class="fa fa-car"></i>
+                        Repair car
+                    </div>
+                    <div class="external-event label label-success" data-event-class="fc-event-success" data-icon="fa fa-file-o">
+                        <i class="fa fa-file-o"></i>
+                        New project begin
+                    </div>
+                    <hr>
+                    <div class="checkbox-custom">
+                        <input id="remove-drop" type="checkbox">
+                        <label for="remove-drop">Remove after drop</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End .panel -->
+    </div>
+    <!-- col-lg-3 end here -->
+</div>
+<!-- End .row -->
+
+
+
+
+
+
+
+@section Scripts
+{
+    <script src="~/tpl/plugins/charts/sparklines/jquery.sparkline.js"></script>
+    <script src="~/tpl/plugins/forms/fancyselect/fancySelect.js"></script>
+    <script src="~/tpl/js/libs/moment.js"></script>
+    <script src="~/tpl/plugins/ui/calendar/fullcalendar.js"></script>
+    <script src="~/tpl/js/jquery.dynamic.js"></script>
+    <script src="~/tpl/js/main.js"></script>
+    <script src="~/tpl/js/pages/calendar.js"></script>
+}
+
+
+

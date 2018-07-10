@@ -1,0 +1,46 @@
+﻿
+<div class="col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Pressão Intra-Abdominal</h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+
+                    <div class="col-lg-5 col-md-4">
+
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    @*<input type="radio" name="idPia" ng-model="prontuario.Pia" value="Sim" ng-change="isProntuarioPiaChecado()" class="form-control" />*@
+                                    <input type="radio" name="idPia" ng-model="prontuario.Pia" value="Sim" class="form-control" />
+                                    <span class="button-radio"></span>
+                                </label>
+                                <label>Sim</label>
+                            </div>
+
+                            <div class="toggle-custom">
+
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="radio" name="idPia" ng-model="prontuario.Pia" value="Não" class="form-control" />
+                                    <span class="button-radio"></span>
+                                </label>
+                                <label>Não</label>
+                            </div>
+
+
+                    </div>
+
+                <div class="form-group col-lg-5 col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input id="PiaData" ng-disabled="getInibirEAnularData(prontuario.Pia, 'Não','PiaData')" 
+                               ng-model="prontuario.PiaData" name="PiaData" type="date" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

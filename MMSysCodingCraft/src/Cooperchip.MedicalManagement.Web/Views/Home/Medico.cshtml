@@ -1,0 +1,183 @@
+﻿
+
+
+@{
+    ViewBag.Title = "Lista de Pacientes";
+}
+
+<div ng-controller="medicoCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-success">
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <form class="panel-body" name="medicoForm">
+        <div class="row">
+            <div class="divList">
+                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+                <table ng-show="medicos.length > 0" class="table table-hover">
+                    <thead class="panel-heading" style="background-color: azure;">
+                        <tr>
+                            <th><b><a href="#" ng-click="ordenarPor('MedicoId')">ID</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Nome')">NOME</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Especialidade')">ESPECIALIDADE</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Crm')">CRM</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('DataNascimento')">DT-NASCIMENTO</a></b></th>
+                            <th align="center"><b>&nbsp;<i class="fa fa-info">&nbsp; AÇÂO</i></b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="medico in medicos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:6" pagination-id="medico">
+                            <td ng-bind="medico.MedicoId"></td>
+                            <td ng-bind="medico.Nome"></td>
+                            <td ng-bind="medico.Especialidade.Descricao"></td>
+                            <td ng-bind="medico.Crm"></td>
+                            <td ng-bind="medico.DataNascimento | date:'dd/MM/yyyy'"></td>
+                            <td>
+                                <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(medico)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Médico" data-original-title="Editar Médico"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirMedico(medico)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Médico" data-original-title="Excluir Médico"><i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <dir-pagination-controls max-size="5"
+                                             pagination-id="medico"
+                                             direction-links="true"
+                                             boundary-links="true">
+                    </dir-pagination-controls>
+
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirMedicoDiv()">Adicionar Médico</span>
+
+            <hr />
+
+            <div ng-show="divmedico" class="col-md-12 col-lg-12 col-sm-12 alert alert-success">
+                <h3>{{Acao}} Médico</h3>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+
+                    <div class="row center col-12" style="margin-top: 8px;">
+
+
+                        <div class="col-md-2 col-lg-2 col-sm-12 col-xl-12">
+                            <label class="col-12 control-label"><strong>ID</strong></label>
+                            <div class="input-group col-12">
+                                <span class="input-group-addon"><i class="fa fa-long-arrow-up"></i></span>
+                                <strong><input type="text" name="medicoid" id="medicoid" class="form-control" ng-model="medico.MedicoId" placeholder="ID..." ng-readonly="true"></strong>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-3 col-lg-3 col-sm-12 col-xl-12">
+                            <label class="col-12 control-label"><strong>NOME</strong></label>
+                            <div class="input-group col-12">
+                                <span class="input-group-addon"><i class="fa fa-arrow-right"></i></span>
+                                <strong><input type="text" name="nome" id="nome" class="form-control" ng-model="medico.Nome" placeholder="Médico..." ng-minlength="3"></strong>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-lg-2 col-sm-12 col-xl-12">
+                            <label class="col-12 control-label"><strong>ESPECIALIDADE</strong></label>
+                            <div class="input-group col-12">
+                                <span class="input-group-addon"><i class="fa fa-anchor"></i></span>
+
+                                <strong>
+                                    <select class="form-control" name="especialidade" id="especialidade" ng-required="true" ng-model="medico.IdEspecialidade"
+                                            ng-options="especialidade.EspecialidadeId as especialidade.Descricao for especialidade in especialidades">
+                                        <option value="">Especialidade...</option>
+                                    </select>
+                                </strong>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-lg-2 col-sm-12 col-xl-12">
+                            <label class="col-12 control-label"><strong>CRM</strong></label>
+                            <div class="input-group col-12">
+                                <span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
+                                <strong><input type="text" class="form-control" ng-model="medico.Crm" name="crm" id="crm" value="" placeholder="CRM..." ng-required="true" ng-minlength="4"></strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3 col-lg-3 col-sm-12 col-xl-12">
+                                <label class="col-12 control-label"><strong>NASCIMENTO</strong></label>
+                                <div class="input-group col-12">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input id="datanascimento" name="datanascimento" type="date" class="form-control" ng-model="medico.DataNascimento" ng-required="true" ng-minlength="10">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--/ Fim de edição de Medico -->
+                    <br />
+
+                    <div>
+                        <span class="btn btn-primary" ng-disabled="medicoForm.$invalid" ng-click="AdicionarEditarMedico()">Salvar</span>
+                        <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--/  VALIDAÇÃO  -->
+        <div class="row">
+            <Hr />
+
+            <div ng-show="medicoForm.nome.$dirty" ng-messages="medicoForm.nome.$error">
+                    <div ng-message="required" class="alert alert-danger">
+                        Por favor, preencha o campo Nome!
+                    </div>
+                </div>
+                <div ng-show="medicoForm.especialidade.$dirty" ng-messages="medicoForm.especialidade.$error">
+                    <div ng-message="required" class="alert alert-danger">
+                        Por favor, preencha o campo Especialidade!
+                    </div>
+                </div>
+                <div ng-show="medicoForm.crm.$dirty" ng-messages="medicoForm.crm.$error">
+                    <div ng-message="required" class="alert alert-danger">
+                        Por favor, preencha o campo CRM!
+                    </div>
+                    <div ng-message="minlength" class="alert alert-danger">
+                        O campo CRM deve ter no mínimo 4 caracteres.
+                    </div>
+                </div>
+                <div ng-show="medicoForm.datanascimento.$dirty" ng-messages="medicoForm.datanascimento.$error">
+                    <div ng-message="required" class="alert alert-danger">
+                        Por favor, preencha o campo Data de Nascimento!
+                    </div>
+                    <div ng-message="minlength" class="alert alert-danger">
+                        O campo Data de Nascimento deve ter no mínimo 10 caracteres.
+                    </div>
+                </div>
+
+        </div>
+    </form>
+</div>
+
+
+
+
+@section Scripts
+{
+
+    <!-- Other plugins ( load only nessesary plugins for every page) -->
+    @Scripts.Render("~/bundles/formonlypage")
+    <!--/ Form basic -->
+    @Scripts.Render("~/bundles/formbasic")
+    <!--/ Form validate -->
+    @Scripts.Render("~/bundles/formval")
+    @*@Scripts.Render("~/bundles/formwizard")*@
+
+    <!--/ libCooperchip -->
+    <script src="~/Scripts/cooperchip/libCooperchip.js"></script>
+    <!--/ libCooperchip -->
+
+}
+
+

@@ -1,0 +1,179 @@
+﻿
+
+    <div class="row center col-12" style="margin-top: 8px;">
+
+        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">Alergia</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-arrow-down"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.Alergia" ng-disabled="verificaAcao()" name="alergia" id="alergia" value="" placeholder="Alergia...">
+            </div>
+        </div>
+
+        <div class="col-md-3 col-lg-3 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">Dt-Irternação</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-ambulance"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.DataInternacao" ng-disabled="verificaAcao()" name="dataInternacao" id="dataInternacao" placeholder="Data da Internação...">
+            </div>
+        </div>
+        <div class="col-md-3 col-lg-3 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">Dt-Nascimento</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.DataNascimento" ng-disabled="verificaAcao()" name="dataNascimento" id="dataNascimento" placeholder="Data de Nascimento...">
+            </div>
+        </div>
+        <div class="col-md-2 col-lg-2 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">Sexo</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-female"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.Sexo.Descricao" ng-disabled="verificaAcao()" name="sexo" id="sexo" placeholder="Sexo...">
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row center col-12" style="margin-top: 8px;">
+
+
+        <div class="col-md-3 col-lg-3 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">Idade</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
+                <!--/ Idade calculada. Valor apenas demostrativo e para relatórios -->
+                <input type="text" class="form-control" ng-model="Idade" @*ng-model="prontuario.Paciente.Idade"*@ ng-disabled="true" name="idade" id="idade" value=""  placeholder="Idade...">
+            </div>
+        </div>
+
+        <div class="col-md-3 col-lg-3 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">Peso</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-puzzle-piece"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.Peso" ng-disabled="verificaAcao()" name="peso" id="peso" value="" placeholder="Peso...">
+            </div>
+        </div>
+
+
+        <div class="col-md-3 col-lg-3 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">Leito</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-anchor"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.Leito.EspecificacaoDoLeito" ng-disabled="verificaAcao()" name="leito" id="leito" value="" placeholder="Leito...">
+            </div>
+        </div>
+
+        <div class="col-md-3 col-lg-3 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">Convênio</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-heart"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.Convenio.Descricao" ng-disabled="verificaAcao()" name="convenio" id="convenio" value="" placeholder="Convênio...">
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row center col-12" style="margin-top: 8px;">
+
+
+        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">Quadro Clínico</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-heart"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.EstadoDoPaciente.Descricao" ng-disabled="verificaAcao()" name="estadodopaciente" id="estadodopaciente" placeholder="Estado do Paciente...">
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">E-Mail</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-mail-reply"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.Email" ng-disabled="verificaAcao()" name="emailpaciente" id="emailpaciente" placeholder="E-Mail...">
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">CPF</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.Cpf" ng-disabled="verificaAcao()" name="cpfpaciente" id="cpfpaciente" placeholder="CPF...">
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="row center col-12" style="margin-top: 8px;">
+
+        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">RG</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.Rg" ng-disabled="verificaAcao()" name="rgpaciente" id="rgpaciente" placeholder="RG do Paciente...">
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">Órgão Emissor</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-reddit"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.RgOrgao" ng-disabled="verificaAcao()" name="orgaopaciente" id="orgaopaciente" placeholder="Órgão Emissor...">
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-12">
+            <label class="col-12 control-label">Dt-Emissão</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="form-control" ng-model="prontuario.Paciente.RgDataEmissao" ng-disabled="verificaAcao()" name="emissaopaciente" id="emissaopaciente" placeholder="Dt Emissão...">
+            </div>
+        </div>
+
+    </div>
+
+    <hr />
+
+
+    <div class="row">
+
+        <div class="col-lg-12 col-md-12 center">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" role="tab" id="headingOne6">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion6" href="#collapseOne6" aria-expanded="true" aria-controls="collapseOne6">
+                                ENDEREÇO DO PACIENTE
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne6">
+                        <div class="panel-body">
+                            @Html.Partial("PartialsLayout/_EnderecoPaciente")
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading" role="tab" id="headingTwo7">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion7" href="#collapseTwo7" aria-expanded="false" aria-controls="collapseTwo7">
+                                TELEFONES DO PACIENTE
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo7">
+                        <div class="panel-body">
+                            @Html.Partial("PartialsLayout/_TelefonePaciente")
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+

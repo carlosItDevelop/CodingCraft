@@ -1,0 +1,127 @@
+﻿
+
+<div ng-controller="AtbEmUsoCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <div class="panel-body">
+
+        <form name="AtbEmUsoForm">
+            <div class="row">
+
+                <div class="divList">
+                    <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+
+                    <table ng-show="atbemusos.length > 0" class="table table-hover table-bordered">
+                        <tr class="alert alert-success">
+
+                            <th><a href="#" ng-click="ordenarPor('AtbEmUsoId')">ID</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Descricao')">Descricão</a></th>
+                            <th><a href="#" ng-click="ordenarPor('DataInicio')">Data Início</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Paciente.Nome')">Paciente</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Prontuario.NumAtendimento')">Nº Atendimento</a></th>
+
+                            <th>Ação</th>
+
+                        </tr>
+                        <tbody>
+                            <tr dir-paginate="atbemuso in atbemusos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:3" pagination-id="dirpagatbemuso">
+
+                                <td class="text-left">{{atbemuso.AtbEmUsoId}}</td>
+                                <td class="text-left">{{atbemuso.Descricao}}</td>
+                                <td class="text-left">{{atbemuso.DataInicio | date:'dd/MM/yyyy'}}</td>
+                                <td class="text-left">{{atbemuso.Paciente.Nome}}</td>
+                                <td class="text-left">{{atbemuso.Prontuario.NumAtendimento}}</td>
+
+
+                                <td>
+                                    <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(atbemuso)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar  Antibíótico" data-original-title="Editar  Antibíótico"><i class="glyphicon glyphicon-edit"></i></button>
+                                    <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirAtbEmUso(atbemuso)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Antibíótico" data-original-title="Excluir  Antibíótico"><i class="glyphicon glyphicon-trash"></i></button>
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+                        <dir-pagination-controls max-size="5"
+                                                 pagination-id="dirpagatbemuso"
+                                                 direction-links="true"
+                                                 boundary-links="true">
+                        </dir-pagination-controls>
+
+                    </table>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="row">
+
+
+                <span class="btn btn-success" ng-disabled="inibeBtnAdicionar() || isIdPacienteInvalido()" ng-click="incluirAtbEmUsoDiv()">Adicionar Antibióticos</span>
+
+                <div ng-show="divatbemuso" class="col-md-12 col-lg-12 col-sm-12">
+
+                    <hr />
+
+                    <h3>{{Acao}} Antibióticos em Uso</h3>
+
+                    <table class="table alert alert-success">
+                        <tbody>
+                            <tr>
+                                <th ng-if="isEditando()"><b>ID</b></th>
+                                <th><b>DESCRIÇÃO</b></th>
+                                <th><b>DATA INÍCIO</b></th>
+                            </tr>
+                            <tr>
+                                <td ng-if="isEditando()"><input type="text" readonly="readonly" ng-model="atbemuso.AtbEmUsoId" class="form-control" /></td>
+                                <td>
+                                    <input class="form-control busca-ajax-medicamentos" type="text" ng-model="atbemuso.Descricao" name="descricao" placeholder="Descrição..." ng-required="true" ng-minlength="3" />
+                                </td>
+                                <td>
+                                    <input class="form-control" type="date" ng-model="atbemuso.DataInicio" name="datainicio" placeholder="Data do Início..." ng-required="true" ng-minlength="10" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+
+                    <button class="btn btn-primary" ng-click="AdicionarEditarAtbEmUso()" ng-disabled="AtbEmUsoForm.$invalid || isIdPacienteInvalido()">Salvar</button>
+                    <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+
+
+                    <hr />
+
+                    <div ng-if="AtbEmUsoForm.descricao.$dirty" ng-messages="AtbEmUsoForm.descricao.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Descrição!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo Descrição deve ter no mínimo 3 caracteres.
+                        </div>
+                    </div>
+
+                    <div ng-if="AtbEmUsoForm.datainicio.$dirty" ng-messages="AtbEmUsoForm.datainicio.$error">
+                        <div ng-message="required" class="alert alert-danger">
+                            Por favor, preencha o campo Data Início!
+                        </div>
+                        <div ng-message="minlength" class="alert alert-danger">
+                            O campo Data Início deve ter no mínimo 10 caracteres.
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+

@@ -1,0 +1,93 @@
+﻿<!--/ MedicamentoAjuste -->
+
+<div class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-default" ng-controller="MedicamentoCtrl">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <div class="panel-body">
+
+
+        <form name="medicamentoForm">
+
+            <div class="row">
+
+                <div class="col-md-12 col-lg-12 col-sm-12 row">
+                    <input class="form-control col-md-4 col-lg-4 col-sm-4" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?" />
+                </div>
+
+                <div class="panel-body panel-default row">
+                    <table ng-show="medicamentos.length > 0" class="table">
+                        <tr>
+                            <th>Excluir?</th>
+                            <th><a href="#" ng-click="ordenarPor('MedicamentoId')">ID</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Descricao')">Medicamento</a></th>
+                            <th><a href="#" ng-click="ordenarPor('Generico')">Genérico</a></th>
+                            <th><a href="#" ng-click="ordenarPor('IdGenerico')">ID Genérico</a></th>
+                            <th>Ação</th>
+                        </tr>
+                        <tbody>
+                            <tr ng-class="{'selecionado negrito': medicamento.selecionado}" dir-paginate="medicamento in medicamentos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:4" pagination-id="medicamentodescricao">
+                                <td><input type="checkbox" ng-model="medicamento.selecionado" /></td>
+                                <td class="text-left">{{medicamento.MedicamentoId}}</td>
+                                <td class="text-left">{{medicamento.Descricao}}</td>
+                                <td class="text-left">{{medicamento.Generico}}</td>
+                                <td class="text-left">{{medicamento.IdGenerico}}</td>
+                                <td><button class="btn btn-success" ng-click="alterarMedicamento(medicamento)" ng-disabled=true>Editar</button></td>
+                            </tr>
+                        </tbody>
+                        <dir-pagination-controls max-size="5" pagination-id="medicamentodescricao" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </table>
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-12">
+                        <input id="descricao" type="text" ng-model="medicamento.Descricao" class="form-control" name="descricao" placeholder="Medicamento..." ng-required="true" ng-minlength="3">
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xl-12">
+                        <input id="generico" type="text" ng-model="medicamento.Generico" class="form-control" name="generico" placeholder="Genérico do Medicamento..." ng-required="true" ng-minlength="3">
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xl-12">
+                        <input id="idgenerico" type="text" ng-model="medicamento.IdGenerico" class="form-control" name="idgenerico" placeholder="Genérico Id..." ng-required="true">
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+        </form>
+
+
+        <div class="row">
+            <button class="btn btn-primary" ng-click="adicionarMedicamento(medicamento)" ng-disabled="medicamentoForm.$invalid">Adicionar Medicamento</button>
+            <button class="btn btn-danger" ng-click="apagarMedicamentos(medicamentos)" ng-if="isMedicamentoSelecionado(medicamentos)">Apagar Medicamento</button>
+
+            <hr />
+
+            <div ng-show="medicamentoForm.descricao.$dirty" ng-messages="medicamentoForm.descricao.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo medicamento!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo medicamento deve ter no mínimo 3 caracteres.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+

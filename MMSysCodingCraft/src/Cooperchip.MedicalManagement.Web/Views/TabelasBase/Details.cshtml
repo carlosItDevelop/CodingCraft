@@ -1,0 +1,68 @@
+﻿@model Cooperchip.MedicalManagement.Domain.Entidade.TabelasBase
+
+
+@{ Layout = null;}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">MedicalManagement-Sys - @Model.Descricao</h4>
+        </div>
+
+        <div class="modal-body">
+
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Nome)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Descricao)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Descricao)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Action)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Action)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Controller)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Controller)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ativa)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Ativa)
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <input type="button" value="Cancelar" class="btn btn-default" data-dismiss="modal" />
+        </div>
+
+
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

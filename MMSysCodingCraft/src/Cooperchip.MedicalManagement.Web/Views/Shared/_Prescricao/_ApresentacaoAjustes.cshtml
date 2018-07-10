@@ -1,0 +1,422 @@
+﻿
+
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <b>Prescrição - Apresentação e Ajustes de Medicações</b>
+            </h3>
+        </div>
+        <div class="panel-body">
+
+            <!--/ Botão que vefifica Interação com duas funções: 
+                no ng-disabled verificamos se tem mais de um medicamento prescrito;
+                No ng-click fazemos as comparações com a base de dados InteracaoMedicamentosa
+                para verificar as interações, se houverem. -->
+            <button ng-disabled="!HabilitaInteracao(
+                                                   prescricao.TemMedicamento01, 
+                                                   prescricao.TemMedicamento02, 
+                                                   prescricao.TemMedicamento03, 
+                                                   prescricao.TemMedicamento04, 
+                                                   prescricao.TemMedicamento05, 
+                                                   prescricao.TemMedicamento06, 
+                                                   prescricao.TemMedicamento07, 
+                                                   prescricao.TemMedicamento08 
+                                                )" 
+                    ng-click="verificaSeTemInteracao(
+                                                   prescricao.Medicamento01,
+                                                   prescricao.Medicamento02,
+                                                   prescricao.Medicamento03,
+                                                   prescricao.Medicamento04,
+                                                   prescricao.Medicamento05,
+                                                   prescricao.Medicamento06,
+                                                   prescricao.Medicamento07,
+                                                   prescricao.Medicamento08
+                                                )"
+                    name="interacao"
+                    id="idinteracao"
+                    class="btn btn-success"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Interação entre Medicamentos"
+                    data-original-title="Interação entre Medicamentos">
+                    <i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;
+                    Verificar Interação
+            </button>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Medicamento</th>
+                        <th>Posologia</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="checkbox" class="form-control" ng-model="prescricao.TemMedicamento01" ng-click="zeraOption(prescricao.TemMedicamento01, 1)" id="TemMedicamento01" value="" name="TemMedicamento01">
+                                    <span class="button-checkbox"></span>
+                                </label>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento01)" name="Medicamento01" id="Medicamento01" ng-model="prescricao.Medicamento01"
+                                        ng-options="medicamento.MedicamentoId as medicamento.Descricao + '  *** (Genérico: ' + medicamento.Generico + ' )' for medicamento in medicamentos | orderBy:'Descricao'">
+                                    <option value="">Selecione um medicamento...</option>
+                                </select>
+                            </div>
+                        </td>
+
+
+
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento01)" name="Posologia01" id="Posologia01" ng-model="prescricao.MedicamentoPosologia01"
+                                        ng-options="posologia1.MedicamentoPosologiaId as posologia1.Descricao for posologia1 in medicamentosposologia1">
+                                    <option value="">Selecione a posologia...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            
+                            <button id="apresentacao01" ng-disabled="isDisableCbo(prescricao.TemMedicamento01)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-font"></i></button>
+                            @*<button id="apresentacao01" ng-disabled="isDisableCbo(prescricao.TemMedicamento01)" ng-click="{{openIfHaveId(prescricao.Medicamento01)}}" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-edit"></i></button>*@
+                            @*<button id="apresentacao01" ng-disabled="isDisableCbo(prescricao.TemMedicamento01)" ng-click="{{openApresentacao('lg', prescricao.Medicamento01)}}" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-edit"></i></button>*@
+                            <button id="ajuste01" ng-disabled="isDisableCbo(prescricao.TemMedicamento01)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ajustes do Medicamento" data-original-title="Ajustes do Medicamento"><i class="glyphicon glyphicon-wrench"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="checkbox" class="form-control" ng-model="prescricao.TemMedicamento02"  ng-click="zeraOption(prescricao.TemMedicamento02, 2)"  id="TemMedicamento02" value="" name="TemMedicamento02">
+                                    <span class="button-checkbox"></span>
+                                </label>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento02)" name="Medicamento02" id="Medicamento02" ng-model="prescricao.Medicamento02"
+                                        ng-options="medicamento.MedicamentoId as medicamento.Descricao + '  *** (Genérico: ' + medicamento.Generico + ' )' for medicamento in medicamentos | orderBy:'Descricao'">
+                                    <option value="">Selecione um medicamento...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento02)" name="Posologia02" id="Posologia02" ng-model="prescricao.MedicamentoPosologia02"
+                                        ng-options="posologia2.MedicamentoPosologiaId as posologia2.Descricao for posologia2 in medicamentosposologia2">
+                                    <option value="">Selecione a posologia...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <button id="apresentacao02" ng-disabled="isDisableCbo(prescricao.TemMedicamento02)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-font"></i></button>
+                            @*<button id="apresentacao02" ng-disabled="isDisableCbo(prescricao.TemMedicamento02)" ng-click="{{openApresentacao('lg', prescricao.Medicamento02)}}" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-edit"></i></button>*@
+                            <button id="ajuste02" ng-disabled="isDisableCbo(prescricao.TemMedicamento02)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ajustes do Medicamento" data-original-title="Ajustes do Medicamento"><i class="glyphicon glyphicon-wrench"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="checkbox" class="form-control" ng-model="prescricao.TemMedicamento03" ng-click="zeraOption(prescricao.TemMedicamento03, 3)" id="TemMedicamento03" value="" name="TemMedicamento03">
+                                    <span class="button-checkbox"></span>
+                                </label>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento03)" name="Medicamento03" id="Medicamento03" ng-model="prescricao.Medicamento03"
+                                        ng-options="medicamento.MedicamentoId as medicamento.Descricao + '  *** (Genérico: ' + medicamento.Generico + ' )' for medicamento in medicamentos | orderBy:'Descricao'">
+                                    <option value="">Selecione um medicamento...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento03)" name="Posologia03" id="Posologia03" ng-model="prescricao.MedicamentoPosologia03"
+                                        ng-options="posologia3.MedicamentoPosologiaId as posologia3.Descricao for posologia3 in medicamentosposologia3">
+                                    <option value="">Selecione a posologia...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <button id="apresentacao03" ng-disabled="isDisableCbo(prescricao.TemMedicamento03)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-font"></i></button>
+                            @*<button id="apresentacao03" ng-disabled="isDisableCbo(prescricao.TemMedicamento03)" ng-click="{{openApresentacao('lg', prescricao.Medicamento03)}}" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-edit"></i></button>*@
+                            <button id="ajuste03" ng-disabled="isDisableCbo(prescricao.TemMedicamento03)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ajustes do Medicamento" data-original-title="Ajustes do Medicamento"><i class="glyphicon glyphicon-wrench"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="checkbox" class="form-control" ng-model="prescricao.TemMedicamento04" ng-click="zeraOption(prescricao.TemMedicamento04, 4)" id="TemMedicamento04" value="" name="TemMedicamento04">
+                                    <span class="button-checkbox"></span>
+                                </label>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento04)" name="Medicamento04" id="Medicamento04" ng-model="prescricao.Medicamento04"
+                                        ng-options="medicamento.MedicamentoId as medicamento.Descricao + '  *** (Genérico: ' + medicamento.Generico + ' )' for medicamento in medicamentos | orderBy:'Descricao'">
+                                    <option value="">Selecione um medicamento...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento04)" name="MedicamentoPosologia04" id="MedicamentoPosologia04" ng-model="prescricao.MedicamentoPosologia04"
+                                        ng-options="posologia4.MedicamentoPosologiaId as posologia4.Descricao for posologia4 in medicamentosposologia4">
+                                    <option value="">Selecione a posologia...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <button id="apresentacao04" ng-disabled="isDisableCbo(prescricao.TemMedicamento04)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-font"></i></button>
+                            @*<button id="apresentacao04" ng-disabled="isDisableCbo(prescricao.TemMedicamento04)" ng-click="{{openApresentacao('lg', prescricao.Medicamento04)}}" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-edit"></i></button>*@
+                            <button id="ajuste04" ng-disabled="isDisableCbo(prescricao.TemMedicamento04)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ajustes do Medicamento" data-original-title="Ajustes do Medicamento"><i class="glyphicon glyphicon-wrench"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="checkbox" class="form-control" ng-model="prescricao.TemMedicamento05" ng-click="zeraOption(prescricao.TemMedicamento05, 5)" id="TemMedicamento05" value="" name="TemMedicamento05">
+                                    <span class="button-checkbox"></span>
+                                </label>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento05)" name="Medicamento05" id="Medicamento05" ng-model="prescricao.Medicamento05"
+                                        ng-options="medicamento.MedicamentoId as medicamento.Descricao + '  *** (Genérico: ' + medicamento.Generico + ' )' for medicamento in medicamentos | orderBy:'Descricao'">
+                                    <option value="">Selecione um medicamento...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento05)" name="MedicamentoPosologia05" id="MedicamentoPosologia05" ng-model="prescricao.MedicamentoPosologia05"
+                                        ng-options="posologia5.MedicamentoPosologiaId as posologia5.Descricao for posologia5 in medicamentosposologia5">
+                                    <option value="">Selecione a posologia...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <button id="apresentacao05" ng-disabled="isDisableCbo(prescricao.TemMedicamento05)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-font"></i></button>
+                            @*<button id="apresentacao05" ng-disabled="isDisableCbo(prescricao.TemMedicamento05)" ng-click="{{openApresentacao('lg', prescricao.Medicamento05)}}" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-edit"></i></button>*@
+                            <button id="ajuste05" ng-disabled="isDisableCbo(prescricao.TemMedicamento05)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ajustes do Medicamento" data-original-title="Ajustes do Medicamento"><i class="glyphicon glyphicon-wrench"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="checkbox" class="form-control" ng-model="prescricao.TemMedicamento06" ng-click="zeraOption(prescricao.TemMedicamento06, 6)" id="TemMedicamento06" value="" name="TemMedicamento06">
+                                    <span class="button-checkbox"></span>
+                                </label>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento06)" name="Medicamento06" id="Medicamento06" ng-model="prescricao.Medicamento06"
+                                        ng-options="medicamento.MedicamentoId as medicamento.Descricao + '  *** (Genérico: ' + medicamento.Generico + ' )' for medicamento in medicamentos | orderBy:'Descricao'">
+                                    <option value="">Selecione um medicamento...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento06)" name="MedicamentoPosologia06" id="MedicamentoPosologia06" ng-model="prescricao.MedicamentoPosologia06"
+                                        ng-options="posologia6.MedicamentoPosologiaId as posologia6.Descricao for posologia6 in medicamentosposologia6">
+                                    <option value="">Selecione a posologia...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <button id="apresentacao06" ng-disabled="isDisableCbo(prescricao.TemMedicamento06)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-font"></i></button>
+                            @*<button id="apresentacao06" ng-disabled="isDisableCbo(prescricao.TemMedicamento06)" ng-click="{{openApresentacao('lg', prescricao.Medicamento06)}}" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-edit"></i></button>*@
+                            <button id="ajuste06" ng-disabled="isDisableCbo(prescricao.TemMedicamento06)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ajustes do Medicamento" data-original-title="Ajustes do Medicamento"><i class="glyphicon glyphicon-wrench"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="checkbox" class="form-control" ng-model="prescricao.TemMedicamento07" ng-click="zeraOption(prescricao.TemMedicamento07, 7)" id="TemMedicamento07" value="" name="TemMedicamento07">
+                                    <span class="button-checkbox"></span>
+                                </label>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento07)" name="Medicamento07" id="Medicamento07" ng-model="prescricao.Medicamento07"
+                                        ng-options="medicamento.MedicamentoId as medicamento.Descricao + '  *** (Genérico: ' + medicamento.Generico + ' )' for medicamento in medicamentos | orderBy:'Descricao'">
+                                    <option value="">Selecione um medicamento...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento07)" name="MedicamentoPosologia07" id="MedicamentoPosologia07" ng-model="prescricao.MedicamentoPosologia07"
+                                        ng-options="posologia7.MedicamentoPosologiaId as posologia7.Descricao for posologia7 in medicamentosposologia7">
+                                    <option value="">Selecione a posologia...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <button id="apresentacao07" ng-disabled="isDisableCbo(prescricao.TemMedicamento07)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-font"></i></button>
+                            @*<button id="apresentacao07" ng-disabled="isDisableCbo(prescricao.TemMedicamento07)" ng-click="{{openApresentacao('lg', prescricao.Medicamento07)}}" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-edit"></i></button>*@
+                            <button id="ajuste07" ng-disabled="isDisableCbo(prescricao.TemMedicamento07)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ajustes do Medicamento" data-original-title="Ajustes do Medicamento"><i class="glyphicon glyphicon-wrench"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            <div class="toggle-custom">
+                                <label class="toggle" data-on="ON" data-off="OFF">
+                                    <input type="checkbox" class="form-control" ng-model="prescricao.TemMedicamento08" ng-click="zeraOption(prescricao.TemMedicamento08, 8)" id="TemMedicamento08" value="" name="TemMedicamento08">
+                                    <span class="button-checkbox"></span>
+                                </label>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento08)" name="Medicamento08" id="Medicamento08" ng-model="prescricao.Medicamento08"
+                                        ng-options="medicamento.MedicamentoId as medicamento.Descricao + '  *** (Genérico: ' + medicamento.Generico + ' )' for medicamento in medicamentos | orderBy:'Descricao'">
+                                    <option value="">Selecione um medicamento...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" ng-disabled="isDisableCbo(prescricao.TemMedicamento08)" name="MedicamentoPosologia08" id="MedicamentoPosologia08" ng-model="prescricao.MedicamentoPosologia08"
+                                        ng-options="posologia8.MedicamentoPosologiaId as posologia8.Descricao for posologia8 in medicamentosposologia8">
+                                    <option value="">Selecione a posologia...</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            @*<button id="apresentacao08" ng-disabled="isDisableCbo(prescricao.TemMedicamento08)" ng-click="{{openApresentacao('lg', prescricao.Medicamento08)}}" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-edit"></i></button>*@
+                            <button id="apresentacao08" ng-disabled="isDisableCbo(prescricao.TemMedicamento08)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Apresentação do Medicamento" data-original-title="Apresentação do Medicamento"><i class="glyphicon glyphicon-font"></i></button>
+                            <button id="ajuste08" ng-disabled="isDisableCbo(prescricao.TemMedicamento08)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ajustes do Medicamento" data-original-title="Ajustes do Medicamento"><i class="glyphicon glyphicon-wrench"></i></button>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+    <!--/ Modal -->
+    <script type="text/ng-template" id="ModalApresentacao.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Apresentação, Ajustes e Interação de Medicamentos</h3>
+        </div>
+        <div class="modal-body">
+
+            <table class="table table-responsive table-bordered">
+                <thead class="color-green-light">
+                    <tr>
+                        <th><h3><strong>Medicamento</strong></h3></th>
+                        <th><h3><strong>Genérico</strong></h3></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><h4>{{vMdct[0].Medicamento.Descricao}}</h4></td>
+                        <td><h4>{{vMdct[0].Medicamento.Generico}}</h4></td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <h2>Apresentações:</h2>
+            <div class="alert alert-success">
+                <ul>
+                    <li ng-repeat="m in vMdct">
+                        <h4>{{m.Descricao}}</h4>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        </div>
+    </script>
+    <!--/ Modal -->
+
+
+
+    <!--/ Modal -->
+    <script type="text/ng-template" id="ModalRepetidas.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Controle de Medicamentos para Interação</h3>
+        </div>
+        <div class="modal-body">
+
+            <h3>Os seguintes items forma selecionados repetidamente:</h3>
+            <br/>
+            <div class="alert alert-warning">
+                <ul>
+                    <li ng-repeat="r in vRepetidos">
+                        <h4>{{r}}</h4>
+                    </li>
+                </ul>
+            </div>
+            <div class="alert alert-info"><h4>Obs.: Já foram retirados da lista!</h4></div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        </div>
+    </script>
+    <!--/ Modal -->
+
+
+
+
+</div>
+

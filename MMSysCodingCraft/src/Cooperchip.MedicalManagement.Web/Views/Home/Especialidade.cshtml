@@ -1,0 +1,99 @@
+﻿
+
+@{
+    ViewBag.Title = "Lista de Especialidades";
+}
+
+
+<div ng-controller="especialidadeCtrl" class="container  col-md-12 col-lg-12 col-sm-12 panel-collapse panel-evolumed">
+
+    <div class="panel-heading">
+        <h4><i class="fa fa-adn"></i>&nbsp;&nbsp;&nbsp;{{titulo}}</h4>
+    </div>
+    <form class="panel-body" name="especialidadeForm">
+
+        <div class="row">
+
+
+
+            <div class="divList">
+
+                <input type="text" class="form-control" name="busca" ng-model="criterioDeBusca" value="" placeholder="O que você está buscando..." />
+
+                <table ng-show="especialidades.length > 0" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><b><a href="#" ng-click="ordenarPor('EspecialidadeId')">ID</a></b></th>
+                            <th><b><a href="#" ng-click="ordenarPor('Descricao')">DESCRIÇÃO</a></b></th>
+                            <th><b>AÇÃO</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="especialidade in especialidades | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | itemsPerPage:5" pagination-id="especialidade">
+                            <td ng-bind="especialidade.EspecialidadeId"></td>
+                            <td ng-bind="especialidade.Descricao"></td>
+                            <td>
+                                <button class="btn btn-primary" ng-disabled="inibeBtnAtualizar()" ng-click="obterPorId(especialidade)" data-id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar Especialidade" data-original-title="Editar Especialidade"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger" ng-disabled="inibeBtnExcluir()" ng-click="ExcluirEspecialidade(especialidade)" data-id="delete" data-toggle="tooltip" data-placement="bottom" title="Excluir Especialidade" data-original-title="Excluir Especialidade"><i class="glyphicon glyphicon-trash"></i></button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <dir-pagination-controls max-size="5" pagination-id="especialidade" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <span class="btn btn-success" ng-disabled="inibeBtnAdicionar()" ng-click="incluirEspecialidadeDiv()">Adicionar Especialidade</span>
+            <hr />
+
+            <div ng-show="divespecialidade" class="col-md-12 col-lg-12 col-sm-12">
+                <h3>{{Acao}} Especialidades</h3>
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><b>Id</b></td>
+                                <td><input type="text" readonly="readonly" ng-model="especialidade.EspecialidadeId" class="form-control" /></td>
+                                <td><b>Descrição</b></td>
+                                <td><input type="text" name="descricao" ng-model="especialidade.Descricao" class="form-control" placeholder="Descrição..." ng-required="true" ng-minlength="3" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <span class="btn btn-primary" ng-disabled="especialidadeForm.$invalid" ng-click="AdicionarEditarEspecialidade()">Salvar</span>
+                        <span class="btn btn-danger" ng-click="cancelaEdicao()">Calcelar</span>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <br />
+        <div class="row">
+            <div ng-show="especialidadeForm.descricao.$dirty" ng-messages="especialidadeForm.descricao.$error">
+                <div ng-message="required" class="alert alert-danger">
+                    Por favor, preencha o campo Descrição!
+                </div>
+                <div ng-message="minlength" class="alert alert-danger">
+                    O campo Descrição deve ter no mínimo 3 caracteres.
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </form>
+
+</div>
+
+
+

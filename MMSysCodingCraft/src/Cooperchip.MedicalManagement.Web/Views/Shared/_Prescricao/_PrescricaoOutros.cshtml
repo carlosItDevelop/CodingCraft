@@ -1,0 +1,134 @@
+﻿
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4 class="panel-title">Insulina / Oxigenoterapia / Fisioterapia e Sintomáticos</h4>
+        </div>
+        <div class="panel-body">
+
+
+            <div class="form-group">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <form name="insulinaForm">
+                        <div class="form-group">
+                            <div class="col-lg-12 col-md-12">
+
+                                <h4><b>Insulina Regular</b></h4>
+                                <ul>
+                                    <li ng-repeat="insulina in insulinaregulares">
+                                        <div class="toggle-custom">
+                                            <label class="toggle" data-on="ON" data-off="OFF">
+                                                <input type="radio" name="insulinaregular" ng-model="prescricao.InsulinaRegular" value="{{insulina.Descricao}}" class="form-control"/>
+                                                <span class="button-radio"></span>
+                                            </label>
+                                            <label>{{insulina.Descricao}}</label>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <br/>
+                                <h4><b>Oxigenoterapia</b></h4>
+
+                                <ul>
+                                    <li ng-repeat="oxigenio in oxigenoterapias">
+                                        <div class="toggle-custom">
+                                            <label class="toggle" data-on="ON" data-off="OFF">
+                                                <input type="radio" name="oxigenoterapia" ng-model="prescricao.Oxigenoterapia" value="{{oxigenio.Descricao}}" class="form-control"/>
+                                                <span class="button-radio"></span>
+                                            </label>
+                                            <label>{{oxigenio.Descricao}}</label>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <form name="fisioterapiaForm">
+                        <div class="form-group">
+                            <div class="col-lg-12 col-md-12">
+
+                                <h4><b>Fisioterapia</b></h4>
+                                <ul>
+                                    <li ng-repeat="fisioterapia in fisioterapias">
+                                        <div class="toggle-custom">
+                                            <label class="toggle" data-on="ON" data-off="OFF">
+                                                <input type="radio" name="fisioterapia" ng-model="prescricao.Fisioterapia" value="{{fisioterapia.Descricao}}" class="form-control"/>
+                                                <span class="button-radio"></span>
+                                            </label>
+                                            <label>{{fisioterapia.Descricao}}</label>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <br/>
+                                <h4><b>Hipertensão</b></h4>
+                                <div class="toggle-custom">
+                                    <label class="toggle" data-on="ON" data-off="OFF">
+                                        <input type="checkbox" class="form-control" ng-model="prescricao.Captopril">
+                                        <span class="button-checkbox"></span>
+                                    </label>
+                                    <label>Captopril</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <form name="febreedorForm">
+                        <div class="form-group">
+                            <div class="col-lg-12 col-md-12">
+
+                                <h4><b>Febre e Dor</b></h4>
+                                <ul>
+                                    <li ng-repeat="febreedor in sintomaticosfebreedor">
+                                        <div class="toggle-custom">
+                                            <label class="toggle" data-on="ON" data-off="OFF">
+                                                <input type="radio" name="febreedor" ng-model="prescricao.FebreDor" value="{{febreedor.Descricao}}" class="form-control"/>
+                                                <span class="button-radio"></span>
+                                            </label>
+                                            <label>{{febreedor.Descricao}}</label>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <br/>
+                                <h4><b>Êmese</b></h4>
+                                <ul>
+                                    <li ng-repeat="emese in sintomaticosemese">
+                                        <div class="toggle-custom">
+                                            <label class="toggle" data-on="ON" data-off="OFF">
+                                                <input type="radio" name="emese" ng-model="prescricao.Emese" value="{{emese.Descricao}}" class="form-control"/>
+                                                <span class="button-radio"></span>
+                                            </label>
+                                            <label>{{emese.Descricao}}</label>
+                                        </div>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- Mirrored from websites.simplesphere.net/sales/version1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 27 May 2015 06:49:01 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Evolued-Sys - Seu sistema de Evolução Médica online</title>
+    <meta name="author" content="MedicalManagement Ltda">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,700,800&amp;subsetting=all' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]>
+        <script src="./Scripts/html5shiv.js"></script>
+        <script src="./Scripts/respond.js"></script>
+    <![endif]-->
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+
+
+<body data-spy="scroll" data-target=".navigation">
+
+    <!-- Start Header -->
+    <header id="header">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Start Logo / Text -->
+                    <a class="navbar-brand text-logo" href="#"><i class="icon-signout"></i>MedicalManagement - Sys</a>
+                    <!-- End Logo / Text -->
+                </div>
+                <!-- Start Navigation -->
+                <div class="navigation navbar-collapse collapse">
+                    <ul class="nav navbar-nav menu-right">
+                        <li class="active"><a href="#header">Home</a></li>
+                        <li><a href="#intro">Introdução</a></li>
+                        <li><a href="#portfolio">Nosso trabalho</a></li>
+                        <li><a href="#features">Recursos</a></li>
+                        <li><a href="#snippets">Sobre Nós</a></li>                        
+                        <li><a href="#testimonials">Testemunhal</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#pricing">Planos</a></li>
+                    </ul>
+                </div>
+                <!-- End Navigation  -->
+            </div>
+        </nav>
+    </header>
+    <!-- End Header -->
+
+
+    @*<div class="container body-content">*@
+    <div>
+
+        @RenderBody()
+
+
+        <footer id="footer" class="section nopadding-bottom">
+            <div class="container">
+                <div class="row">
+                    <!--Footer About Description -->
+                    <div class="col-md-3 col-sm-6">
+                        <h4>MedicalManagement - Institucional</h4>
+                        <p>Faça um Tour além da Homepage.</p>
+                        <hr />
+                        <h4>Mapa do site</h4>
+                        <ul class="quick-links">
+                            <li><a href="#">Quem Somos</a></li>
+                            <li><a href="#">Contato</a></li>
+                            <li><a href="#">Termos &amp; Condições</a></li>
+                            <li><a href="#">Política de Privacidade</a></li>
+                            <li><a href="#">Suporte</a></li>
+                        </ul>
+                    </div>
+                    <!-- End Footer About Description -->
+                    <!-- Start Contact Details  -->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="contact-info">
+                            <h4>Onde nos encontrar:</h4>
+                            <p>Estamos no Rio de Janeiro, RJ. Faça-nos uma visita.</p>
+                            <ul class="contact-list">
+                                <li><i class="fa fa-map-marker"></i>Rio de Janeiro, RJ</li>
+                                <li><i class="fa fa-phone"></i>+55 21 98786-1071</li>
+                                <li><i class="fa fa-envelope-o"></i><a href="mailto:contato.cooperchip@gmail.com">contato.cooperchip@gmail.com</a></li>
+                            </ul>
+                        </div>
+                        <!-- End Contact Details  -->
+                        <hr />
+
+                        <div class="social">
+                            <h4>Siga-nos</h4>
+                            <!-- Start  Social Links -->
+                            <ul class="social">
+                                <li class="facebook"> <a href="#"> <i class="fa fa-facebook"></i> </a> </li>
+                                <li class="twitter"> <a href="#"> <i class="fa fa-twitter"></i> </a> </li>
+                                <li class="google-plus"> <a href="#"> <i class="fa fa-google-plus"></i> </a> </li>
+                                <li class="linkedin"> <a href="#"> <i class="fa fa-linkedin"></i> </a> </li>
+                                <li class="youtube"> <a href="#"> <i class="fa fa-youtube-play"></i> </a> </li>
+                            </ul>
+                            <!-- End Social Links  -->
+                        </div>
+                    </div>
+                    <div class="col-md-5 bottom-contact">
+                        <h4>Fale conosco</h4>
+                        <p>Envie-nos suas dúvidas, sugestões, reclamações, etc..</p>
+                        <!-- Start Contact Form  -->
+                        <form id="contact-form" class="contact-form" method="post" action="http://websites.simplesphere.net/sales/version1/contact-form.php">
+                            <div class="form-group">
+                                <input name="contact-name" id="contact-name" type="text" class="form-control" placeholder="Nome">
+                            </div>
+                            <div class="form-group">
+                                <input name="contact-email" id="contact-email" type="text" class="form-control" placeholder="e-mail">
+                            </div>
+                            <div class="form-group">
+                                <input name="contact-phone" id="contact-phone" type="text" class="form-control" placeholder="Telefone">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="contact-message" id="contact-message" class="form-control" placeholder="Menssagem"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default btn-submit">Enviar</button>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-process-contact"></div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- End Contact Form  -->
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row footer-bottom">
+                    <div class="col-lg-6 col-sm-6">
+                        <p>&copy; MedicalManagement. Todos os direitos reservados</p>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <p class="copyright">MedicalManagement - Por <a href="#">Cooperchip Informática</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+    </div>
+
+
+
+
+
+    <!-- Start Scroll To Top  -->
+    <a href="#" class="scroll-up"><i class="fa fa-arrow-up"></i></a>
+    <!-- End Scroll To Top  -->
+    <!-- Start Js Files -->
+    <script type="text/javascript">window.jQuery || document.write('<script src="Scripts/jquery-2.1.0.min.js"><\/script>')</script>
+
+    <!-- FIM DO BODY CODIGO PERSONALIZADO APOS DO RENDERBODY /-->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>

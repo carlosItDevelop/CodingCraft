@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BE80DCFF-9724-4EAF-9412-4C08C8B95021}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cooperchip.MedicalManagement.Domain</RootNamespace>
+    <AssemblyName>Cooperchip.MedicalManagement.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation.7.1.1\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\CpfCnpjAttribute.cs" />
+    <Compile Include="Entidade\Acesso.cs" />
+    <Compile Include="Entidade\Agendamento.cs" />
+    <Compile Include="Entidade\Alergia.cs" />
+    <Compile Include="Entidade\Anticoagulacao.cs" />
+    <Compile Include="Entidade\ApresentacaoAjusteInteracao.cs" />
+    <Compile Include="Entidade\ApresentacaoAux.cs" />
+    <Compile Include="Entidade\AtbEmUso.cs" />
+    <Compile Include="Entidade\AtbJaUtilizado.cs" />
+    <Compile Include="Entidade\AuxUniGeog.cs" />
+    <Compile Include="Entidade\Bairro.cs" />
+    <Compile Include="Entidade\BalancoHidrico.cs" />
+    <Compile Include="Entidade\BaseDeConhecimento.cs" />
+    <Compile Include="Entidade\ChamadaMedico.cs" />
+    <Compile Include="Entidade\CidAdaptada.cs" />
+    <Compile Include="Entidade\Cidade.cs" />
+    <Compile Include="Entidade\Classe.cs" />
+    <Compile Include="Entidade\Complicacao.cs" />
+    <Compile Include="Entidade\Contato.cs" />
+    <Compile Include="Entidade\ContraIndicacao.cs" />
+    <Compile Include="Entidade\Convenio.cs" />
+    <Compile Include="Entidade\Dieta.cs" />
+    <Compile Include="Entidade\Entidade.cs" />
+    <Compile Include="Entidade\EntidadeNaoEditavel.cs" />
+    <Compile Include="Entidade\ExameParametros.cs" />
+    <Compile Include="Entidade\Interfaces\IEntidade.cs" />
+    <Compile Include="Entidade\Interfaces\IEntidadeNaoEditavel.cs" />
+    <Compile Include="Entidade\Invasoes.cs" />
+    <Compile Include="Entidade\NotificacoesProntuario.cs" />
+    <Compile Include="Entidade\Pessoa.cs" />
+    <Compile Include="Entidade\PessoaFisica.cs" />
+    <Compile Include="Entidade\PessoaJuridica.cs" />
+    <Compile Include="Entidade\Precaucao.cs" />
+    <Compile Include="Entidade\ProntuarioBase.cs" />
+    <Compile Include="Entidade\ProntuarioPrecaucao.cs" />
+    <Compile Include="Entidade\ResultadoExame.cs" />
+    <Compile Include="Entidade\TipoDePrecaucao.cs" />
+    <Compile Include="Entidade\TipoDreno.cs" />
+    <Compile Include="Entidade\Dreno.cs" />
+    <Compile Include="Entidade\Endereco.cs" />
+    <Compile Include="Entidade\Especialidade.cs" />
+    <Compile Include="Entidade\EstadoDoPaciente.cs" />
+    <Compile Include="Entidade\Events.cs" />
+    <Compile Include="Entidade\ExameDeImagem.cs" />
+    <Compile Include="Entidade\ExameDescricao.cs" />
+    <Compile Include="Entidade\Fisioterapia.cs" />
+    <Compile Include="Entidade\Generico.cs" />
+    <Compile Include="Entidade\HistoriaPatologicaPregressa.cs" />
+    <Compile Include="Entidade\InteracaoMedicamentosa.cs" />
+    <Compile Include="Entidade\ItensFarmacia.cs" />
+    <Compile Include="Entidade\KitFarmacia.cs" />
+    <Compile Include="Entidade\Leito.cs" />
+    <Compile Include="Entidade\Medicamento.cs" />
+    <Compile Include="Entidade\MedicamentoAjustes.cs" />
+    <Compile Include="Entidade\MedicamentoApresentacao.cs" />
+    <Compile Include="Entidade\MedicamentoPosologia.cs" />
+    <Compile Include="Entidade\Medico.cs" />
+    <Compile Include="Entidade\Mural.cs" />
+    <Compile Include="Entidade\Operadora.cs" />
+    <Compile Include="Entidade\Paciente.cs" />
+    <Compile Include="Entidade\Parametro.cs" />
+    <Compile Include="Entidade\PedidoFarmacia.cs" />
+    <Compile Include="Entidade\Prescricao.cs" />
+    <Compile Include="Entidade\Prontuario.cs" />
+    <Compile Include="Entidade\Setor.cs" />
+    <Compile Include="Entidade\SinaisVitais.cs" />
+    <Compile Include="Entidade\TabelasBase.cs" />
+    <Compile Include="Entidade\TelefonePaciente.cs" />
+    <Compile Include="Entidade\TipoTelefone.cs" />
+    <Compile Include="Entidade\UF.cs" />
+    <Compile Include="Entidade\UnidadeGeografica.cs" />
+    <Compile Include="Enum\AcessoTipo.cs" />
+    <Compile Include="Enum\EstadoCivil.cs" />
+    <Compile Include="Enum\Sexo.cs" />
+    <Compile Include="Enum\TipoPessoa.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validations\PacienteValidator.cs" />
+    <Compile Include="Validations\ProntuarioInvasoesValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cooperchip.Common.Identity\Cooperchip.Common.Identity.csproj">
+      <Project>{977DEF1A-BF1F-4312-AD52-816C91BCFF56}</Project>
+      <Name>Cooperchip.Common.Identity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\Repository\" />
+    <Folder Include="Interfaces\Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
