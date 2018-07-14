@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Cooperchip.MedicalManagement.Domain.Enum;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cooperchip.MedicalManagement.Domain.Entidade
 {
-    [Table("PessoaFisica")]
+    //[Table("PessoaFisica")]
     public class PessoaFisica : Pessoa
     {
         [Display(Name = "Nome")]
@@ -28,6 +29,9 @@ namespace Cooperchip.MedicalManagement.Domain.Entidade
         [DataType(DataType.Date, ErrorMessage = "Data Inválida.")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DataEmissaoRg { get; set; }
+
+        public EstadoCivil EstadoCivil { get; set; }
+        public Sexo Sexo { get; set; }
 
         public virtual Medico Medico { get; set; }
         public virtual Paciente Paciente { get; set; }

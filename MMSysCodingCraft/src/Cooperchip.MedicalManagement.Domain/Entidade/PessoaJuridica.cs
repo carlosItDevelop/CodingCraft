@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cooperchip.MedicalManagement.Domain.Entidade
 {
-    [Table("PessoaJuridica")]
+    //[Table("PessoaJuridica")]
     public class PessoaJuridica : Pessoa
     {
         [Display(Name = "Razão Social")]

@@ -50,10 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201806281624099_LocalDbReload.cs" />
-    <Compile Include="Migrations\201806281624099_LocalDbReload.Designer.cs">
-      <DependentUpon>201806281624099_LocalDbReload.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EvoluMedSysModelContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,11 +70,6 @@
       <Project>{be80dcff-9724-4eaf-9412-4c08c8b95021}</Project>
       <Name>Cooperchip.MedialManagement.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806281624099_LocalDbReload.resx">
-      <DependentUpon>201806281624099_LocalDbReload.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

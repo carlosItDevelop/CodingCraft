@@ -7,6 +7,7 @@ using System.Web;
 using System.Data.Entity.Validation;
 using Cooperchip.MedicalManagement.Domain.Entidade.Interfaces;
 using Cooperchip.MedicalManagement.Infra.Data.TypeConfiguration;
+using System.Threading.Tasks;
 
 namespace Cooperchip.MedicalManagement.Infra.Data
 {
@@ -71,6 +72,66 @@ namespace Cooperchip.MedicalManagement.Infra.Data
                 throw new DbEntityValidationException(exceptionsMessage, ex.EntityValidationErrors);
             }
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override async Task<int> SaveChangesAsync()
+        {
+            try
+            {
+                var currentTime = DateTime.Now;
+
+                foreach (var entry in ChangeTracker.Entries().Where(e => e.Entity != null &&
+                        typeof(IEntidadeNaoEditavel).IsAssignableFrom(e.Entity.GetType())))
+                {
+                    if (entry.State == EntityState.Added)
+                    {
+
+                        if (entry.Property(nameof(IEntidadeNaoEditavel.DataInclusao)) != null)
+                        {
+                            entry.Property(nameof(IEntidadeNaoEditavel.DataInclusao)).CurrentValue = currentTime;
+                        }
+                        if (entry.Property(nameof(IEntidadeNaoEditavel.UsuarioInclusao)) != null)
+                        {
+                            entry.Property(nameof(IEntidadeNaoEditavel.UsuarioInclusao)).CurrentValue = HttpContext.Current != null ? HttpContext.Current.User.Identity.Name : "Usuario";
+                        }
+                    }
+
+                    if (entry.State == EntityState.Modified)
+                    {
+                        entry.Property(nameof(IEntidade.DataInclusao)).IsModified = false;
+                        entry.Property(nameof(IEntidade.UsuarioInclusao)).IsModified = false;
+
+                        if (entry.Property(nameof(IEntidade.DataUltimaModificacao)) != null)
+                        {
+                            entry.Property(nameof(IEntidade.DataUltimaModificacao)).CurrentValue = currentTime;
+                        }
+                        if (entry.Property(nameof(IEntidade.UsuarioUltimaModificacao)) != null)
+                        {
+                            entry.Property(nameof(IEntidade.UsuarioUltimaModificacao)).CurrentValue = HttpContext.Current != null ? HttpContext.Current.User.Identity.Name : "Usuario";
+                        }
+                    }
+                }
+
+                return await base.SaveChangesAsync();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                var errorMessages = ex.EntityValidationErrors
+                    .SelectMany(x => x.ValidationErrors)
+                    .Select(x => x.ErrorMessage);
+
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                var exceptionsMessage = string.Concat(ex.Message, "Os erros de validações são: ", fullErrorMessage);
+
+                throw new DbEntityValidationException(exceptionsMessage, ex.EntityValidationErrors);
+            }
+        }
+
 
 
         #region: DbSets

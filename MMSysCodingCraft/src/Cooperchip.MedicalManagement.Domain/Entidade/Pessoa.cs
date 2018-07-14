@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Cooperchip.MedicalManagement.Domain.Entidade
 {
     [Table("Pessoa")]
-    public class Pessoa : Entidade
+    public abstract class Pessoa : Entidade
     {
         public Pessoa()
         {

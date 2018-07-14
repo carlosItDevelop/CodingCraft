@@ -247,7 +247,7 @@
     <Compile Include="Controllers\MedicamentoController.cs" />
     <Compile Include="Controllers\MedicamentoPosologiaController.cs" />
     <Compile Include="Controllers\MuralController.cs" />
-    <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Controllers\PessoasFisicasController.cs" />
     <Compile Include="Controllers\ProntuarioController.cs" />
     <Compile Include="Controllers\ResultadoExameController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
@@ -1226,6 +1226,11 @@
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\PessoasFisicas\Create.cshtml" />
+    <Content Include="Views\PessoasFisicas\Delete.cshtml" />
+    <Content Include="Views\PessoasFisicas\Details.cshtml" />
+    <Content Include="Views\PessoasFisicas\Edit.cshtml" />
+    <Content Include="Views\PessoasFisicas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\dataTables.tableTools.css" />
@@ -1981,11 +1986,6 @@
     <Content Include="Views\Home\Icons.cshtml" />
     <Content Include="Views\Home\TabsDoTema.cshtml" />
     <Content Include="Views\Home\Calendario.cshtml" />
-    <Content Include="Views\Pessoa\Create.cshtml" />
-    <Content Include="Views\Pessoa\Delete.cshtml" />
-    <Content Include="Views\Pessoa\Details.cshtml" />
-    <Content Include="Views\Pessoa\Edit.cshtml" />
-    <Content Include="Views\Pessoa\Index.cshtml" />
     <Content Include="Views\Shared\_AcessoCentral\_UserAdmin.cshtml" />
     <Content Include="Views\Shared\_AcessoCentral\_AcessoRoles.cshtml" />
     <Content Include="Views\Shared\_AcessoCentral\_AcessoClaims.cshtml" />
