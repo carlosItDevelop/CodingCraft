@@ -248,6 +248,7 @@
     <Compile Include="Controllers\MedicamentoPosologiaController.cs" />
     <Compile Include="Controllers\MuralController.cs" />
     <Compile Include="Controllers\PessoasFisicasController.cs" />
+    <Compile Include="Controllers\PessoasJuridicasController.cs" />
     <Compile Include="Controllers\ProntuarioController.cs" />
     <Compile Include="Controllers\ResultadoExameController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
@@ -1231,6 +1232,11 @@
     <Content Include="Views\PessoasFisicas\Details.cshtml" />
     <Content Include="Views\PessoasFisicas\Edit.cshtml" />
     <Content Include="Views\PessoasFisicas\Index.cshtml" />
+    <Content Include="Views\PessoasJuridicas\Create.cshtml" />
+    <Content Include="Views\PessoasJuridicas\Delete.cshtml" />
+    <Content Include="Views\PessoasJuridicas\Details.cshtml" />
+    <Content Include="Views\PessoasJuridicas\Edit.cshtml" />
+    <Content Include="Views\PessoasJuridicas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\dataTables.tableTools.css" />

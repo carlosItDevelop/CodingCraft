@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Cooperchip.MedicalManagement.Domain.Entidade.PessoaJuridica>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeOuRazaoSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataNascimentoOuFundacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CpfOrCnpj)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataUltimaModificacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsuarioUltimaModificacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataInclusao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsuarioInclusao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeOuRazaoSocial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataNascimentoOuFundacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CpfOrCnpj)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataUltimaModificacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsuarioUltimaModificacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataInclusao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsuarioInclusao)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PessoaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PessoaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PessoaId })
+        </td>
+    </tr>
+}
+
+</table>
