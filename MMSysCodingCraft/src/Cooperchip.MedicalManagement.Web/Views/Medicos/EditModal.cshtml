@@ -1,0 +1,62 @@
+﻿
+
+@model Cooperchip.MedicalManagement.Web.ViewModel.MedicoViewModel
+
+@{ Layout = null; }
+
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">MedicalManagement-Sys - Adicionar Novo Médico</h4>
+        </div>
+
+
+
+        <div class="modal-body">
+            @using (Html.BeginForm("Edit", "Medicos", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="form-horizontal">
+
+
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(false, "Confira os campos com erros!", new { @class = "text-danger" })
+
+                    @Html.HiddenFor(model => model.MedicoId)
+
+
+
+                    @Html.Partial("_CreateOuEdit", Model)
+
+
+
+                    <hr />
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8">
+                            <input type="submit" value="Salvar" class="btn btn-primary" />
+                        </div>
+                    </div>
+
+
+                </div>
+            }
+
+        </div>
+        <div class="modal-footer">
+            <input type="button" value="Cancelar" class="btn btn-default" data-dismiss="modal" />
+        </div>
+
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jformval")
+}
+
+

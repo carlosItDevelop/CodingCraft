@@ -1241,8 +1241,11 @@
     <Content Include="Views\PessoasJuridicas\Index.cshtml" />
     <Content Include="Views\Medicos\Delete.cshtml" />
     <Content Include="Views\Medicos\Details.cshtml" />
-    <Content Include="Views\Medicos\Edit.cshtml" />
+    <Content Include="Views\Medicos\EditModal.cshtml" />
     <Content Include="Views\Medicos\Index.cshtml" />
+    <Content Include="Views\Medicos\CreateModal.cshtml" />
+    <Content Include="Views\Medicos\_CreateOuEdit.cshtml" />
+    <Content Include="Views\Medicos\Edit.cshtml" />
     <Content Include="Views\Medicos\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>

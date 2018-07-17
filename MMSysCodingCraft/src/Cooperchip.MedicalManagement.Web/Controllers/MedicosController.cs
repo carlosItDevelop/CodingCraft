@@ -71,8 +71,7 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
         public async Task<ActionResult> Create(MedicoViewModel medicoViewModel)
         {
 
-            medicoViewModel.MedicoId = Guid.NewGuid();
-            ModelState[nameof(medicoViewModel.MedicoId)].Errors.Clear();
+            medicoViewModel.MedicoId = Guid.NewGuid();            
 
             if (ModelState.IsValid)
             {
@@ -113,35 +112,73 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Medico medico = await db.Medico.FindAsync(id);
+            Medico medico = await db.Medico.Include(m => m.PessoaFisica).FirstOrDefaultAsync(m => m.MedicoId == id);
+
             if (medico == null)
             {
                 return HttpNotFound();
             }
+
+            var medicoViewModel = new MedicoViewModel
+            {
+                MedicoId = medico.MedicoId,
+                Email = medico.PessoaFisica.Email,
+                Ativo = medico.PessoaFisica.Ativo,
+                CpfOrCnpj = medico.PessoaFisica.CpfOrCnpj,
+                Crm = medico.Crm,
+                DataEmissaoRg = medico.PessoaFisica.DataEmissaoRg,
+                DataNascimentoOuFundacao = medico.PessoaFisica.DataNascimentoOuFundacao,
+                EstadoCivil = medico.PessoaFisica.EstadoCivil,
+                NomeOuRazaoSocial = medico.PessoaFisica.NomeOuRazaoSocial,
+                OrgaoEmissorRg = medico.PessoaFisica.OrgaoEmissorRg,
+                Rg = medico.PessoaFisica.Rg,
+                Sexo = medico.PessoaFisica.Sexo,
+                EspecialidadeId = medico.EspecialidadeId
+            };
+
             ViewBag.EspecialidadeId = new SelectList(db.Especialidade, "EspecialidadeId", "Descricao", medico.EspecialidadeId);
             //ViewBag.MedicoId = new SelectList(db.PessoaFisica, "PessoaId", "NomeOuRazaoSocial", medico.MedicoId);
-            return View(medico);
+            return View(medicoViewModel);
         }
+
+
+
 
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="medico"></param>
+        /// <param name="medicoViewModel"></param>
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MedicoId,Nome,Crm,EspecialidadeId")] Medico medico)
+        public async Task<ActionResult> Edit(MedicoViewModel medicoViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(medico).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+
+
+                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+
+
+                    var pfisica = (PessoaFisica)medicoViewModel;
+                    db.Entry(pfisica).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+
+
+                    var medico = (Medico)medicoViewModel;
+                    db.Entry(medico).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+
+
+                    scope.Complete();
+                }
+             
                 return RedirectToAction("Index");
             }
-            ViewBag.EspecialidadeId = new SelectList(db.Especialidade, "EspecialidadeId", "Descricao", medico.EspecialidadeId);
-            //ViewBag.MedicoId = new SelectList(db.PessoaFisica, "PessoaId", "NomeOuRazaoSocial", medico.MedicoId);
-            return View(medico);
+            ViewBag.EspecialidadeId = new SelectList(db.Especialidade, "EspecialidadeId", "Descricao", medicoViewModel.EspecialidadeId);
+            return View(medicoViewModel);
         }
 
         /// <summary>

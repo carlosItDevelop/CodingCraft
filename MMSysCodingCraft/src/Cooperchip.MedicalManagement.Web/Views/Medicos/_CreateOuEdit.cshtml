@@ -1,0 +1,86 @@
+﻿@model Cooperchip.MedicalManagement.Web.ViewModel.MedicoViewModel
+
+
+
+<div class="form-group">
+    @Html.LabelFor(model => model.NomeOuRazaoSocial, htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="col-md-8">
+        @Html.EditorFor(model => model.NomeOuRazaoSocial, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.NomeOuRazaoSocial, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.DataNascimentoOuFundacao, htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="col-md-8">
+        @Html.EditorFor(model => model.DataNascimentoOuFundacao, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DataNascimentoOuFundacao, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CpfOrCnpj, htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="col-md-8">
+        @Html.EditorFor(model => model.CpfOrCnpj, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CpfOrCnpj, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Rg, htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="col-md-8">
+        @Html.EditorFor(model => model.Rg, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Rg, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.OrgaoEmissorRg, htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="col-md-8">
+        @Html.EditorFor(model => model.OrgaoEmissorRg, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.OrgaoEmissorRg, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.DataEmissaoRg, htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="col-md-8">
+        @Html.EditorFor(model => model.DataEmissaoRg, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DataEmissaoRg, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Crm, htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="col-md-8">
+        @Html.EditorFor(model => model.Crm, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Crm, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="col-md-8">
+        <div class="checkbox">
+            @Html.EditorFor(model => model.Ativo)
+            @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="col-md-8">
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.EspecialidadeId, "EspecialidadeId", htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="col-md-8">
+        @Html.DropDownList("EspecialidadeId", null, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.EspecialidadeId, "", new { @class = "text-danger" })
+    </div>
+</div>
