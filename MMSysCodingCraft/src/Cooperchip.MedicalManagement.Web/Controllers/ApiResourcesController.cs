@@ -1805,7 +1805,7 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
         [Route("GetMedicosEmChamadaMedico")]
         public HttpResponseMessage ObterTodosOsMedicos()
         {
-            var medicos = (from m in _db.Medico select m.Nome).ToList().AsQueryable();
+            var medicos = (from m in _db.Medico select m.PessoaFisica.NomeOuRazaoSocial).ToList();
 
             return Request.CreateResponse(HttpStatusCode.OK, medicos);
         }

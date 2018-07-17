@@ -151,6 +151,7 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -246,6 +247,7 @@
     <Compile Include="Controllers\MedicamentoApresentacaoController.cs" />
     <Compile Include="Controllers\MedicamentoController.cs" />
     <Compile Include="Controllers\MedicamentoPosologiaController.cs" />
+    <Compile Include="Controllers\MedicosController.cs" />
     <Compile Include="Controllers\MuralController.cs" />
     <Compile Include="Controllers\PessoasFisicasController.cs" />
     <Compile Include="Controllers\PessoasJuridicasController.cs" />
@@ -1237,6 +1239,11 @@
     <Content Include="Views\PessoasJuridicas\Details.cshtml" />
     <Content Include="Views\PessoasJuridicas\Edit.cshtml" />
     <Content Include="Views\PessoasJuridicas\Index.cshtml" />
+    <Content Include="Views\Medicos\Delete.cshtml" />
+    <Content Include="Views\Medicos\Details.cshtml" />
+    <Content Include="Views\Medicos\Edit.cshtml" />
+    <Content Include="Views\Medicos\Index.cshtml" />
+    <Content Include="Views\Medicos\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\dataTables.tableTools.css" />

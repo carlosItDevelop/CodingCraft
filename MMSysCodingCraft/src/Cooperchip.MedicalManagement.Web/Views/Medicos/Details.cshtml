@@ -1,0 +1,82 @@
+﻿@model Cooperchip.MedicalManagement.Domain.Entidade.Medico
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Medico</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Especialidade.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Especialidade.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PessoaFisica.NomeOuRazaoSocial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PessoaFisica.NomeOuRazaoSocial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Crm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Crm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataUltimaModificacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataUltimaModificacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuarioUltimaModificacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioUltimaModificacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataInclusao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataInclusao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuarioInclusao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioInclusao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MedicoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
