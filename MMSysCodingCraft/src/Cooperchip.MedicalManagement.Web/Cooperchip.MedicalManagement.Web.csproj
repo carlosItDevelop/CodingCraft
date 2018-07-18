@@ -220,6 +220,7 @@
     <Compile Include="Controllers\ApiAtbEmUsoController.cs" />
     <Compile Include="Controllers\ApiAtbJaUtilizadoController.cs" />
     <Compile Include="Controllers\ApiGenericosController.cs" />
+    <Compile Include="Controllers\ApiMedicosController.cs" />
     <Compile Include="Controllers\ApiProntuarioPrecaucaoController.cs" />
     <Compile Include="Controllers\ApiResourcesController.cs" />
     <Compile Include="Controllers\ApiSelect2SearchController.cs" />

@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
-using System.Web;
+
 using System.Web.Mvc;
 using Cooperchip.MedicalManagement.Domain.Entidade;
 using Cooperchip.MedicalManagement.Infra.Data;
 using Cooperchip.MedicalManagement.Web.ViewModel;
 using System.Transactions;
+using System.Net;
 
 namespace Cooperchip.MedicalManagement.Web.Controllers
 {
@@ -30,6 +27,7 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
             var medico = db.Medico.Include(m => m.Especialidade).Include(m => m.PessoaFisica);
             return View(await medico.ToListAsync());
         }
+
 
         /// <summary>
         /// 
