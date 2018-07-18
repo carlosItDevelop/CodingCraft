@@ -194,6 +194,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\EspecialidadesController.cs" />
+    <Compile Include="Controllers\MedicosController.cs" />
     <Compile Include="Infrastructure\Identity\UserManager.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

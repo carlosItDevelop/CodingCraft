@@ -2,10 +2,11 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Cooperchip.MedicalManagement.Domain.Entidade
 {
-    //[Table("PessoaFisica")]
+    [DataContract]
     public class PessoaFisica : Pessoa
     {
         [Display(Name = "Nome")]
@@ -33,7 +34,9 @@ namespace Cooperchip.MedicalManagement.Domain.Entidade
         public EstadoCivil EstadoCivil { get; set; }
         public Sexo Sexo { get; set; }
 
+        [IgnoreDataMember]
         public virtual Medico Medico { get; set; }
+        [IgnoreDataMember]
         public virtual Paciente Paciente { get; set; }
     }
 }
