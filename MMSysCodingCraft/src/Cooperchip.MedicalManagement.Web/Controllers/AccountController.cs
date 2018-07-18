@@ -221,10 +221,9 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var user = new Usuario
                 {
                     UserName = model.Usuario,
-                    Usuario = model.Usuario,
                     Email = model.Email,
 
                     NomeCompleto = model.NomeCompleto,
@@ -232,8 +231,8 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
                     Google = model.Google,
                     Twitter = model.Twitter,
                     Skype = model.Skype,
-                    Telefone = model.Telefone,
-                    AboutMe = model.AboutMe
+                    PhoneNumber = model.Telefone,
+                    SobreMim = model.AboutMe
 
                 };
 
@@ -507,10 +506,9 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser
+                var user = new Usuario
                 {
                     UserName = model.Usuario,
-                    Usuario = model.Usuario,
                     Email = model.Email,
 
                     NomeCompleto = model.NomeCompleto,
@@ -518,8 +516,8 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
                     Google = model.Google,
                     Twitter = model.Twitter,
                     Skype = model.Skype,
-                    Telefone = model.Telefone,
-                    AboutMe = model.AboutMe
+                    PhoneNumber = model.Telefone,
+                    SobreMim = model.AboutMe
                 };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)

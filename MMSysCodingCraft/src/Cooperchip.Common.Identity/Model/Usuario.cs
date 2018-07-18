@@ -9,9 +9,8 @@ namespace Cooperchip.Common.Identity.Model
     /// <summary>
     /// 
     /// </summary>
-    public class ApplicationUser : IdentityUser
+    public class Usuario : IdentityUser
     {
-
         [Display(Name = "Nome Completo")]
         [Required(ErrorMessage = "Campo Nome é Obrigatório!")]
         [MaxLength(35, ErrorMessage = "Máximo de caracteres permitidos: 35")]
@@ -31,10 +30,10 @@ namespace Cooperchip.Common.Identity.Model
         public string Skype { get; set; }
 
         [MaxLength(15, ErrorMessage = "Máximo de caracteres permitidos, com máscara: 15")]
-        public string Telefone { get; set; }
+        public override string PhoneNumber { get; set; }
 
         [Display(Name = "Sobre o Usuário")]
-        public string AboutMe { get; set; }
+        public string SobreMim { get; set; }
 
         /// <summary>
         /// 
@@ -42,7 +41,7 @@ namespace Cooperchip.Common.Identity.Model
         [Required]
         [Display(Name = "Usuário")]
         [MaxLength(16, ErrorMessage = "Máximo de Caracter Permitido: 16")]
-        public string Usuario { get; set; }
+        public override string UserName { get; set; }
 
 
         /// <summary>
@@ -50,10 +49,14 @@ namespace Cooperchip.Common.Identity.Model
         /// </summary>
         /// <param name="manager"></param>
         /// <returns></returns>
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Usuario> manager, string authenticationType = "")
         {
+            if (string.IsNullOrEmpty(authenticationType))
+            {
+                authenticationType = DefaultAuthenticationTypes.ApplicationCookie;
+            }
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
             // Add custom user claims here
             return userIdentity;
         }

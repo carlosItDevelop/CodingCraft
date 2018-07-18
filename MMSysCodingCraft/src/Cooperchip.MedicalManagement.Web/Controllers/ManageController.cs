@@ -509,7 +509,7 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
             }
         }
 
-        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        private async Task SignInAsync(Usuario user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie, DefaultAuthenticationTypes.TwoFactorCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, await user.GenerateUserIdentityAsync(UserManager));
@@ -548,7 +548,7 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        private async Task<ApplicationUser> GetCurrentUserAsync()
+        private async Task<Usuario> GetCurrentUserAsync()
         {
             return await UserManager.FindByIdAsync(User.Identity.GetUserId());
         }

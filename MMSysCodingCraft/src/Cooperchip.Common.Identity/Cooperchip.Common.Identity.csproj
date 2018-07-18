@@ -126,7 +126,7 @@
     <Compile Include="Context\ApplicationDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\AddPhoneNumberViewModel.cs" />
-    <Compile Include="Model\ApplicationUser.cs" />
+    <Compile Include="Model\Usuario.cs" />
     <Compile Include="Model\ChangePasswordViewModel.cs" />
     <Compile Include="Model\Claims.cs" />
     <Compile Include="Model\ClaimViewModel.cs" />

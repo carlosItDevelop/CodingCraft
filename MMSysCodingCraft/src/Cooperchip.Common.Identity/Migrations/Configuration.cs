@@ -36,12 +36,11 @@ namespace Cooperchip.Common.Identity.Migrations
 
             if (!context.Users.Any(u => u.UserName == usuario))
             {
-                var store = new UserStore<ApplicationUser>(context);
-                var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser
+                var store = new UserStore<Usuario>(context);
+                var manager = new UserManager<Usuario>(store);
+                var user = new Usuario
                 {
                     UserName = usuario,
-                    Usuario = usuario,
                     Email = email,
                     NomeCompleto = nomecompleto
                 };

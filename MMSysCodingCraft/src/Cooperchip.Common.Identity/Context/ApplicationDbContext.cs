@@ -8,7 +8,7 @@ namespace Cooperchip.Common.Identity.Context
     /// <summary>
     /// 
     /// </summary>
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IDisposable
+    public class ApplicationDbContext : IdentityDbContext<Usuario>, IDisposable
     {
         /// <summary>
         /// 

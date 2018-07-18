@@ -11,10 +11,10 @@ namespace Cooperchip.Common.Identity.Services
     public static class UserServices
     {
 
-        public static IEnumerable<ApplicationUser> ObterTodosOsUsuarios()
+        public static IEnumerable<Usuario> ObterTodosOsUsuarios()
         {
 
-            var result = new List<ApplicationUser>();
+            var result = new List<Usuario>();
             using (var ctx = new ApplicationDbContext())
             {
                 //var UserManager = new ApplicationUserManager();

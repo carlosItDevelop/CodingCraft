@@ -10,7 +10,7 @@ namespace Cooperchip.Common.Identity.Configuration
     /// <summary>
     /// 
     /// </summary>
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
+    public class ApplicationSignInManager : SignInManager<Usuario, string>
     {
         /// <summary>
         /// 
@@ -26,7 +26,7 @@ namespace Cooperchip.Common.Identity.Configuration
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
+        public override Task<ClaimsIdentity> CreateUserIdentityAsync(Usuario user)
         {
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
         }

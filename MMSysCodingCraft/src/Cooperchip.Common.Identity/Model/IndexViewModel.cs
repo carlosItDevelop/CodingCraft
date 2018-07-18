@@ -36,7 +36,7 @@ namespace Cooperchip.Common.Identity.Model
         /// <summary>
         /// Customizei para pegar os dados na Controller
         /// </summary>
-        public ApplicationUser UsuariosDados { get; set; }
+        public Usuario UsuariosDados { get; set; }
 
 
     }

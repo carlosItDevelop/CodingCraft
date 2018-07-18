@@ -265,19 +265,18 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var user = new Usuario
                 {
                     UserName = userViewModel.Usuario,
                     Email = userViewModel.Email,
-                    Usuario = userViewModel.Usuario,
 
                     NomeCompleto = userViewModel.NomeCompleto,
                     Facebook = userViewModel.Facebook,
                     Google = userViewModel.Google,
                     Twitter = userViewModel.Twitter,
                     Skype = userViewModel.Skype,
-                    Telefone = userViewModel.Telefone,
-                    AboutMe = userViewModel.AboutMe
+                    PhoneNumber = userViewModel.Telefone,
+                    SobreMim = userViewModel.AboutMe
 
                 };
 
@@ -340,24 +339,24 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
             return View(new EditUserViewModel()
             {
                 Id = user.Id,
-                    Usuario = user.Usuario,
-                    Email = user.Email,
+                Usuario = user.UserName,
+                Email = user.Email,
 
-                    NomeCompleto = user.NomeCompleto,
-                    Facebook = user.Facebook,
-                    Google = user.Google,
-                    Twitter = user.Twitter,
-                    Skype = user.Skype,
-                    Telefone = user.Telefone,
-                    AboutMe = user.AboutMe,
+                NomeCompleto = user.NomeCompleto,
+                Facebook = user.Facebook,
+                Google = user.Google,
+                Twitter = user.Twitter,
+                Skype = user.Skype,
+                Telefone = user.PhoneNumber,
+                AboutMe = user.SobreMim,
 
-                    RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
-                            {
-                                Selected = userRoles.Contains(x.Name),
-                                Text = x.Name,
-                                Value = x.Name
-                            })
-                    });
+                RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
+                {
+                    Selected = userRoles.Contains(x.Name),
+                    Text = x.Name,
+                    Value = x.Name
+                })
+            });
         }
 
         //
@@ -383,15 +382,13 @@ namespace Cooperchip.MedicalManagement.Web.Controllers
                 user.UserName = editUser.Usuario;
                 user.Email = editUser.Email;
 
-                user.Usuario = editUser.Usuario;
-
                 user.NomeCompleto = editUser.NomeCompleto;
                 user.Facebook = editUser.Facebook;
                 user.Google = editUser.Google;
                 user.Twitter = editUser.Twitter;
                 user.Skype = editUser.Skype;
-                user.Telefone = editUser.Telefone;
-                user.AboutMe = editUser.AboutMe;
+                user.PhoneNumber = editUser.Telefone;
+                user.SobreMim = editUser.AboutMe;
 
                 var userRoles = await UserManager.GetRolesAsync(user.Id);
 

@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cooperchip.MedicalManagemen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cooperchip.MedicalManagement.Web", "src\Cooperchip.MedicalManagement.Web\Cooperchip.MedicalManagement.Web.csproj", "{E3C953E4-38A7-4EB0-BE2A-10E7ADFC2B20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cooperchip.MedicalManagement.Api", "src\Cooperchip.MedicalManagement.Api\Cooperchip.MedicalManagement.Api.csproj", "{890AF810-8435-47DC-8FEF-F407198FA4FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{E3C953E4-38A7-4EB0-BE2A-10E7ADFC2B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3C953E4-38A7-4EB0-BE2A-10E7ADFC2B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3C953E4-38A7-4EB0-BE2A-10E7ADFC2B20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{890AF810-8435-47DC-8FEF-F407198FA4FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{890AF810-8435-47DC-8FEF-F407198FA4FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{890AF810-8435-47DC-8FEF-F407198FA4FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{890AF810-8435-47DC-8FEF-F407198FA4FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +97,7 @@ Global
 		{4F73BBC5-342C-4021-9CEA-9013557A2FA1} = {D399B8D8-DB66-46C7-943A-0DE8FC7710DC}
 		{B2CF5CF4-EF74-460A-8200-EDEEC57C29AC} = {B5809BFA-6B8B-4990-A190-CBF790BA5AC2}
 		{E3C953E4-38A7-4EB0-BE2A-10E7ADFC2B20} = {B5809BFA-6B8B-4990-A190-CBF790BA5AC2}
+		{890AF810-8435-47DC-8FEF-F407198FA4FC} = {B5809BFA-6B8B-4990-A190-CBF790BA5AC2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D8384F12-FB80-46AA-8845-1565756F47B9}
