@@ -17,6 +17,7 @@ using Cooperchip.MedicalManagement.Api.Models;
 using Cooperchip.MedicalManagement.Api.Providers;
 using Cooperchip.MedicalManagement.Api.Results;
 using Cooperchip.MedicalManagement.Api.BindingModels;
+using Cooperchip.Common.Identity.Model;
 
 namespace Cooperchip.MedicalManagement.Api.Controllers
 {
@@ -25,24 +26,24 @@ namespace Cooperchip.MedicalManagement.Api.Controllers
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
-        private ApplicationUserManager _userManager;
+        private UserManager _userManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager,
+        public AccountController(UserManager userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
         }
 
-        public ApplicationUserManager UserManager
+        public UserManager UserManager
         {
             get
             {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager ?? Request.GetOwinContext().GetUserManager<UserManager>();
             }
             private set
             {
@@ -251,7 +252,7 @@ namespace Cooperchip.MedicalManagement.Api.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
+            var user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
 
             bool hasRegistered = user != null;
@@ -329,7 +330,7 @@ namespace Cooperchip.MedicalManagement.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new Usuario { UserName = model.UserName, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -358,7 +359,7 @@ namespace Cooperchip.MedicalManagement.Api.Controllers
                 return InternalServerError();
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new Usuario { UserName = model.UserName, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
